@@ -5,8 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.util.Log;
+
+import java.util.ArrayList;
+
+import uk.ac.tees.gingerbread.myfitness.Classes.DietEntry;
 
 /**A class for interacting with the sqlite database tables.*/
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -118,7 +121,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //TODO: Accessor methods
-    //Accessor method for diet table.
+
+    //--------------Accessor methods for diet table----------------------------------------------//
+
+    /**Adds a diet entry to the diet table.
+     *
+     * @param dateIn The date
+     * @param calories The calories eaten
+     * @param caloriesGoal The calories goal
+     * @param protein The protein eaten
+     * @param proteinGoal The protein goal
+     * @return ID for new record.
+     */
     public long addDietEntry(long dateIn, int calories, int caloriesGoal, float protein, float proteinGoal)
     {
         // Open database connection (for write)
@@ -134,5 +148,96 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         long id = db.insert(TABLE_NAME_DIET, null, values);
         db.close(); // Closing database connection
         return id; // Return id for new record
+    }
+
+    /**Adds a diet entry to the diet table.
+     *
+     * @param dietEntry A diet entry object to add.
+     * @return ID for new record.
+     */
+    public long addDietEntry(DietEntry dietEntry)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_DIET_DATE , dietEntry.getDate());
+        values.put(COL_DIET_CAL, dietEntry.getCalories());
+        values.put(COL_DIET_CAL_GOAL, dietEntry.getCaloriesGoal());
+        values.put(COL_DIET_PROTEIN, dietEntry.getProtein());
+        values.put(COL_DIET_PROTEIN_GOAL, dietEntry.getProteinGoal());
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_DIET, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
+
+    /**Gets a diet object for the day, from the database (Remember to get rid of time from date).
+     *
+     * @param dateIn - The date to get diet entry for.
+     * @return - Returns a diet entry object if found.
+     */
+    public DietEntry getDietEntry(long dateIn)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_DIET + " WHERE " + COL_DIET_DATE + " = " + dateIn;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idCalories = cursor.getColumnIndex(COL_DIET_CAL);
+            int idCaloriesGoal = cursor.getColumnIndex(COL_DIET_CAL_GOAL);
+            int idProtein = cursor.getColumnIndex(COL_DIET_PROTEIN);
+            int idProteinGoal = cursor.getColumnIndex(COL_DIET_PROTEIN_GOAL);
+            db.close();
+            return new DietEntry(
+                    cursor.getLong(idDate),
+                    cursor.getInt(idCalories),
+                    cursor.getInt(idCaloriesGoal),
+                    cursor.getFloat(idProtein),
+                    cursor.getFloat(idProteinGoal)
+            );
+        }
+        return null;
+    }
+
+    /**Returns an arraylist containing all records in the diet entry database in the form of
+     * DietEntry objects.
+     *
+     * @return An ArrayList of all diet entry objects in db.
+     */
+    public ArrayList<DietEntry> getAllDietEntries()
+    {
+        // Create empty list
+        ArrayList<DietEntry> list = new ArrayList<DietEntry>();
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_DIET;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idCalories = cursor.getColumnIndex(COL_DIET_CAL);
+            int idCaloriesGoal = cursor.getColumnIndex(COL_DIET_CAL_GOAL);
+            int idProtein = cursor.getColumnIndex(COL_DIET_PROTEIN);
+            int idProteinGoal = cursor.getColumnIndex(COL_DIET_PROTEIN_GOAL);
+            do {
+                //Str,str,long,double,double,bitmap
+                list.add(new DietEntry(
+                        cursor.getLong(idDate),
+                        cursor.getInt(idCalories),
+                        cursor.getInt(idCaloriesGoal),
+                        cursor.getFloat(idProtein),
+                        cursor.getFloat(idProteinGoal)
+                ));
+            } while (cursor.moveToNext()); // repeat until there are no more records
+        }
+        db.close();
+        return list;
     }
 }
