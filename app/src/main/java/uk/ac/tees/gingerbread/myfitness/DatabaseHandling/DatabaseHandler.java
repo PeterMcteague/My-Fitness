@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 /**A class for interacting with the sqlite database tables.*/
@@ -35,6 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Personal info columns
     private static final String COL_INFO_NAME = "name";
     private static final String COL_INFO_HEIGHT = "height";
+    private static final String COL_INFO_AGE = "AGE" ;
     private static final String COL_INFO_WEIGHT = "weight";
     private static final String COL_INFO_GENDER = "gender";
     private static final String COL_INFO_ACTIVITY_LEVEL = "activity_level";
@@ -54,8 +56,46 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //Create tables
-        //Fill in default values
+
+        //Generating a create SQL Statement
+        String CREATE_TABLES = "CREATE TABLE "
+                + TABLE_NAME_DIET
+                + "(" + COL_DIET_DATE + "DATE,"
+                + COL_DIET_CAL + "INTEGER,"
+                + COL_DIET_CAL_GOAL + "INTEGER,"
+                + COL_DIET_PROTEIN + "REAL,"
+                + COL_DIET_PROTEIN_GOAL + "REAL" + ")"
+
+                + TABLE_NAME_EXCERCISES
+                + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COL_NAME + "TEXT,"
+                + COL_DESCRIPTION + "TEXT" + ")"
+
+                +TABLE_NAME_INFO
+                + "(" + COL_INFO_NAME + "TEXT,"
+                + COL_INFO_HEIGHT + "REAL,"
+                + COL_INFO_AGE + "INTEGER,"
+                + COL_INFO_WEIGHT + "REAL,"
+                +COL_INFO_GENDER + "TEXT,"
+                +COL_INFO_ACTIVITY_LEVEL + "INTEGER" + "CHECK activity_level <6 && > 0" + ")"
+
+                +TABLE_NAME_ROUTINE
+                + "(" + COL_DAY + "TEXT,"
+                + COL_EXCERCISE_ID + "INTEGER" + ")"
+
+                +TABLE_NAME_PICTURES
+                + "(" + COL_PICTURES_IMAGE + "BLOB" + ")";
+
+                //Execute/run the create SQL statement
+                db.execSQL(CREATE_TABLES);
+
+                Log.d("Database", "Database Created.");
+
+                //Inserting default data into the exercise table
+                String sql =
+                        "INSERT INTO TABLE_NAME_EXERCISE(COL_ID , COL_NAME , COL_DESCRIPTION) VALUES('1' , 'SIT' , 'SIT DOWN')";
+                    db.execSQL(sql);
+
     }
 
     /**Called to update the database.
