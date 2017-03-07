@@ -1,5 +1,6 @@
 package uk.ac.tees.gingerbread.myfitness.DatabaseHandling;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -117,4 +118,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //TODO: Accessor methods
+    //Accessor method for diet table.
+    public long addDietEntry(long dateIn, int calories, int caloriesGoal, float protein, float proteinGoal)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_DIET_DATE , dateIn);
+        values.put(COL_DIET_CAL, calories);
+        values.put(COL_DIET_CAL_GOAL, caloriesGoal);
+        values.put(COL_DIET_PROTEIN, protein);
+        values.put(COL_DIET_PROTEIN_GOAL, proteinGoal);
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_DIET, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
 }
