@@ -10,6 +10,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import uk.ac.tees.gingerbread.myfitness.Classes.DietEntry;
+import uk.ac.tees.gingerbread.myfitness.Classes.ExerciseEntry;
 
 /**A class for interacting with the sqlite database tables.*/
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -72,7 +73,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 + TABLE_NAME_EXCERCISES
                 + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COL_NAME + "TEXT,"
+                + COL_NAME + "TEXT NOT NULL UNIQUE,"
                 + COL_DESCRIPTION + "TEXT" + ")"
 
                 +TABLE_NAME_INFO
@@ -239,5 +240,102 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         db.close();
         return list;
+    }
+
+    //--------------Accessor methods for exercises table------------------------------------------//
+
+    /**Gets an excercise by it's name.
+     *
+     * @param name The name of the excercise to get.
+     * @return An excercise entry object.
+     */
+    public ExerciseEntry getExcerciseByName(String name)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXCERCISES + " WHERE " + COL_NAME + " = " + name;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idName = cursor.getColumnIndex(COL_NAME);
+            int idDescription = cursor.getColumnIndex(COL_DESCRIPTION);
+            db.close();
+            return new ExerciseEntry(
+                    cursor.getString(idName),
+                    cursor.getString(idDescription)
+            );
+        }
+        return null;
+    }
+
+    /**Gets all excercises from the excercise table.
+     *
+     * @return An arraylist of ExerciseEntry containing all entries.
+     */
+    public ArrayList<ExerciseEntry> getAllExercises()
+    {
+        // Create empty list
+        ArrayList<ExerciseEntry> list = new ArrayList<ExerciseEntry>();
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXCERCISES;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idName = cursor.getColumnIndex(COL_NAME);
+            int idDescription = cursor.getColumnIndex(COL_DESCRIPTION);
+            do {
+                //Str,str,long,double,double,bitmap
+                list.add(new ExerciseEntry(
+                        cursor.getString(idName),
+                        cursor.getString(idDescription)
+                ));
+            } while (cursor.moveToNext()); // repeat until there are no more records
+        }
+        db.close();
+        return list;
+    }
+
+    /**Adds an excercise entry using a name and description.
+     *
+     * @param name The name for the excercise entry.
+     * @param description The description for the entry.
+     * @return The id of the entry.
+     */
+    public long addExerciseEntry(String name, String description)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_NAME , name);
+        values.put(COL_DESCRIPTION, description);
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_EXCERCISES, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
+
+    /**Adds an excercise entry using a excercise entry object.
+     *
+     * @param excerciseEntry The exercise object to add.
+     * @return The id of the entry.
+     */
+    public long addExerciseEntry(ExerciseEntry excerciseEntry)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_NAME , excerciseEntry.getName());
+        values.put(COL_DESCRIPTION, excerciseEntry.getDescription());
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_EXCERCISES, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
     }
 }
