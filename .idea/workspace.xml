@@ -57,12 +57,33 @@
       <file leaf-file-name="DatabaseHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/DatabaseHandling/DatabaseHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="847">
-              <caret line="325" column="35" selection-start-line="325" selection-start-column="35" selection-end-line="325" selection-end-column="35" />
+            <state relative-caret-position="728">
+              <caret line="432" column="50" selection-start-line="432" selection-start-column="50" selection-end-line="432" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#8742#8753#0" expanded="true" />
-                <element signature="e#11361#11376#0" expanded="true" />
+                <element signature="e#9023#9034#0" expanded="true" />
+                <element signature="e#11642#11657#0" expanded="true" />
+                <element signature="e#16257#16271#0" expanded="true" />
+                <element signature="e#17517#17531#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PictureEntry.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Classes/PictureEntry.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+              <folding>
+                <element signature="e#361#362#0" expanded="true" />
+                <element signature="e#391#392#0" expanded="true" />
+                <element signature="e#437#438#0" expanded="true" />
+                <element signature="e#475#476#0" expanded="true" />
+                <element signature="e#504#505#0" expanded="true" />
+                <element signature="e#531#532#0" expanded="true" />
+                <element signature="e#569#570#0" expanded="true" />
+                <element signature="e#601#602#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -71,8 +92,8 @@
       <file leaf-file-name="ExerciseEntry.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Classes/ExerciseEntry.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="102">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding>
                 <element signature="e#347#348#0" expanded="true" />
                 <element signature="e#374#375#0" expanded="true" />
@@ -1775,6 +1796,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashIntroduction.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Classes/dietEntry.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Classes/ExcerciseEntry.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Classes/PictureEntry.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/DatabaseHandling/DatabaseHandler.java" />
       </list>
     </option>
@@ -2349,8 +2371,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8742#8753#0" expanded="true" />
-            <element signature="e#11361#11376#0" expanded="true" />
+            <element signature="e#9023#9034#0" expanded="true" />
+            <element signature="e#11642#11657#0" expanded="true" />
+            <element signature="e#16257#16271#0" expanded="true" />
+            <element signature="e#17517#17531#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2371,8 +2395,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8742#8753#0" expanded="true" />
-            <element signature="e#11361#11376#0" expanded="true" />
+            <element signature="e#9023#9034#0" expanded="true" />
+            <element signature="e#11642#11657#0" expanded="true" />
+            <element signature="e#16257#16271#0" expanded="true" />
+            <element signature="e#17517#17531#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2393,8 +2419,10 @@
           <caret line="57" column="32" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8742#8753#0" expanded="true" />
-            <element signature="e#11361#11376#0" expanded="true" />
+            <element signature="e#9023#9034#0" expanded="true" />
+            <element signature="e#11642#11657#0" expanded="true" />
+            <element signature="e#16257#16271#0" expanded="true" />
+            <element signature="e#17517#17531#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2470,8 +2498,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Classes/ExerciseEntry.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="102">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
             <element signature="e#347#348#0" expanded="true" />
             <element signature="e#374#375#0" expanded="true" />
@@ -2485,14 +2513,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Classes/PictureEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding>
+            <element signature="e#361#362#0" expanded="true" />
+            <element signature="e#391#392#0" expanded="true" />
+            <element signature="e#437#438#0" expanded="true" />
+            <element signature="e#475#476#0" expanded="true" />
+            <element signature="e#504#505#0" expanded="true" />
+            <element signature="e#531#532#0" expanded="true" />
+            <element signature="e#569#570#0" expanded="true" />
+            <element signature="e#601#602#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/DatabaseHandling/DatabaseHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="847">
-          <caret line="325" column="35" selection-start-line="325" selection-start-column="35" selection-end-line="325" selection-end-column="35" />
+        <state relative-caret-position="728">
+          <caret line="432" column="50" selection-start-line="432" selection-start-column="50" selection-end-line="432" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8742#8753#0" expanded="true" />
-            <element signature="e#11361#11376#0" expanded="true" />
+            <element signature="e#9023#9034#0" expanded="true" />
+            <element signature="e#11642#11657#0" expanded="true" />
+            <element signature="e#16257#16271#0" expanded="true" />
+            <element signature="e#17517#17531#0" expanded="true" />
           </folding>
         </state>
       </provider>

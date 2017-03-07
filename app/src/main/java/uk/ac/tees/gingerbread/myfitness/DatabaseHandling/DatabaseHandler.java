@@ -5,12 +5,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import uk.ac.tees.gingerbread.myfitness.Classes.DietEntry;
 import uk.ac.tees.gingerbread.myfitness.Classes.ExerciseEntry;
+import uk.ac.tees.gingerbread.myfitness.Classes.PictureEntry;
 
 /**A class for interacting with the sqlite database tables.*/
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -89,7 +93,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_EXCERCISE_ID + "INTEGER" + ")"
 
                 +TABLE_NAME_PICTURES
-                + "(" + COL_PICTURES_IMAGE + "BLOB" + ")";
+                + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_DIET_DATE + " DATE,"
+                + COL_PICTURES_IMAGE + " BLOB" + ")";
 
                 //Execute/run the create SQL statement
                 db.execSQL(CREATE_TABLES);
@@ -322,20 +328,133 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     /**Adds an excercise entry using a excercise entry object.
      *
-     * @param excerciseEntry The exercise object to add.
+     * @param exerciseEntry The exercise object to add.
      * @return The id of the entry.
      */
-    public long addExerciseEntry(ExerciseEntry excerciseEntry)
+    public long addExerciseEntry(ExerciseEntry exerciseEntry)
     {
         // Open database connection (for write)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_NAME , excerciseEntry.getName());
-        values.put(COL_DESCRIPTION, excerciseEntry.getDescription());
+        values.put(COL_NAME , exerciseEntry.getName());
+        values.put(COL_DESCRIPTION, exerciseEntry.getDescription());
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_EXCERCISES, null, values);
         db.close(); // Closing database connection
         return id; // Return id for new record
+    }
+
+    //--------------------------Progress pictures table methods-----------------------------------//
+
+    /**Converts image as read from database to a bitmap.
+     *
+     * @param imgBytes The image in byte form (As read using cursor.getBlob(columnForImage))
+     * @return The image as a bitmap
+     */
+    public static Bitmap imageBytesToBitmap(byte[] imgBytes)
+    {
+        if (imgBytes != null)
+        {
+            return BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
+        }
+        return null;
+    }
+
+    /**Converts a bitmap to a form which can be inserted into the database.
+     *
+     * @param imgBmp The bitmap to convert
+     * @return The image in byteform for storing in db
+     */
+    public static byte[] imageBitmapToBytes(Bitmap imgBmp)
+    {
+        if (imgBmp != null)
+        {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            imgBmp.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+            return outputStream.toByteArray();
+        }
+        return null;
+    }
+
+    /**Adds a progress picture entry to the database.
+     *
+     * @param dateIn The date to put in the date column.
+     * @param imageIn The image to put in the image column (In bitmap form).
+     * @return Returns the id of the record.
+     */
+    public long addPictureEntry(long dateIn, Bitmap imageIn)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_DIET_DATE , dateIn);
+        values.put(COL_PICTURES_IMAGE, imageBitmapToBytes(imageIn));
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_PICTURES, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
+
+    /**Gets all pictures in the progress pictures table.
+     *
+     * @return A list of all picture entries.
+     */
+    public ArrayList<PictureEntry> getAllPictures()
+    {
+        // Create empty list
+        ArrayList<PictureEntry> list = new ArrayList<PictureEntry>();
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_PICTURES;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idPicture = cursor.getColumnIndex(COL_PICTURES_IMAGE);
+            do {
+                //Str,str,long,double,double,bitmap
+                list.add(new PictureEntry(
+                        cursor.getLong(idDate),
+                        imageBytesToBitmap(cursor.getBlob(idPicture))
+                ));
+            } while (cursor.moveToNext()); // repeat until there are no more records
+        }
+        db.close();
+        return list;
+    }
+
+    /**Gets all pictures for a date
+     *
+     * @param dateIn The date to get pictures for. Ensure date doesn't include time.
+     * @return A list of all pictures for the day.
+     */
+    public ArrayList<PictureEntry> getPicturesForDate(long dateIn)
+    {
+        // Create empty list
+        ArrayList<PictureEntry> list = new ArrayList<PictureEntry>();
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_PICTURES + " WHERE " + COL_DIET_DATE + " = " + dateIn;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idPicture = cursor.getColumnIndex(COL_PICTURES_IMAGE);
+            do {
+                //Str,str,long,double,double,bitmap
+                list.add(new PictureEntry(
+                        cursor.getLong(idDate),
+                        imageBytesToBitmap(cursor.getBlob(idPicture))
+                ));
+            } while (cursor.moveToNext()); // repeat until there are no more records
+        }
+        db.close();
+        return list;
     }
 }
