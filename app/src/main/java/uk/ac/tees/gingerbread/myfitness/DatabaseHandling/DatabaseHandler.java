@@ -84,6 +84,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_TABLE_INFO = TABLE_NAME_INFO +
                 "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_INFO_NAME + "TEXT,"
+                + COL_DIET_DATE + " DATE,"
                 + COL_INFO_HEIGHT + "REAL,"
                 + COL_INFO_AGE + "INTEGER,"
                 + COL_INFO_WEIGHT + "REAL,"
