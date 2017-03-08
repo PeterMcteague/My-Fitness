@@ -65,8 +65,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        //TODO: Check if has all columns
+        
         //Generating a create SQL Statement
         String CREATE_TABLE_DIET = "CREATE TABLE "
                 + TABLE_NAME_DIET
@@ -97,7 +96,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "FOREIGN KEY(" + COL_EXERCISE_ID + ") REFERENCES " + TABLE_NAME_EXERCISES + "(" + COL_EXERCISE_ID + "))";
 
         String CREATE_TABLE_PICTURE = TABLE_NAME_PICTURES
-                + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL_DIET_DATE + " DATE,"
                 + COL_PICTURES_IMAGE + " BLOB" + ")";
 
