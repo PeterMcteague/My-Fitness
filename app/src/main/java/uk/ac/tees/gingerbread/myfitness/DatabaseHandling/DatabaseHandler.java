@@ -283,6 +283,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
+    /**Gets an excercise by id.
+     * Useful for the routine stuff, as routine references an excercise ID
+     *
+     * @param id The id to get.
+     * @return An excercise entry object.
+     */
+    public ExerciseEntry getExcerciseByID(int id)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXCERCISES + " WHERE " + COL_ID + " = " + id;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idName = cursor.getColumnIndex(COL_NAME);
+            int idDescription = cursor.getColumnIndex(COL_DESCRIPTION);
+            db.close();
+            return new ExerciseEntry(
+                    cursor.getString(idName),
+                    cursor.getString(idDescription)
+            );
+        }
+        return null;
+    }
+
     /**Gets all excercises from the excercise table.
      *
      * @return An arraylist of ExerciseEntry containing all entries.
