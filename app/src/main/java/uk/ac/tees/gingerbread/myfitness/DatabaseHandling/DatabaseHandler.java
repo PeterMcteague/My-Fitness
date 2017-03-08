@@ -104,7 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_EXERCISES);
         db.execSQL(CREATE_TABLE_INFO);
         db.execSQL(CREATE_TABLE_ROUTINE);
-        db.execSQL(CREATE_TABLE_PICTURE;
+        db.execSQL(CREATE_TABLE_PICTURE);
 
         Log.d("Database", "Database Created.");
 
@@ -487,12 +487,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Open database connection (for write)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_INFO_NAME , InfoEntry.getName());
-        values.put(COL_INFO_AGE, InfoEntry.getAge());
-        values.put(COL_INFO_HEIGHT, InfoEntry.getHeight());
-        values.put(COL_INFO_WEIGHT, InfoEntry.getWeight());
-        values.put(COL_INFO_ACTIVITY_LEVEL, InfoEntry.getActivity());
-        values.put(COL_INFO_GENDER, InfoEntry.getGender());
+        values.put(COL_INFO_NAME , info.getName());
+        values.put(COL_INFO_AGE, info.getAge());
+        values.put(COL_INFO_HEIGHT, info.getHeight());
+        values.put(COL_INFO_WEIGHT, info.getWeight());
+        values.put(COL_INFO_ACTIVITY_LEVEL, info.getActivityLevel());
+        values.put(COL_INFO_GENDER, info.getGender());
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_INFO, null, values);
@@ -518,12 +518,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int idActivity = cursor.getColumnIndex(COL_INFO_ACTIVITY_LEVEL);
             db.close();
             return new InfoEntry(
-                    cursor.getString(idName),
-                    cursor.getInt(idActivity),
                     cursor.getInt(idAge),
                     cursor.getFloat(idHeight),
                     cursor.getFloat(idWeight),
-                    cursor.getString(idGender)
+                    cursor.getString(idName),
+                    cursor.getString(idGender),
+                    cursor.getInt(idActivity)
             );
         }
         return null;
