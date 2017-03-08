@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "Fitness.db";
     // Contacts table name
-    private static final String TABLE_NAME_EXCERCISES = "Exercises";
+    private static final String TABLE_NAME_EXERCISES = "Exercises";
     private static final String TABLE_NAME_ROUTINE = "Routine";
     private static final String TABLE_NAME_DIET = "Diet";
     private static final String TABLE_NAME_PICTURES = "ProgressPictures";
@@ -34,7 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COL_DESCRIPTION = "description";
     //Routine column names
     private static final String COL_DAY = "day";
-    private static final String COL_EXCERCISE_ID = "exercise_id";
+    private static final String COL_EXERCISE_ID = "exercise_id";
     //Diet column names
     private static final String COL_DIET_DATE = "date";
     private static final String COL_DIET_CAL = "calories";
@@ -77,7 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_DIET_PROTEIN_GOAL + "REAL" + ")";
 
         String CREATE_TABLE_EXERCISES = "CREATE TABLE " +
-                TABLE_NAME_EXCERCISES
+                TABLE_NAME_EXERCISES
                 + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL_NAME + "TEXT NOT NULL UNIQUE,"
                 + COL_DESCRIPTION + "TEXT" + ")";
@@ -92,8 +92,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_TABLE_ROUTINE = TABLE_NAME_ROUTINE
                 + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_DAY + "TEXT,"
-                + COL_EXCERCISE_ID + "INTEGER" +
-                "FOREIGN KEY(" + COL_EXCERCISE_ID + ") REFERENCES " + TABLE_NAME_EXCERCISES + "(" + COL_EXCERCISE_ID + "))";
+                + COL_EXERCISE_ID + "INTEGER" +
+                "FOREIGN KEY(" + COL_EXERCISE_ID + ") REFERENCES " + TABLE_NAME_EXERCISES + "(" + COL_EXERCISE_ID + "))";
 
         String CREATE_TABLE_PICTURE = TABLE_NAME_PICTURES
                 + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -126,7 +126,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldNum, int newNum) {
         /* Drop older table if exists and create fresh (deletes all data) */
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_DIET);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_EXCERCISES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_EXERCISES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_ROUTINE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_PICTURES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_INFO);
@@ -267,7 +267,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
         // Generate SQL SELECT statement
-        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXCERCISES + " WHERE " + COL_NAME + " = " + name;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXERCISES + " WHERE " + COL_NAME + " = " + name;
 
         // Execute select statement
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -294,7 +294,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
         // Generate SQL SELECT statement
-        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXCERCISES + " WHERE " + COL_ID + " = " + id;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXERCISES + " WHERE " + COL_ID + " = " + id;
 
         // Execute select statement
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -321,7 +321,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
         // Generate SQL SELECT statement
-        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXCERCISES;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXERCISES;
 
         // Execute select statement
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -355,7 +355,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_DESCRIPTION, description);
 
         // Add record to database and get id of new record (must long integer).
-        long id = db.insert(TABLE_NAME_EXCERCISES, null, values);
+        long id = db.insert(TABLE_NAME_EXERCISES, null, values);
         db.close(); // Closing database connection
         return id; // Return id for new record
     }
@@ -374,7 +374,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_DESCRIPTION, exerciseEntry.getDescription());
 
         // Add record to database and get id of new record (must long integer).
-        long id = db.insert(TABLE_NAME_EXCERCISES, null, values);
+        long id = db.insert(TABLE_NAME_EXERCISES, null, values);
         db.close(); // Closing database connection
         return id; // Return id for new record
     }
