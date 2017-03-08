@@ -16,6 +16,7 @@ import uk.ac.tees.gingerbread.myfitness.Classes.DietEntry;
 import uk.ac.tees.gingerbread.myfitness.Classes.ExerciseEntry;
 import uk.ac.tees.gingerbread.myfitness.Classes.PictureEntry;
 import uk.ac.tees.gingerbread.myfitness.Classes.InfoEntry;
+import uk.ac.tees.gingerbread.myfitness.Classes.RoutineEntry;
 
 /**A class for interacting with the sqlite database tables.*/
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -583,6 +584,59 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             );
             db.close();
             return returnValue;
+        }
+        return null;
+    }
+
+    public long addRoutine(String day, int exerciseId)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_DAY , day);
+        values.put(COL_EXERCISE_ID, exerciseId);
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_ROUTINE, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
+
+    public long addRoutine(RoutineEntry routineEntry)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_INFO_NAME , routineEntry.getDay());
+        values.put(COL_INFO_AGE, routineEntry.getExerciseId());
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_ROUTINE, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
+
+    public RoutineEntry getRoutineEntry()
+    {
+
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_ROUTINE;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idDay = cursor.getColumnIndex(COL_DAY);
+            int idExerciseId = cursor.getColumnIndex(COL_EXERCISE_ID);
+            db.close();
+            return new RoutineEntry(
+                    cursor.getString(idDay),
+                    cursor.getInt(idExerciseId)
+            );
+
+
         }
         return null;
     }
