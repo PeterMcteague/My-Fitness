@@ -588,6 +588,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
+    /**Adds a routine from day and exerciseID
+     *
+     * @param day The day for the exercise to be done on as part of a routine
+     * @param exerciseId The id of the exercise
+     * @return The id of the routine entry
+     */
     public long addRoutine(String day, int exerciseId)
     {
         // Open database connection (for write)
@@ -602,6 +608,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
+    /**A method to add a routine using a routine entry object.
+     *
+     * @param routineEntry The routine entry object to add.
+     * @return The id of the added routine entry.
+     */
     public long addRoutine(RoutineEntry routineEntry)
     {
         // Open database connection (for write)
