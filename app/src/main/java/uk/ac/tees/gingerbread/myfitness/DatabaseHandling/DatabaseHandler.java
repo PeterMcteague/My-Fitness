@@ -92,7 +92,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_TABLE_ROUTINE = TABLE_NAME_ROUTINE
                 + "(" + COL_DAY + "TEXT,"
-                + COL_EXCERCISE_ID + "INTEGER" + ")";
+                + COL_EXCERCISE_ID + "INTEGER" +
+                "FOREIGN KEY(" + COL_EXCERCISE_ID + ") REFERENCES " + TABLE_NAME_EXCERCISES + "(" + COL_EXCERCISE_ID + "))";
 
         String CREATE_TABLE_PICTURE = TABLE_NAME_PICTURES
                 + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
