@@ -60,15 +60,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**Called when the database is created.
-     * TODO: Fill in
      *
      * @param db A database object.
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        //TODO: Check if has all columns
         //Generating a create SQL Statement
-        String CREATE_TABLES = "CREATE TABLE "
+        String CREATE_TABLE_DIET = "CREATE TABLE "
                 + TABLE_NAME_DIET
                 + "(" + COL_DIET_DATE + "DATE,"
                 + COL_DIET_CAL + "INTEGER,"
@@ -76,37 +76,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_DIET_PROTEIN + "REAL,"
                 + COL_DIET_PROTEIN_GOAL + "REAL" + ")"
 
-                + TABLE_NAME_EXCERCISES
+        String CREATE_TABLE_EXERCISES = "CREATE TABLE " +
+                TABLE_NAME_EXCERCISES
                 + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COL_NAME + "TEXT NOT NULL UNIQUE,"
                 + COL_DESCRIPTION + "TEXT" + ")"
 
-                +TABLE_NAME_INFO
-                + "(" + COL_INFO_NAME + "TEXT,"
+        String CREATE_TABLE_INFO = TABLE_NAME_INFO +
+                "(" + COL_INFO_NAME + "TEXT,"
                 + COL_INFO_HEIGHT + "REAL,"
                 + COL_INFO_AGE + "INTEGER,"
                 + COL_INFO_WEIGHT + "REAL,"
                 +COL_INFO_GENDER + "TEXT,"
                 +COL_INFO_ACTIVITY_LEVEL + "INTEGER" + "CHECK activity_level <6 && > 0" + ")"
 
-                +TABLE_NAME_ROUTINE
+        String CREATE_TABLE_ROUTINE = TABLE_NAME_ROUTINE
                 + "(" + COL_DAY + "TEXT,"
                 + COL_EXCERCISE_ID + "INTEGER" + ")"
 
-                +TABLE_NAME_PICTURES
+        String CREATE_TABLE_PICTURE = TABLE_NAME_PICTURES
                 + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_DIET_DATE + " DATE,"
                 + COL_PICTURES_IMAGE + " BLOB" + ")";
 
-                //Execute/run the create SQL statement
-                db.execSQL(CREATE_TABLES);
+        //Execute/run the create SQL statement
+        db.execSQL(CREATE_TABLE_DIET);
+        db.execSQL(CREATE_TABLE_EXERCISES);
+        db.execSQL(CREATE_TABLE_INFO);
+        db.execSQL(CREATE_TABLE_ROUTINE);
+        db.execSQL(CREATE_TABLE_PICTURE;
 
-                Log.d("Database", "Database Created.");
+        Log.d("Database", "Database Created.");
 
-                //Inserting default data into the exercise table
-                String sql =
-                        "INSERT INTO TABLE_NAME_EXERCISE(COL_ID , COL_NAME , COL_DESCRIPTION) VALUES('1' , 'SIT' , 'SIT DOWN')";
-                    db.execSQL(sql);
+        //Inserting default data into the exercise table
+        String sql =
+                "INSERT INTO TABLE_NAME_EXERCISE(COL_ID , COL_NAME , COL_DESCRIPTION) VALUES('1' , 'SIT' , 'SIT DOWN')";
+        db.execSQL(sql);
 
     }
 
