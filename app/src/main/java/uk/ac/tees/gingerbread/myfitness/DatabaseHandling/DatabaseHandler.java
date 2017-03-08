@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import uk.ac.tees.gingerbread.myfitness.Classes.DietEntry;
 import uk.ac.tees.gingerbread.myfitness.Classes.ExerciseEntry;
 import uk.ac.tees.gingerbread.myfitness.Classes.PictureEntry;
+import uk.ac.tees.gingerbread.myfitness.Classes.InfoEntry;
 
 /**A class for interacting with the sqlite database tables.*/
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -458,7 +459,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
-    public long addInfo(String name,float height, int age, float weight, String gender , int activity)
+    public long addInfo(String name,float height, int age, float weight, String gender , int activityLevel)
     {
         // Open database connection (for write)
         SQLiteDatabase db = this.getWritableDatabase();
@@ -468,7 +469,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_INFO_AGE, age);
         values.put(COL_INFO_WEIGHT, weight);
         values.put(COL_INFO_GENDER, gender);
-        values.put(COL_INFO_ACTIVITY_LEVEL, activity);
+        values.put(COL_INFO_ACTIVITY_LEVEL, activityLevel);
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_INFO, null, values);
@@ -523,37 +524,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
-    public ArrayList<InfoEntry> getInfoEntries()
-    {
-        // Create empty list
-        ArrayList<InfoEntry> list = new ArrayList<InfoEntry>();
-        // Connect to the database to read data
-        SQLiteDatabase db = this.getReadableDatabase();
-        // Generate SQL SELECT statement
-        String selectQuery = "SELECT * FROM " + TABLE_NAME_INFO;
 
-        // Execute select statement
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) { // If data (records) available
-            int idName = cursor.getColumnIndex(COL_INFO_NAME);
-            int idAge = cursor.getColumnIndex(COL_INFO_AGE);
-            int idHeight = cursor.getColumnIndex(COL_INFO_HEIGHT);
-            int idWeight = cursor.getColumnIndex(COL_INFO_WEIGHT);
-            int idGender = cursor.getColumnIndex(COL_INFO_GENDER);
-            int idActivity = cursor.getColumnIndex(COL_INFO_ACTIVITY_LEVEL);
-            do {
-                //Str,str,long,double,double,bitmap
-                list.add(new InfoEntry(
-                        cursor.getString(idName),
-                        cursor.getInt(idActivity),
-                        cursor.getInt(idAge),
-                        cursor.getFloat(idHeight),
-                        cursor.getFloat(idWeight),
-                        cursor.getString(idGender)
-                ));
-            } while (cursor.moveToNext()); // repeat until there are no more records
-        }
-        db.close();
-        return list;
-    }
+
 }
