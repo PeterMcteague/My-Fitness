@@ -616,27 +616,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
-    public RoutineEntry getRoutineEntry()
+    public ArrayList<Integer> getRoutineEntry()
     {
 
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Generate SQL SELECT statement
-        String selectQuery = "SELECT * FROM " + TABLE_NAME_ROUTINE;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_ROUTINE + "WHERE DAY = DAY";
+
+
 
         // Execute select statement
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) { // If data (records) available
-            int idDay = cursor.getColumnIndex(COL_DAY);
             int idExerciseId = cursor.getColumnIndex(COL_EXERCISE_ID);
             db.close();
-            return new RoutineEntry(
-                    cursor.getString(idDay),
-                    cursor.getInt(idExerciseId)
-            );
 
-
+            ArrayList<Integer> list = new ArrayList<Integer>();
+            list.add(idExerciseId);
+            return list;
         }
         return null;
     }
