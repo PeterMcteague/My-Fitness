@@ -65,7 +65,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        
+
         //Generating a create SQL Statement
         String CREATE_TABLE_DIET = "CREATE TABLE "
                 + TABLE_NAME_DIET
@@ -83,7 +83,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_TABLE_INFO = TABLE_NAME_INFO +
                 "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_INFO_NAME + "TEXT,"
-                + COL_DIET_DATE + " DATE,"
+                + COL_DIET_DATE + " DATE NOT NULL UNIQUE,"
                 + COL_INFO_HEIGHT + "REAL,"
                 + COL_INFO_AGE + "INTEGER,"
                 + COL_INFO_WEIGHT + "REAL,"
@@ -133,9 +133,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
         db.close();
     }
-
-    //TODO: Accessor methods
-
+    
     //--------------Accessor methods for diet table----------------------------------------------//
 
     /**Adds a diet entry to the diet table.
@@ -206,14 +204,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int idCaloriesGoal = cursor.getColumnIndex(COL_DIET_CAL_GOAL);
             int idProtein = cursor.getColumnIndex(COL_DIET_PROTEIN);
             int idProteinGoal = cursor.getColumnIndex(COL_DIET_PROTEIN_GOAL);
-            db.close();
-            return new DietEntry(
+            DietEntry returnValue = new DietEntry(
                     cursor.getLong(idDate),
                     cursor.getInt(idCalories),
                     cursor.getInt(idCaloriesGoal),
                     cursor.getFloat(idProtein),
                     cursor.getFloat(idProteinGoal)
             );
+            db.close();
+            return returnValue;
         }
         return null;
     }
@@ -275,10 +274,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int idName = cursor.getColumnIndex(COL_NAME);
             int idDescription = cursor.getColumnIndex(COL_DESCRIPTION);
             db.close();
-            return new ExerciseEntry(
+            ExerciseEntry returnValue = new ExerciseEntry(
                     cursor.getString(idName),
                     cursor.getString(idDescription)
             );
+            db.close();
+            return returnValue;
         }
         return null;
     }
@@ -301,11 +302,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) { // If data (records) available
             int idName = cursor.getColumnIndex(COL_NAME);
             int idDescription = cursor.getColumnIndex(COL_DESCRIPTION);
-            db.close();
-            return new ExerciseEntry(
+            ExerciseEntry returnValue = new ExerciseEntry(
                     cursor.getString(idName),
                     cursor.getString(idDescription)
             );
+            db.close();
+            return returnValue;
         }
         return null;
     }
@@ -492,6 +494,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
+    //--------------------Info accessor methods---------------------------------------------------//
+
+    /**Adds an info object to the database.
+     *
+     * @param name The users name
+     * @param height The users height
+     * @param age The users age
+     * @param weight The users weight
+     * @param gender The users gender
+     * @param activityLevel The users activity level
+     * @param date The date on which this got pushed to the db
+     * @return The id of the entry
+     */
     public long addInfo(String name,float height, int age, float weight, String gender , int activityLevel, long date)
     {
         // Open database connection (for write)
@@ -511,6 +526,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
+    /**Adds an info object to the database, from an infoentry object.
+     *
+     * @param info The infoentry object to add.
+     * @return The id of the database record.
+     */
     public long addInfo(InfoEntry info)
     {
         // Open database connection (for write)
@@ -530,12 +550,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
-    public InfoEntry getInfoEntry()
+    /**Get the info entry for that day.
+     *
+     * @param date The date to get info for.
+     * @return The infoentry object.
+     */
+    public InfoEntry getInfoEntry(long date)
     {
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
         // Generate SQL SELECT statement
-        String selectQuery = "SELECT * FROM " + TABLE_NAME_INFO ;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_INFO + " WHERE " + COL_DIET_DATE + " = " + date;
 
         // Execute select statement
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -547,8 +572,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int idGender = cursor.getColumnIndex(COL_INFO_GENDER);
             int idActivity = cursor.getColumnIndex(COL_INFO_ACTIVITY_LEVEL);
             int idDate = cursor.getColumnIndex(COL_DIET_DATE);
-            db.close();
-            return new InfoEntry(
+            InfoEntry returnValue = new InfoEntry(
                     cursor.getInt(idAge),
                     cursor.getFloat(idHeight),
                     cursor.getFloat(idWeight),
@@ -557,6 +581,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getInt(idActivity),
                     cursor.getLong(idDate)
             );
+            db.close();
+            return returnValue;
         }
         return null;
     }
