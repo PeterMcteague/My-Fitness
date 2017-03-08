@@ -504,6 +504,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_INFO_WEIGHT, weight);
         values.put(COL_INFO_GENDER, gender);
         values.put(COL_INFO_ACTIVITY_LEVEL, activityLevel);
+        values.put(COL_DIET_DATE, date);
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_INFO, null, values);
@@ -522,6 +523,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_INFO_WEIGHT, info.getWeight());
         values.put(COL_INFO_ACTIVITY_LEVEL, info.getActivityLevel());
         values.put(COL_INFO_GENDER, info.getGender());
+        values.put(COL_DIET_DATE, info.getDate());
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_INFO, null, values);
@@ -545,6 +547,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int idWeight = cursor.getColumnIndex(COL_INFO_WEIGHT);
             int idGender = cursor.getColumnIndex(COL_INFO_GENDER);
             int idActivity = cursor.getColumnIndex(COL_INFO_ACTIVITY_LEVEL);
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
             db.close();
             return new InfoEntry(
                     cursor.getInt(idAge),
