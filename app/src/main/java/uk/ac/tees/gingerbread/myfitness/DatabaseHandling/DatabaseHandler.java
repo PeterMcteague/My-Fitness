@@ -616,28 +616,50 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
-    public ArrayList<Integer> getRoutineEntry()
+    /**Gets a list of exercise entries from a routine day.
+     *
+     * @param day The day to get for
+     * @return The exercise entries for routine for that day.
+     */
+    public ArrayList<ExerciseEntry> getRoutineEntry(String day)
     {
-
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Integer> list = new ArrayList<>();
 
         // Generate SQL SELECT statement
-        String selectQuery = "SELECT * FROM " + TABLE_NAME_ROUTINE + "WHERE DAY = DAY";
-
-
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_ROUTINE + " WHERE " + COL_DAY + " = " + day;
 
         // Execute select statement
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) { // If data (records) available
-            int idExerciseId = cursor.getColumnIndex(COL_EXERCISE_ID);
-            db.close();
-
-            ArrayList<Integer> list = new ArrayList<Integer>();
-            list.add(idExerciseId);
-            return list;
+            int idExerciseID = cursor.getColumnIndex(COL_EXERCISE_ID);
+            do {
+                //Str,str,long,double,double,bitmap
+                list.add(cursor.getInt(idExerciseID));
+            } while (cursor.moveToNext()); // repeat until there are no more records
         }
-        return null;
+
+        ArrayList<ExerciseEntry> toReturn = new ArrayList<>();
+
+        for(int i=0; i<list.size(); i++)
+        {
+            //Now turn into exercise entries
+            String selectQuery2 = "SELECT * FROM " + TABLE_NAME_EXERCISES + " WHERE " + COL_EXERCISE_ID + " = " + list.get(i);
+            // Execute select statement
+            cursor = db.rawQuery(selectQuery2, null);
+            if (cursor.moveToFirst())
+            {
+                int idName = cursor.getColumnIndex(COL_NAME);
+                int idDescription = cursor.getColumnIndex(COL_DESCRIPTION);
+
+                toReturn.add(new ExerciseEntry(
+                        cursor.getString(idName),
+                        cursor.getString(idDescription)
+                ));
+            }
+        }
+        return toReturn;
     }
 
 
