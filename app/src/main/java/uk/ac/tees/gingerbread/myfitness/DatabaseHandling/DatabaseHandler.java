@@ -607,8 +607,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Open database connection (for write)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_INFO_NAME , routineEntry.getDay());
-        values.put(COL_INFO_AGE, routineEntry.getExerciseId());
+        values.put(COL_DAY , routineEntry.getDay());
+        values.put(COL_EXERCISE_ID, routineEntry.getExerciseId());
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_ROUTINE, null, values);
