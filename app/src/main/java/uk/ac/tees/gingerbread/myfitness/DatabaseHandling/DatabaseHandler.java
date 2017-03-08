@@ -493,7 +493,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
-    public long addInfo(String name,float height, int age, float weight, String gender , int activityLevel)
+    public long addInfo(String name,float height, int age, float weight, String gender , int activityLevel, long date)
     {
         // Open database connection (for write)
         SQLiteDatabase db = this.getWritableDatabase();
@@ -552,7 +552,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getFloat(idWeight),
                     cursor.getString(idName),
                     cursor.getString(idGender),
-                    cursor.getInt(idActivity)
+                    cursor.getInt(idActivity),
+                    cursor.getLong(idDate)
             );
         }
         return null;

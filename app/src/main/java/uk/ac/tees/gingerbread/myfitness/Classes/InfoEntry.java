@@ -11,8 +11,9 @@ public class InfoEntry {
     private String name;
     private String gender;
     private int activityLevel;
+    private long date;
 
-    public InfoEntry(int age, float height, float weight, String name, String gender , int activityLevel)
+    public InfoEntry(int age, float height, float weight, String name, String gender , int activityLevel , long date)
     {
         this.age = age;
         this.height = height;
@@ -68,6 +69,14 @@ public class InfoEntry {
 
     public void setActivityLevel(int activityLevel) {
         this.activityLevel = activityLevel;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 }
 

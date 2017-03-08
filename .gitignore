@@ -46,3 +46,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 .idea/workspace.xml
+.idea/workspace.xml
+*.xml
+.idea/libraries/android_android_25.xml
+.idea/libraries/exposed_instrumentation_api_publish_0_5.xml
+.idea/libraries/support_core_ui_25_2_0.xml
+.idea/workspace.xml
+build/android-profile/profile-2017-03-08-18-35-28-145.rawproto
