@@ -457,4 +457,103 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return list;
     }
+
+    public long addInfo(String name,float height, int age, float weight, String gender , int activity)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_INFO_NAME , name);
+        values.put(COL_INFO_HEIGHT, height);
+        values.put(COL_INFO_AGE, age);
+        values.put(COL_INFO_WEIGHT, weight);
+        values.put(COL_INFO_GENDER, gender);
+        values.put(COL_INFO_ACTIVITY_LEVEL, activity);
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_INFO, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
+
+    public long addInfo(InfoEntry info)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_INFO_NAME , InfoEntry.getName());
+        values.put(COL_INFO_AGE, InfoEntry.getAge());
+        values.put(COL_INFO_HEIGHT, InfoEntry.getHeight());
+        values.put(COL_INFO_WEIGHT, InfoEntry.getWeight());
+        values.put(COL_INFO_ACTIVITY_LEVEL, InfoEntry.getActivity());
+        values.put(COL_INFO_GENDER, InfoEntry.getGender());
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_INFO, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
+
+    public InfoEntry getInfoEntry()
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_INFO ;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idName = cursor.getColumnIndex(COL_INFO_NAME);
+            int idAge = cursor.getColumnIndex(COL_INFO_AGE);
+            int idHeight = cursor.getColumnIndex(COL_INFO_HEIGHT);
+            int idWeight = cursor.getColumnIndex(COL_INFO_WEIGHT);
+            int idGender = cursor.getColumnIndex(COL_INFO_GENDER);
+            int idActivity = cursor.getColumnIndex(COL_INFO_ACTIVITY_LEVEL);
+            db.close();
+            return new InfoEntry(
+                    cursor.getString(idName),
+                    cursor.getInt(idActivity),
+                    cursor.getInt(idAge),
+                    cursor.getFloat(idHeight),
+                    cursor.getFloat(idWeight),
+                    cursor.getString(idGender)
+            );
+        }
+        return null;
+    }
+
+    public ArrayList<InfoEntry> getInfoEntries()
+    {
+        // Create empty list
+        ArrayList<InfoEntry> list = new ArrayList<InfoEntry>();
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_INFO;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idName = cursor.getColumnIndex(COL_INFO_NAME);
+            int idAge = cursor.getColumnIndex(COL_INFO_AGE);
+            int idHeight = cursor.getColumnIndex(COL_INFO_HEIGHT);
+            int idWeight = cursor.getColumnIndex(COL_INFO_WEIGHT);
+            int idGender = cursor.getColumnIndex(COL_INFO_GENDER);
+            int idActivity = cursor.getColumnIndex(COL_INFO_ACTIVITY_LEVEL);
+            do {
+                //Str,str,long,double,double,bitmap
+                list.add(new InfoEntry(
+                        cursor.getString(idName),
+                        cursor.getInt(idActivity),
+                        cursor.getInt(idAge),
+                        cursor.getFloat(idHeight),
+                        cursor.getFloat(idWeight),
+                        cursor.getString(idGender)
+                ));
+            } while (cursor.moveToNext()); // repeat until there are no more records
+        }
+        db.close();
+        return list;
+    }
 }
