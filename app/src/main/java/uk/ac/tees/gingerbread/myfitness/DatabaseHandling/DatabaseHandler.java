@@ -134,7 +134,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
         db.close();
     }
-    
+
     //--------------Accessor methods for diet table----------------------------------------------//
 
     /**Adds a diet entry to the diet table.
