@@ -70,7 +70,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Generating a create SQL Statement
         String CREATE_TABLE_DIET = "CREATE TABLE "
                 + TABLE_NAME_DIET
-                + "(" + COL_DIET_DATE + "DATE,"
+                + "("  + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_DIET_DATE + "DATE,"
                 + COL_DIET_CAL + "INTEGER,"
                 + COL_DIET_CAL_GOAL + "INTEGER,"
                 + COL_DIET_PROTEIN + "REAL,"
@@ -83,7 +83,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_DESCRIPTION + "TEXT" + ")";
 
         String CREATE_TABLE_INFO = TABLE_NAME_INFO +
-                "(" + COL_INFO_NAME + "TEXT,"
+                "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_INFO_NAME + "TEXT,"
                 + COL_INFO_HEIGHT + "REAL,"
                 + COL_INFO_AGE + "INTEGER,"
                 + COL_INFO_WEIGHT + "REAL,"
@@ -91,12 +91,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 +COL_INFO_ACTIVITY_LEVEL + "INTEGER" + "CHECK activity_level <6 && > 0" + ")";
 
         String CREATE_TABLE_ROUTINE = TABLE_NAME_ROUTINE
-                + "(" + COL_DAY + "TEXT,"
+                + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_DAY + "TEXT,"
                 + COL_EXCERCISE_ID + "INTEGER" +
                 "FOREIGN KEY(" + COL_EXCERCISE_ID + ") REFERENCES " + TABLE_NAME_EXCERCISES + "(" + COL_EXCERCISE_ID + "))";
 
         String CREATE_TABLE_PICTURE = TABLE_NAME_PICTURES
-                + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_DIET_DATE + " DATE,"
                 + COL_PICTURES_IMAGE + " BLOB" + ")";
 

@@ -45,8 +45,8 @@
       <file leaf-file-name="DatabaseHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/DatabaseHandling/DatabaseHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="289" column="41" selection-start-line="289" selection-start-column="41" selection-end-line="289" selection-end-column="41" />
+            <state relative-caret-position="334">
+              <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="100" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -2638,8 +2638,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/DatabaseHandling/DatabaseHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="289" column="41" selection-start-line="289" selection-start-column="41" selection-end-line="289" selection-end-column="41" />
+        <state relative-caret-position="334">
+          <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="100" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
