@@ -8,47 +8,36 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-public class SplashGoal extends AppCompatActivity {
+public class SplashRoutineGeneration extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_goal);
+        setContentView(R.layout.activity_splash_routine_generation);
+
 
         // Get context and button objects
         final Context context = this;
-        ImageButton buttonMuscle = (ImageButton) findViewById(R.id.splash_button_muscle);
-        ImageButton buttonFat = (ImageButton) findViewById(R.id.splash_button_fat);
-        ImageButton buttonHealth = (ImageButton) findViewById(R.id.splash_button_cardio);
+        Button routine_auto = (Button) findViewById(R.id.splash_routine_generation_button_auto_generate);
+        Button routine_custom = (Button) findViewById(R.id.splash_routine_generation_button_customize);
 
-        buttonMuscle.setOnClickListener(
+        routine_auto.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        Intent intent = new Intent(context, SplashRoutineGeneration.class);
+                        Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
                     }
                 }
 
         );
-        buttonFat.setOnClickListener(
+        routine_custom.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        Intent intent = new Intent(context, SplashRoutineGeneration.class);
-                        startActivity(intent);
-                    }
-                }
-
-        );
-        buttonHealth.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //Put routine and/or diet plan in table
-                        Intent intent = new Intent(context, SplashRoutineGeneration.class);
+                        Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
                     }
                 }
