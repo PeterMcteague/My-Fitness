@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_splash_introduction"
     android:layout_width="match_parent"
@@ -10,8 +11,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uk.ac.tees.gingerbread.myfitness.SplashIntroduction">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/splash_bicep"
+        android:id="@+id/splash_intro_bicep_art"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="18dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text='Welcome to "My Fitness"!'
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/splash_intro_text_welcome" />
+
+    <Button
+        android:text="Next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/splash_intro_bicep_art"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:id="@+id/splash_intro_next_button" />
+
 </RelativeLayout>
