@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
 
-public class SplashIntroduction extends AppCompatActivity {
+public class SplashPersonal extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD:app/src/main/java/uk/ac/tees/gingerbread/myfitness/SplashPersonal.java
+        setContentView(R.layout.activity_splash_personal);
+=======
         setContentView(R.layout.activity_splash_introduction);
 
         // Get context and button objects
@@ -29,5 +32,6 @@ public class SplashIntroduction extends AppCompatActivity {
                 }
 
         );
+>>>>>>> origin/splash-screen-development:app/src/main/java/uk/ac/tees/gingerbread/myfitness/SplashIntroduction.java
     }
 }
