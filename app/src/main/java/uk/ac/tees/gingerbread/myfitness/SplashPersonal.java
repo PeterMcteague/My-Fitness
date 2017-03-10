@@ -13,7 +13,6 @@ public class SplashPersonal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_personal);
-        setContentView(R.layout.activity_splash_introduction);
 
         // Get context and button objects
         final Context context = this;
