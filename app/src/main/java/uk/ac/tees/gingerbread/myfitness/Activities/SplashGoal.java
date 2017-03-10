@@ -1,12 +1,13 @@
-package uk.ac.tees.gingerbread.myfitness;
+package uk.ac.tees.gingerbread.myfitness.Activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+
+import uk.ac.tees.gingerbread.myfitness.R;
 
 public class SplashGoal extends AppCompatActivity {
 

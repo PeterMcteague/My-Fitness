@@ -1,4 +1,4 @@
-package uk.ac.tees.gingerbread.myfitness;
+package uk.ac.tees.gingerbread.myfitness.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import uk.ac.tees.gingerbread.myfitness.R;
 
 public class SplashPersonal extends AppCompatActivity {
 

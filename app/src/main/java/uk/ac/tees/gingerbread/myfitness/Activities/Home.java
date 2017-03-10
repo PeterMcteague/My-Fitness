@@ -1,7 +1,9 @@
-package uk.ac.tees.gingerbread.myfitness;
+package uk.ac.tees.gingerbread.myfitness.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import uk.ac.tees.gingerbread.myfitness.R;
 
 public class Home extends AppCompatActivity {
 
