@@ -20,7 +20,7 @@ public class SplashGoal extends AppCompatActivity {
         final Context context = this;
         ImageButton buttonMuscle = (ImageButton) findViewById(R.id.splash_button_muscle);
         ImageButton buttonFat = (ImageButton) findViewById(R.id.splash_button_fat);
-        ImageButton buttonHealth = (ImageButton) findViewById(R.id.splash_button_cardio);
+        ImageButton buttonHealth = (ImageButton) findViewById(R.id.splash_button_health);
 
         buttonMuscle.setOnClickListener(
                 new View.OnClickListener() {

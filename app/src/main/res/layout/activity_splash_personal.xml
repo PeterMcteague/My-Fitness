@@ -11,7 +11,7 @@
     tools:context="uk.ac.tees.gingerbread.myfitness.Activities.SplashPersonal">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/intro_personal_info_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -20,80 +20,91 @@
         android:text="Please enter your info"
         android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
-    <Button
-        android:text="Next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/splash_personal_button"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp" />
-
     <EditText
-        android:layout_width="wrap_content"
+        android:id="@+id/intro_personal_info_name_entry"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editText5"
-        android:hint="Name"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText10"
-        android:hint="Age"
-        android:layout_below="@+id/editText5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/editText9"
-        android:hint="Height"
-        android:layout_below="@+id/editText10"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:hint="Weight"
-        android:layout_below="@+id/editText11"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText" />
+        android:layout_below="@+id/intro_personal_info_text"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/intro_personal_info_age_entry"
+        android:hint="Age"
+        android:layout_below="@+id/intro_personal_info_name_entry"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:backgroundTint="@color/colorPrimary"/>
+
+    <EditText
+        android:id="@+id/intro_personal_info_height_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/intro_personal_info_age_entry"
+        android:ems="10"
+        android:hint="Height (Metres)"
+        android:inputType="numberDecimal"
+        android:backgroundTint="@color/colorPrimary"/>
 
     <EditText
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText11"
+        android:id="@+id/intro_personal_info_activity_level"
         android:hint="Activity Level"
         android:layout_width="match_parent"
-        android:layout_below="@+id/editText9"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Spinner
-        android:id="@+id/splash_personal_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:layout_above="@+id/splash_personal_button"
+        android:layout_below="@+id/intro_personal_info_height_entry"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:backgroundTint="@color/colorPrimary"/>
+
+    <EditText
+        android:id="@+id/intro_personal_info_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/intro_personal_info_activity_level"
+        android:ems="10"
+        android:hint="Weight (KG)"
+        android:inputType="numberDecimal"
+        android:backgroundTint="@color/colorPrimary"/>
+
+    <Space
+        android:id="@+id/intro_personal_info_space"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/intro_personal_info_weight" />
+
+    <Spinner
+        android:id="@+id/intro_personal_info_gender_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/intro_personal_info_space"
+        android:dropDownWidth="wrap_content"
         android:entries="@string/choose_gender"
-        android:spinnerMode="dropdown"
-        android:dropDownWidth="wrap_content" />
+        android:spinnerMode="dropdown" />
+
+    <Button
+        android:id="@+id/intro_personal_info_okay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="5dp"
+        android:text="Next" />
 
 </RelativeLayout>
