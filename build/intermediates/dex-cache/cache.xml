@@ -3,111 +3,138 @@
 
     <item
         is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.2.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="810f41e5b7fd99f196ebeabe865ba2c54e7e76dc">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.2.0_bc2d6dd2594a990b34fee45bfd601f5929a4bb1e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="1f241e60e0dfc95cc29bd63c0fe1696187a631f5">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_ede54873203d0255169fe8f4953c390fd9ec9f62/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.2.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.2.0_0999fcac9c30c00a6d1e921a5cefd5bf12a67f08/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a1744d06f23eecfd345dae654967aca27b853879">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_465d19d8f689c5e52aa4928b6012ce5f64a0b67b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.2.0/jars/classes.jar"
+        jar="C:\Users\07mct\.android\build-cache\245c65bf486809d35ff9a9e44f746b837cae3db7\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.2.0_81d7a60f80733e1b0ab73d87de7cb12ad9d19511/classes.dex" />
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_95d0daeee7666ba943d33e00af4e9718721994c1\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.2.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="cb454b52545859ed2f24a6c01366805b0fa04b22">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.2.0_9e499e3e04ac3e8c9a04f486879ad6a05f34c552/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Shared/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.2.0/support-annotations-25.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.2.0_6627e8b813560c7bc4bc9af141bc5619e95d7a07/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.2.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.2.0_848f97cca1e5cb5bdefacb39610b1330f5977bfd/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.2.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.2.0_99921def2579a940a52b271cef45b62a4113ada1/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.2.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.2.0_5b941dbe9cb76748b949a2b2b9e9f1a5c70d3aae/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.2.0/jars/classes.jar"
+        jar="C:\Users\07mct\.android\build-cache\87b92609dcad39a81346e7fbdc03000c73ef5836\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="702d339bc0a81d21354cd7e2cf2b67225fa4a16c">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.2.0_20f95808015c08012ed3ebf71e4dd8d6d12c45d4/classes.dex" />
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_3a942398e6cd06c557f1c8e76bf47e7701be152b\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/p4258660/My-Fitness/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.2.0/jars/classes.jar"
+        jar="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="61cdba05a85cf39c24de1d96f43532bff817cb68">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_40b73285880b021849c4a14f9813e756f2d3e700\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_27ae0c0e0ae04b76b0890a3892663f3a094737e3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\.android\build-cache\7ed19e09a166ec7dd61d598aa7d8c98b0a0eac5d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="810f41e5b7fd99f196ebeabe865ba2c54e7e76dc">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_795d6d12bb6007a755d5cc4a4aa11a89f09484ce\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\.android\build-cache\a2e9f400ec2669e273f3cb0242d69b4ea14b770e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1b348a3f4a00cde79254e076b6a8cff2f2520036\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\.android\build-cache\197aefea189299d0510daeaf861033d9de275340\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f23e36af17bcc612f9f32d1d8a2e3ff72e7f49a9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\.android\build-cache\e35850cef8900aca109c58e77a331259d7921d9e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ea6a989b83d19b1b461281e0475a6cd6514897f8">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_95bad0f8337eaeccd7ffa0fd7a5efef3d78998db\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\.android\build-cache\729dde6c1a861569f442eb434b50d8d501cf69a5\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="ee394a892dd21c03a528139c1e8d4e0e1264ac84">
-        <dex dex="/Users/p4258660/My-Fitness/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.2.0_389a123f49f42647cff26a92b603469ca16295e0/classes.dex" />
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d2daece4ac1c46e4cc9a0766ba5cd9b1d9b43257\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\.android\build-cache\aa2690fab9cf4c96d8d93a880e9c2e5b2904a7e0\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bc7538c5d0039f4d9ac7ef9de3c6c0ac13a2a661\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\.android\build-cache\e478a56ec9576dcb122d5eee01bcc320bd6b95ca\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e51c2f662bb72419632af5192553c37e33890a99">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4d873ec6a6fcde39d243308b00bb4dbaabcd834f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\.android\build-cache\695792abc8e1df7b87247a9d9b8094d979e601ef\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="152de8da301561dcb0946471697a420d8f7a68c5">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_cd290db4ebdf9266f6961430988adf3052f8ffdd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\.android\build-cache\8d66146f56923bd8af8ea2fbbc0852dbad6423a0\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cb454b52545859ed2f24a6c01366805b0fa04b22">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2eee14c4b52feb3ac08cb9614dfd7fa02eefe5b6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\.android\build-cache\f7339013a280d40a6d2f4d6d9d6779c967f5cb09\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_dc161283729b3d836178003414d26f00cd8feb24\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\07mct\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\25.2.0\support-annotations-25.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
+        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.2.0_bda161640f5ccdd795a6c144ea39eacc9efd2fc0\classes.dex" />
     </item>
 
 </items>
