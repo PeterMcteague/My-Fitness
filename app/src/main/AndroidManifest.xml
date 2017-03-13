@@ -15,6 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.SplashGoal" />
+        <activity android:name=".Activities.SplashPersonal" />
+        <activity android:name=".Activities.Home" />
+        <activity android:name=".Activities.SplashRoutineGeneration"></activity>
     </application>
 
 </manifest>
