@@ -24,8 +24,10 @@ public class SplashPersonal extends AppCompatActivity {
         //Populating spinner
         Spinner genderSpinner = (Spinner) findViewById(R.id.intro_personal_info_gender_spinner);
         List<String> list = new ArrayList<>();
-        list.add("Male");
-        list.add("Female");
+        list.add("Sedentary");
+        list.add("Lightly active");
+        list.add("Active");
+        list.add("Very active");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
