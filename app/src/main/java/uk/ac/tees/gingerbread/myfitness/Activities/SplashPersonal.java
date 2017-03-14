@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,18 +50,26 @@ public class SplashPersonal extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.intro_personal_info_okay);
 
         // Get references to edittext fields
-        EditText nameEntry = (EditText) findViewById(R.id.intro_personal_info_name_entry);
-        EditText ageEntry = (EditText) findViewById(R.id.intro_personal_info_age_entry);
-        EditText heightEntry = (EditText) findViewById(R.id.intro_personal_info_height_entry);
-        EditText weightEntry = (EditText) findViewById(R.id.intro_personal_info_weight_entry);
+        final EditText nameEntry = (EditText) findViewById(R.id.intro_personal_info_name_entry);
+        final EditText ageEntry = (EditText) findViewById(R.id.intro_personal_info_age_entry);
+        final EditText heightEntry = (EditText) findViewById(R.id.intro_personal_info_height_entry);
+        final EditText weightEntry = (EditText) findViewById(R.id.intro_personal_info_weight_entry);
 
         button.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //Add info to db after checks.
-                        Intent intent = new Intent(context, SplashGoal.class);
-                        startActivity(intent);
+                        //Check for if all fields are full
+                        if (nameEntry.getText().toString().equals("") || ageEntry.getText().toString().equals("") || heightEntry.getText().toString().equals("") || weightEntry.getText().toString().equals(""))
+                        {
+                            Toast.makeText(context, "Please fill in all the fields.", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            //Add info to db after checks.
+                            Intent intent = new Intent(context, SplashGoal.class);
+                            startActivity(intent);
+                        }
                     }
                 }
 
