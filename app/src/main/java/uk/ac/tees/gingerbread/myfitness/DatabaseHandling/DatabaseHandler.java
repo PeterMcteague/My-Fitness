@@ -47,7 +47,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Personal info columns
     private static final String COL_INFO_NAME = "name";
     private static final String COL_INFO_HEIGHT = "height";
-    private static final String COL_INFO_AGE = "AGE" ;
+    private static final String COL_INFO_AGE = "age" ;
     private static final String COL_INFO_WEIGHT = "weight";
     private static final String COL_INFO_GENDER = "gender";
     private static final String COL_INFO_ACTIVITY_LEVEL = "activity_level";
@@ -89,7 +89,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_INFO_AGE + "INTEGER,"
                 + COL_INFO_WEIGHT + "REAL,"
                 +COL_INFO_GENDER + "TEXT,"
-                +COL_INFO_ACTIVITY_LEVEL + "INTEGER" + "CHECK activity_level <6 && > 0" + ")";
+                +COL_INFO_ACTIVITY_LEVEL + "INTEGER" + "CHECK activity_level <=4 && > 0)";
 
         String CREATE_TABLE_ROUTINE = TABLE_NAME_ROUTINE
                 + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_DAY + "TEXT,"
