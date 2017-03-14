@@ -19,25 +19,24 @@ public class SplashRoutineGeneration extends AppCompatActivity {
 
         // Get context and button objects
         final Context context = this;
-        Button routine_auto = (Button) findViewById(R.id.splash_routine_generation_button_auto_generate);
-        Button routine_custom = (Button) findViewById(R.id.splash_routine_generation_button_customize);
+        Button routine_yes = (Button) findViewById(R.id.splash_routine_generation_button_auto_generate);
+        Button routine_no = (Button) findViewById(R.id.splash_routine_generation_button_customize);
 
-        routine_auto.setOnClickListener(
+        routine_yes.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //Put routine and/or diet plan in table
-                        Intent intent = new Intent(context, Home.class);
+                        Intent intent = new Intent(context, SplashPersonal.class);
                         startActivity(intent);
                     }
                 }
 
         );
-        routine_custom.setOnClickListener(
+        routine_no.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //Put routine and/or diet plan in table
+                        //Set user has finished setup, here
                         Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
                     }

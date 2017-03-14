@@ -31,7 +31,7 @@ public class SplashIntroduction extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, SplashPersonal.class);
+                        Intent intent = new Intent(context, SplashRoutineGeneration.class);
                         startActivity(intent);
                     }
                 }

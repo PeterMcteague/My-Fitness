@@ -39,6 +39,7 @@ public class SplashPersonal extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //Add info to db after checks.
                         Intent intent = new Intent(context, SplashGoal.class);
                         startActivity(intent);
                     }
