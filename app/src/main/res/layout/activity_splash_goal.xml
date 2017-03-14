@@ -17,36 +17,111 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:text="Choose a goal!"
+            android:id="@+id/intro_goal_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/splash_text_goal" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:text="Choose a goal!"
+            android:textAlignment="viewStart"
+            android:textAppearance="@android:style/TextAppearance.Material.Large" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="By choosing a goal, a workout routine can be generated for you." />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageButton
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:srcCompat="@mipmap/splash_lose_weight"
-                android:id="@+id/splash_button_fat"
-                android:layout_weight="1.00" />
+                android:layout_weight="1.00"
+                android:orientation="vertical"
+                android:layout_margin="5dp">
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:srcCompat="@mipmap/splash_cardio"
-                android:id="@+id/splash_button_cardio"
-                android:layout_weight="1.00" />
+                <ImageButton
+                    android:id="@+id/splash_button_fat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.00"
+                    android:adjustViewBounds="false"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/goal_weight_edit_30percent" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="Lose weight"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:srcCompat="@mipmap/splash_gain_muscle"
-                android:id="@+id/splash_button_muscle"
-                android:layout_weight="1.00" />
+                android:layout_weight="1.00"
+                android:orientation="vertical"
+                android:layout_margin="5dp">
+
+                <ImageButton
+                    android:id="@+id/splash_button_health"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.00"
+                    android:adjustViewBounds="false"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/goal_health_edit_30percent" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="Stay healthy"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.00"
+                android:orientation="vertical"
+                android:layout_margin="5dp">
+
+                <ImageButton
+                    android:id="@+id/splash_button_muscle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.00"
+                    android:adjustViewBounds="false"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/goal_muscle_edit_30percent" />@mipmap/goal_image_muscle" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="Gain muscle"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

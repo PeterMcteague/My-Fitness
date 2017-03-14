@@ -22,7 +22,7 @@ public class SplashPersonal extends AppCompatActivity {
         setContentView(R.layout.activity_splash_personal);
 
         //Populating spinner
-        Spinner genderSpinner = (Spinner) findViewById(R.id.splash_personal_spinner);
+        Spinner genderSpinner = (Spinner) findViewById(R.id.intro_personal_info_gender_spinner);
         List<String> list = new ArrayList<>();
         list.add("Male");
         list.add("Female");
@@ -33,7 +33,7 @@ public class SplashPersonal extends AppCompatActivity {
 
         // Get context and button objects
         final Context context = this;
-        Button button = (Button) findViewById(R.id.splash_personal_button);
+        Button button = (Button) findViewById(R.id.intro_personal_info_okay);
 
         button.setOnClickListener(
                 new View.OnClickListener() {

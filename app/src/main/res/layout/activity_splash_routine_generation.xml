@@ -11,30 +11,75 @@
     tools:context="uk.ac.tees.gingerbread.myfitness.Activities.SplashRoutineGeneration">
 
     <TextView
-        android:text="Choose a routine"
+        android:id="@+id/intro_generation_question_big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4"
+        android:text="Generate a routine?"
         android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
-    <LinearLayout
-        android:orientation="vertical"
+    <Space
+        android:id="@+id/intro_generation_space_1"
         android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/intro_generation_question_big" />
+
+    <TextView
+        android:id="@+id/intro_generation_txt_small"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/intro_generation_space_1"
+        android:text="We can generate a routine and diet plan for you , if you'd like. Or you can create your own later." />
 
-        <Button
-            android:text="Auto-Generate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/splash_routine_generation_button_auto_generate" />
+    <Space
+        android:id="@+id/intro_generation_space_2"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_below="@+id/intro_generation_txt_small"
+        android:layout_alignParentStart="true" />
 
-        <Button
-            android:text="Customize"
+    <LinearLayout
+        android:id="@+id/intro_generation_linear_hor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_below="@+id/intro_generation_space_2">
+
+        <LinearLayout
+            android:id="@+id/intro_generation_linear_2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/splash_routine_generation_button_customize" />
+            android:layout_height="match_parent"
+            android:layout_weight="1.00"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/splash_routine_generation_button_auto_generate"
+                android:layout_width="169dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:background="@color/colorPrimary"
+                android:text="Sure!" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/intro_generation_linear_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.00"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/splash_routine_generation_button_customize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary"
+                android:text="No thanks" />
+        </LinearLayout>
     </LinearLayout>
+
+
 </RelativeLayout>
