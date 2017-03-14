@@ -2,6 +2,7 @@ package uk.ac.tees.gingerbread.myfitness.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,15 @@ import android.widget.ImageButton;
 import uk.ac.tees.gingerbread.myfitness.R;
 
 public class SplashGoal extends AppCompatActivity {
+
+    private void setSetupComplete()
+    {
+        //Set user has finished setup, here
+        SharedPreferences settings = getSharedPreferences("MyFitnessPrefs",0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("setupComplete",true);
+        editor.commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,7 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
+                        setSetupComplete();
                         Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
                     }
@@ -38,6 +49,7 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
+                        setSetupComplete();
                         Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
                     }
@@ -49,6 +61,7 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
+                        setSetupComplete();
                         Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
                     }
