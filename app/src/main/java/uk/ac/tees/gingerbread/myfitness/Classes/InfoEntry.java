@@ -21,6 +21,7 @@ public class InfoEntry {
         this.gender = gender;
         this.weight = weight;
         this.name = name;
+        this.date = date;
     }
 
     public int getAge() {

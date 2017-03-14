@@ -12,8 +12,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import uk.ac.tees.gingerbread.myfitness.Classes.InfoEntry;
 import uk.ac.tees.gingerbread.myfitness.R;
 
 public class SplashPersonal extends AppCompatActivity {
@@ -24,7 +26,7 @@ public class SplashPersonal extends AppCompatActivity {
         setContentView(R.layout.activity_splash_personal);
 
         //Populating gender spinner
-        Spinner genderSpinner = (Spinner) findViewById(R.id.intro_personal_info_gender_spinner);
+        final Spinner genderSpinner = (Spinner) findViewById(R.id.intro_personal_info_gender_spinner);
         List<String> genderList = new ArrayList<>();
         genderList.add("Male");
         genderList.add("Female");
@@ -34,7 +36,7 @@ public class SplashPersonal extends AppCompatActivity {
         genderSpinner.setAdapter(dataAdapterGender);
 
         //Populating activity level spinner
-        Spinner activitySpinner = (Spinner) findViewById(R.id.intro_personal_info_activity_spinner);
+        final Spinner activitySpinner = (Spinner) findViewById(R.id.intro_personal_info_activity_spinner);
         List<String> activityList = new ArrayList<>();
         activityList.add("Sedentary");
         activityList.add("Lightly active");
@@ -66,8 +68,14 @@ public class SplashPersonal extends AppCompatActivity {
                         }
                         else
                         {
-                            //Add info to db after checks.
+                            //Add info to intent to be passed along to goal screen
                             Intent intent = new Intent(context, SplashGoal.class);
+                            intent.putExtra("age",Integer.parseInt(ageEntry.getText().toString()));
+                            intent.putExtra("height",Float.valueOf(heightEntry.getText().toString()));
+                            intent.putExtra("weight",Float.valueOf(weightEntry.getText().toString()));
+                            intent.putExtra("name",nameEntry.getText().toString());
+                            intent.putExtra("gender",genderSpinner.getSelectedItem().toString());
+                            intent.putExtra("activityLevel",activitySpinner.getSelectedItemPosition() + 1);
                             startActivity(intent);
                         }
                     }
