@@ -23,9 +23,19 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"
-            android:text="Please enter your info"
-            android:textAlignment="center"
+            android:text="Choose a goal!"
+            android:textAlignment="viewStart"
             android:textAppearance="@android:style/TextAppearance.Material.Large" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="By choosing a goal, a workout routine can be generated for you." />
 
         <Space
             android:layout_width="match_parent"

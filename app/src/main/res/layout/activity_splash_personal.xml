@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/intro_personal_info_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -20,13 +20,33 @@
         android:text="Please enter your info"
         android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
+    <Space
+        android:id="@+id/intro_personal_info_space_2"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/intro_personal_info_text" />
+
+    <TextView
+        android:id="@+id/intro_personal_info_text_why"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/intro_personal_info_space_2"
+        android:layout_centerHorizontal="true"
+        android:text="This information allows the app to create appropriate calorie goals for you." />
+
+    <Space
+        android:id="@+id/intro_personal_info_space_3"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/intro_personal_info_text_why" />
+
     <EditText
         android:id="@+id/intro_personal_info_name_entry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/intro_personal_info_text"
+        android:layout_below="@+id/intro_personal_info_space_3"
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="Name"
