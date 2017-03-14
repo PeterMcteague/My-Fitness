@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -21,21 +22,37 @@ public class SplashPersonal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_personal);
 
-        //Populating spinner
+        //Populating gender spinner
         Spinner genderSpinner = (Spinner) findViewById(R.id.intro_personal_info_gender_spinner);
-        List<String> list = new ArrayList<>();
-        list.add("Sedentary");
-        list.add("Lightly active");
-        list.add("Active");
-        list.add("Very active");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(dataAdapter);
+        List<String> genderList = new ArrayList<>();
+        genderList.add("Male");
+        genderList.add("Female");
+        ArrayAdapter<String> dataAdapterGender = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, genderList);
+        dataAdapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(dataAdapterGender);
+
+        //Populating activity level spinner
+        Spinner activitySpinner = (Spinner) findViewById(R.id.intro_personal_info_activity_spinner);
+        List<String> activityList = new ArrayList<>();
+        activityList.add("Sedentary");
+        activityList.add("Lightly active");
+        activityList.add("Active");
+        activityList.add("Very active");
+        ArrayAdapter<String> dataAdapterActivity = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, activityList);
+        dataAdapterActivity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        activitySpinner.setAdapter(dataAdapterActivity);
 
         // Get context and button objects
         final Context context = this;
         Button button = (Button) findViewById(R.id.intro_personal_info_okay);
+
+        // Get references to edittext fields
+        EditText nameEntry = (EditText) findViewById(R.id.intro_personal_info_name_entry);
+        EditText ageEntry = (EditText) findViewById(R.id.intro_personal_info_age_entry);
+        EditText heightEntry = (EditText) findViewById(R.id.intro_personal_info_height_entry);
+        EditText weightEntry = (EditText) findViewById(R.id.intro_personal_info_weight_entry);
 
         button.setOnClickListener(
                 new View.OnClickListener() {
