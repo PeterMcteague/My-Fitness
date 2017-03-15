@@ -10,11 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c260ff2a-9fbd-410b-9c38-ec4633b9ea74" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashGoal.java" afterPath="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashGoal.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/DatabaseHandling/DatabaseHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/DatabaseHandling/DatabaseHandler.java" />
     </list>
     <ignored path="My-Fitness.iws" />
@@ -47,11 +43,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="SplashPersonal.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashPersonal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="731">
+              <caret line="59" column="34" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="DatabaseHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/DatabaseHandling/DatabaseHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="316" column="125" selection-start-line="316" selection-start-column="125" selection-end-line="316" selection-end-column="125" />
+            <state relative-caret-position="2864">
+              <caret line="236" column="27" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SplashGoal.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashGoal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="687">
+              <caret line="301" column="13" selection-start-line="301" selection-start-column="13" selection-end-line="301" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -1890,8 +1906,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_splash_personal.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashPersonal.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Classes/InfoEntry.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashGoal.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/DatabaseHandling/DatabaseHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashGoal.java" />
       </list>
     </option>
   </component>
@@ -2507,6 +2523,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2596,6 +2613,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2693,6 +2711,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2847,13 +2866,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashPersonal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="59" column="34" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Classes/InfoEntry.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -2861,18 +2873,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashPersonal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="59" column="34" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Activities/SplashGoal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="932">
-          <caret line="89" column="26" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
+        <state relative-caret-position="687">
+          <caret line="301" column="13" selection-start-line="301" selection-start-column="13" selection-end-line="301" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/DatabaseHandling/DatabaseHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="316" column="125" selection-start-line="316" selection-start-column="125" selection-end-line="316" selection-end-column="125" />
+        <state relative-caret-position="2864">
+          <caret line="236" column="27" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="44" />
           <folding />
         </state>
       </provider>

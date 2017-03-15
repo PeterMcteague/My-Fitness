@@ -11,6 +11,7 @@ import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import uk.ac.tees.gingerbread.myfitness.Classes.DietEntry;
 import uk.ac.tees.gingerbread.myfitness.Classes.ExerciseEntry;
@@ -127,34 +128,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         "    Next, lower yourself downward until your chest almost touches the floor as you inhale.\n" +
                         "    Now breathe out and press your upper body back up to the starting position while squeezing your chest.\n" +
                         "    After a brief pause at the top contracted position, you can begin to lower yourself downward again for as many repetitions as needed.')," +
-                        "('Dumbbell Flyes ','     Lie down on a flat bench with a dumbbell on each hand resting on top of your thighs. The palms of your hand will be facing each other.\n" +
+                        "('Dumbbell Flyes','     Lie down on a flat bench with a dumbbell on each hand resting on top of your thighs. The palms of your hand will be facing each other.\n" +
                         "    Then using your thighs to help raise the dumbbells, lift the dumbbells one at a time so you can hold them in front of you at shoulder width with the palms of your hands facing each other. Raise the dumbbells up like you're pressing them, but stop and hold just before you lock out. This will be your starting position.\n" +
                         "    With a slight bend on your elbows in order to prevent stress at the biceps tendon, lower your arms out at both sides in a wide arc until you feel a stretch on your chest. Breathe in as you perform this portion of the movement. Tip: Keep in mind that throughout the movement, the arms should remain stationary; the movement should only occur at the shoulder joint.\n" +
                         "    Return your arms back to the starting position as you squeeze your chest muscles and breathe out. Tip: Make sure to use the same arc of motion used to lower the weights.\n" +
                         "    Hold for a second at the contracted position and repeat the movement for the prescribed amount of repetitions.')," +
-                        "('Single-Arm Linear Jammer ','    Position a bar into a landmine or securely anchor it in a corner. Load the bar to an appropriate weight.\n" +
+                        "('Single-Arm Linear Jammer','    Position a bar into a landmine or securely anchor it in a corner. Load the bar to an appropriate weight.\n" +
                         "    Raise the bar from the floor, taking it to your shoulders with one or both hands. Adopt a wide stance. This will be your starting position.\n" +
                         "    Perform the movement by extending the elbow, pressing the weight up. Move explosively, extending the hips and knees fully to produce maximal force.\n" +
                         "    Return to the starting position.')," +
-                        "('Side Laterals to Front Raise ','    In a standing position, hold a pair of dumbbells at your side. This will be your starting position.\n" +
+                        "('Side Laterals to Front Raise','    In a standing position, hold a pair of dumbbells at your side. This will be your starting position.\n" +
                         "    Keeping your elbows slightly bent, raise the weights directly in front of you to shoulder height, avoiding any swinging or cheating.\n" +
                         "    At the top of the exercise move the weights out in front of you, keeping your arms extended.\n" +
                         "    Lower the weights with a controlled motion.\n" +
                         "    On the next repetition, raise the weights in front of you to shoulder height before moving the weights laterally to your sides.\n" +
                         "    Lower the weights to the starting position.')," +
-                        "('One-Arm Side Laterals ','    Pick a dumbbell and place it in one of your hands. Your non lifting hand should be used to grab something steady such as an incline bench press. Lean towards your lifting arm and away from the hand that is gripping the incline bench as this will allow you to keep your balance.\n" +
+                        "('One-Arm Side Laterals','    Pick a dumbbell and place it in one of your hands. Your non lifting hand should be used to grab something steady such as an incline bench press. Lean towards your lifting arm and away from the hand that is gripping the incline bench as this will allow you to keep your balance.\n" +
                         "    Stand with a straight torso and have the dumbbell by your side at armâ€™s length with the palm of the hand facing you. This will be your starting position.\n" +
                         "    While maintaining the torso stationary (no swinging), lift the dumbbell to your side with a slight bend on the elbow and your hand slightly tilted forward as if pouring water in a glass. Continue to go up until you arm is parallel to the floor. Exhale as you execute this movement and pause for a second at the top.\n" +
                         "    Lower the dumbbell back down slowly to the starting position as you inhale.\n" +
                         "    Repeat for the recommended amount of repetitions.\n" +
                         "    Switch arms and repeat the exercise.')," +
-                        "('Seated Dumbbell Press ','     Grab a couple of dumbbells and sit on a military press bench or a utility bench that has a back support on it as you place the dumbbells upright on top of your thighs.\n" +
+                        "('Seated Dumbbell Press','     Grab a couple of dumbbells and sit on a military press bench or a utility bench that has a back support on it as you place the dumbbells upright on top of your thighs.\n" +
                         "    Clean the dumbbells up one at a time by using your thighs to bring the dumbbells up to shoulder height at each side.\n" +
                         "    Rotate the wrists so that the palms of your hands are facing forward. This is your starting position.\n" +
                         "    As you exhale, push the dumbbells up until they touch at the top.\n" +
                         "    After a second pause, slowly come down back to the starting position as you inhale.\n" +
                         "    Repeat for the recommended amount of repetitions.')," +
-                        "('Front Dumbbell Raise ','    Pick a couple of dumbbells and stand with a straight torso and the dumbbells on front of your thighs at arms length with the palms of the hand facing your thighs. This will be your starting position.\n" +
+                        "('Front Dumbbell Raise','    Pick a couple of dumbbells and stand with a straight torso and the dumbbells on front of your thighs at arms length with the palms of the hand facing your thighs. This will be your starting position.\n" +
                         "    While maintaining the torso stationary (no swinging), lift the left dumbbell to the front with a slight bend on the elbow and the palms of the hands always facing down. Continue to go up until you arm is slightly above parallel to the floor. Exhale as you execute this portion of the movement and pause for a second at the top. Inhale after the second pause.\n" +
                         "    Now lower the dumbbell back down slowly to the starting position as you simultaneously lift the right dumbbell.\n" +
                         "    Continue alternating in this fashion until all of the recommended amount of repetitions have been performed for each arm.')," +
@@ -166,12 +167,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         "    Continue the movement until your biceps are fully contracted and the bar is at shoulder level. Hold the contracted position for a second and squeeze the biceps hard.\n" +
                         "    Slowly begin to bring the bar back to starting position as your breathe in.\n" +
                         "    Repeat for the recommended amount of repetitions.')," +
-                        "('Hammer Curls ','     Stand up with your torso upright and a dumbbell on each hand being held at arms length. The elbows should be close to the torso.\n" +
+                        "('Hammer Curls','     Stand up with your torso upright and a dumbbell on each hand being held at arms length. The elbows should be close to the torso.\n" +
                         "    The palms of the hands should be facing your torso. This will be your starting position.\n" +
                         "    Now, while holding your upper arm stationary, exhale and curl the weight forward while contracting the biceps. Continue to raise the weight until the biceps are fully contracted and the dumbbell is at shoulder level. Hold the contracted position for a brief moment as you squeeze the biceps. Tip: Focus on keeping the elbow stationary and only moving your forearm.\n" +
                         "    After the brief pause, inhale and slowly begin the lower the dumbbells back down to the starting position.\n" +
                         "    Repeat for the recommended amount of repetitions.')," +
-                        "('Concentration Curls ','    Sit down on a flat bench with one dumbbell in front of you between your legs. Your legs should be spread with your knees bent and feet on the floor.\n" +
+                        "('Concentration Curls','    Sit down on a flat bench with one dumbbell in front of you between your legs. Your legs should be spread with your knees bent and feet on the floor.\n" +
                         "    Use your right arm to pick the dumbbell up. Place the back of your right upper arm on the top of your inner right thigh. Rotate the palm of your hand until it is facing forward away from your thigh. Tip: Your arm should be extended and the dumbbell should be above the floor. This will be your starting position.\n" +
                         "    While holding the upper arm stationary, curl the weights forward while contracting the biceps as you breathe out. Only the forearms should move. Continue the movement until your biceps are fully contracted and the dumbbells are at shoulder level. Tip: At the top of the movement make sure that the little finger of your arm is higher than your thumb. This guarantees a good contraction. Hold the contracted position for a second as you squeeze the biceps.\n" +
                         "    Slowly begin to bring the dumbbells back to starting position as your breathe in. Caution: Avoid swinging motions at any time.\n" +
@@ -365,6 +366,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
+    public long addDietEntryToday(int calories, int caloriesGoal, float protein, float proteinGoal)
+    {
+        //Setting up date getting
+        final Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_DIET_DATE , c.getTimeInMillis());
+        values.put(COL_DIET_CAL, calories);
+        values.put(COL_DIET_CAL_GOAL, caloriesGoal);
+        values.put(COL_DIET_PROTEIN, protein);
+        values.put(COL_DIET_PROTEIN_GOAL, proteinGoal);
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_DIET, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
+
     /**Adds a diet entry to the diet table.
      *
      * @param dietEntry A diet entry object to add.
@@ -485,6 +509,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return returnValue;
         }
         return null;
+    }
+
+    /**Gets an exercise id from its name
+     *
+     * @param name The name of the exercise to get for
+     * @return The id of the exercise
+     */
+    public int getExerciseIDFromName(String name)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXERCISES + " WHERE " + COL_NAME + " = " + name;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idId = cursor.getColumnIndex(COL_ID);
+            return cursor.getInt(idId);
+        }
+        return 0;
     }
 
     /**Gets an excercise by id.
