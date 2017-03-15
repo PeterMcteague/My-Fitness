@@ -11,7 +11,6 @@
         <activity android:name=".Activities.Start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -19,11 +18,7 @@
         <activity android:name=".Activities.SplashGoal" />
         <activity android:name=".Activities.SplashPersonal" />
         <activity android:name=".Activities.Home" />
-        <activity android:name=".Activities.SplashRoutineGeneration" />
-        <activity
-            android:name=".Activities.MenuScreen"
-            android:label="@string/title_activity_menu_screen"
-            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".Activities.SplashRoutineGeneration"></activity>
     </application>
 
 </manifest>
