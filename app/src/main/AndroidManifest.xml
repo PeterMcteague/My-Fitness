@@ -23,10 +23,7 @@
             android:name=".Activities.MenuScreen"
             android:label="@string/title_activity_menu_screen"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Activities.InfoScreenMain"
-            android:label="@string/title_activity_info_screen_main"
-            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".Activities.InfoScreenMain"></activity>
     </application>
 
 </manifest>

@@ -62,7 +62,7 @@ public class MenuScreen extends AppCompatActivity
 
         if(fragment!= null){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, fragment);
+            ft.replace(android.R.id.content, fragment);
             ft.commit();
         }
 
