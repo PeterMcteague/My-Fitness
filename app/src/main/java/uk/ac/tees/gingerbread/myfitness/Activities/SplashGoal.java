@@ -61,7 +61,7 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        //addDbFromIntent(context,getIntent());
+                        addDbFromIntent(context,getIntent());
                         setSetupComplete();
                         Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
@@ -74,7 +74,7 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        //addDbFromIntent(context,getIntent());
+                        addDbFromIntent(context,getIntent());
                         setSetupComplete();
                         Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
@@ -87,7 +87,7 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        //addDbFromIntent(context,getIntent());
+                        addDbFromIntent(context,getIntent());
                         setSetupComplete();
                         Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
