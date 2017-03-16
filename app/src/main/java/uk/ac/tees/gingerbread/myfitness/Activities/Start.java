@@ -25,7 +25,7 @@ public class Start extends AppCompatActivity
 
         if(setupComplete)//if running for first time
         {
-            Intent intent = new Intent(context, Home.class);
+            Intent intent = new Intent(context, InfoScreenMain.class);
             startActivity(intent);
             finish();
         }

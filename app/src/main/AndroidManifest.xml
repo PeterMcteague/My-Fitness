@@ -18,11 +18,14 @@
         <activity android:name=".Activities.SplashIntroduction" />
         <activity android:name=".Activities.SplashGoal" />
         <activity android:name=".Activities.SplashPersonal" />
-        <activity android:name=".Activities.Home" />
         <activity android:name=".Activities.SplashRoutineGeneration" />
         <activity
             android:name=".Activities.MenuScreen"
             android:label="@string/title_activity_menu_screen"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activities.InfoScreenMain"
+            android:label="@string/title_activity_info_screen_main"
             android:theme="@style/AppTheme"></activity>
     </application>
 
