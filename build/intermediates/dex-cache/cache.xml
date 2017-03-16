@@ -3,39 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a33196095aa05bef7bfcd58d3415b96028b90ffa">
-        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_40b73285880b021849c4a14f9813e756f2d3e700\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="C:\Users\Joseph\Desktop\My-Fitness\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
-        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_27ae0c0e0ae04b76b0890a3892663f3a094737e3\classes.dex" />
+        <dex dex="C:\Users\Joseph\Desktop\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_42e2d30022a3a8a74befb8538afba8f24d338baf\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\07mct\.android\build-cache\cc84458157d67231d2db1fb74ee093b93c3bf744\output\jars\classes.jar"
+        jar="C:\Users\Joseph\Desktop\My-Fitness\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
-        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0c895ce137a86ecc517889ec1fc2e5495029f9d6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\07mct\AppData\Local\Android\Sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
-        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.2_9221fb9de8afa51ea7f09e58410c72f66595f581\classes.dex" />
+        sha1="7301e0a4b1d4b240403c83e0248398af9f638d08">
+        <dex dex="C:\Users\Joseph\Desktop\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_9707730947fe6ed9a4e3a6710dac89ecfeb208b6\classes.dex" />
     </item>
 
 </items>

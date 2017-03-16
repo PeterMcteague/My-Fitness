@@ -14,6 +14,7 @@ import java.util.Calendar;
 import uk.ac.tees.gingerbread.myfitness.DatabaseHandling.DatabaseHandler;
 import uk.ac.tees.gingerbread.myfitness.R;
 
+//Caloric intake taken from http://www.calculator.net/calorie-calculator.html
 public class SplashGoal extends AppCompatActivity {
 
     private void setSetupComplete()
@@ -25,7 +26,8 @@ public class SplashGoal extends AppCompatActivity {
         editor.commit();
     }
 
-    private void addDbFromIntent(Context context, Intent intent)
+    //Activity: Sedentary * 1.2, Lightly active 1.37, Moderately 1.5, Very active 1.7
+    private void addDbFromIntent(Context context, Intent intent, String goal)
     {
         //Setting up date getting
         final Calendar c = Calendar.getInstance();
@@ -33,7 +35,7 @@ public class SplashGoal extends AppCompatActivity {
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
-        //Adding db entry
+        //Adding db entry for info
         DatabaseHandler dh = new DatabaseHandler(context);
         dh.addInfo(
                 intent.getStringExtra("name"),
@@ -43,6 +45,263 @@ public class SplashGoal extends AppCompatActivity {
                 intent.getStringExtra("gender"),
                 intent.getIntExtra("activityLevel",0),
                 c.getTimeInMillis());
+        //Add diet and routine
+        if (goal == "Muscle")
+        {
+            if (intent.getStringExtra("gender") == "Male")
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) + 200),
+                            0,
+                            120);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) + 200),
+                            0,
+                            120);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) + 200),
+                            0,
+                            120);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) + 200),
+                            0,
+                            120);
+                }
+
+            }
+            else
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) + 200),
+                            0,
+                            120);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) + 200),
+                            0,
+                            120);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) + 200),
+                            0,
+                            120);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) + 200),
+                            0,
+                            120);
+                }
+            }
+
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Bench Press"));
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Dumbbell Bench Press"));
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Pushups"));
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Dumbbell Flyes"));
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("3/4 Sit-Up"));
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Alternate Heel Touchers"));
+            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Deadlift"));
+            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Seated Cable Rows"));
+            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("T-Bar Row with Handle"));
+            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Shotgun Row"));
+            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Close-Grip Front Lat Pulldown"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Triceps Dips"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Decline EZ Bar Triceps Extension"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Reverse Grip Triceps Pushdown"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Barbell Curl"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Hammer Curls"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Dumbbell Bicep Curl"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Side Laterals to Front Raise"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("One-Arm Side Laterals"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Front Dumbbell Raise"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Barbell Full Squat"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Bodyweight Lunge"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Seated Calf Raise"));
+
+        }
+        else if (goal == "WeightLoss")
+        {
+            if (intent.getStringExtra("gender") == "Male")
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) - 500),
+                            0,
+                            0);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) - 500),
+                            0,
+                            0);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) - 500),
+                            0,
+                            0);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) - 500),
+                            0,
+                            0);
+                }
+            }
+            else
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) - 500),
+                            0,
+                            0);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) - 500),
+                            0,
+                            0);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) - 500),
+                            0,
+                            0);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) - 500),
+                            0,
+                            0);
+                }
+            }
+
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Bicycling"));
+            dh.addRoutine("Thursday",dh.getExerciseIDFromName("Treadmill"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Bicycling"));
+        }
+        else
+        {
+            if (intent.getStringExtra("gender") == "Male")
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5)),
+                            0,
+                            0);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5)),
+                            0,
+                            0);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5)),
+                            0,
+                            0);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5)),
+                            0,
+                            0);
+                }
+            }
+            else
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161)),
+                            0,
+                            0);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161)),
+                            0,
+                            0);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161)),
+                            0,
+                            0);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161)),
+                            0,
+                            0);
+                }
+            }
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Bicycling"));
+        }
     }
 
     @Override
@@ -56,14 +315,17 @@ public class SplashGoal extends AppCompatActivity {
         ImageButton buttonFat = (ImageButton) findViewById(R.id.splash_button_fat);
         ImageButton buttonHealth = (ImageButton) findViewById(R.id.splash_button_health);
 
+        final Intent intent = getIntent();
+
         buttonMuscle.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        //addDbFromIntent(context,getIntent());
+                        DatabaseHandler dh = new DatabaseHandler(context);
+                        //addDbFromIntent(context,getIntent(),"Muscle");
                         setSetupComplete();
-                        Intent intent = new Intent(context, MenuScreen.class);
+                        Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
                     }
                 }
@@ -74,9 +336,9 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        //addDbFromIntent(context,getIntent());
+                        //addDbFromIntent(context,getIntent(),"WeightLoss");
                         setSetupComplete();
-                        Intent intent = new Intent(context, MenuScreen.class);
+                        Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
                     }
                 }
@@ -87,9 +349,9 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        //addDbFromIntent(context,getIntent());
+                        //addDbFromIntent(context,getIntent(),"Health");
                         setSetupComplete();
-                        Intent intent = new Intent(context, MenuScreen.class);
+                        Intent intent = new Intent(context, Home.class);
                         startActivity(intent);
                     }
                 }

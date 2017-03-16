@@ -18,6 +18,7 @@
         <activity android:name=".Activities.SplashIntroduction" />
         <activity android:name=".Activities.SplashGoal" />
         <activity android:name=".Activities.SplashPersonal" />
+        <activity android:name=".Activities.Home" />
         <activity android:name=".Activities.SplashRoutineGeneration" />
         <activity
             android:name=".Activities.MenuScreen"
