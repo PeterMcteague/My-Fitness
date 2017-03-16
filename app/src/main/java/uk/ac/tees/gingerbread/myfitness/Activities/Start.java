@@ -23,15 +23,14 @@ public class Start extends AppCompatActivity
         boolean setupComplete = false;
         //boolean setupComplete = settings.getBoolean("setupComplete",false);
 
-        if(setupComplete)//if running for first time
+        if(setupComplete)//if not running for first time
         {
-            Intent intent = new Intent(context, Home.class);
+            Intent intent = new Intent(context, MenuScreen.class);
             startActivity(intent);
             finish();
         }
         else
         {
-
             Intent intent = new Intent(context, SplashIntroduction.class);
             startActivity(intent);  // Launch next activity
             finish();

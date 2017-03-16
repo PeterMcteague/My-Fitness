@@ -63,7 +63,7 @@ public class SplashGoal extends AppCompatActivity {
                         //Put routine and/or diet plan in table
                         //addDbFromIntent(context,getIntent());
                         setSetupComplete();
-                        Intent intent = new Intent(context, Home.class);
+                        Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
                     }
                 }
@@ -76,7 +76,7 @@ public class SplashGoal extends AppCompatActivity {
                         //Put routine and/or diet plan in table
                         //addDbFromIntent(context,getIntent());
                         setSetupComplete();
-                        Intent intent = new Intent(context, Home.class);
+                        Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
                     }
                 }
@@ -89,7 +89,7 @@ public class SplashGoal extends AppCompatActivity {
                         //Put routine and/or diet plan in table
                         //addDbFromIntent(context,getIntent());
                         setSetupComplete();
-                        Intent intent = new Intent(context, Home.class);
+                        Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
                     }
                 }
