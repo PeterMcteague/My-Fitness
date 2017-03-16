@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_splash_introduction"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="uk.ac.tees.gingerbread.myfitness.Activities.SplashIntroduction"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"
+            android:padding="6dp"
+            android:scaleType="fitEnd"
+            app:srcCompat="@mipmap/logo_invert" />
+
+        <TextView
+            android:id="@+id/splash_intro_text_welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorPrimary"
+            android:contentDescription="A welcoming message"
+            android:padding="4dp"
+            android:paddingBottom="16dp"
+            android:paddingEnd="16dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="0dp"
+            android:paddingStart="4dp"
+            android:paddingTop="16dp"
+            android:text=" Welcome to My Fitness!"
+            android:textAlignment="viewStart"
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            android:textColor="@color/colorAccent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_weight="1.10" />
+
+            <TextView
+                android:id="@+id/intro_text_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="My Fitness is an app that can help you keep track of your fitness and help you get into new routines! On the next few screens you will be asked questions to allow the app to help you out." />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="324dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/splash_intro_next_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:clickable="true"
+                android:textAlignment="center"
+                app:backgroundTint="@color/colorPrimary"
+                app:elevation="5dp"
+                app:fabSize="mini"
+                app:srcCompat="@mipmap/next_arrow" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
