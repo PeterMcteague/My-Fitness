@@ -6,4 +6,100 @@
     android:layout_height="match_parent"
     tools:context="uk.ac.tees.gingerbread.myfitness.Activities.DietScreenMain">
 
+    <TextView
+        android:text="0 kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="67dp"
+        tools:layout_editor_absoluteX="18dp"
+        android:id="@+id/Calories" />
+
+    <TextView
+        android:text="Calorie Goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="108dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:id="@+id/CalorieGoalTitle"
+        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+
+    <TextView
+        android:text="Calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="25dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:id="@+id/CalorieTitle"
+        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+
+    <TextView
+        android:text="2800 kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="149dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:id="@+id/CalorieGoal" />
+
+    <TextView
+        android:text="Protein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="217dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:id="@+id/ProteinTitle"
+        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+
+    <TextView
+        android:text="0g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="267dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:id="@+id/Protein" />
+
+    <TextView
+        android:text="Protein Goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="308dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:id="@+id/ProteinGoalTitle"
+        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+
+    <TextView
+        android:text="100g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="358dp"
+        tools:layout_editor_absoluteX="19dp"
+        android:id="@+id/ProteinGoal" />
+
+    <EditText
+        android:layout_width="231dp"
+        android:layout_height="46dp"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        tools:layout_editor_absoluteY="254dp"
+        tools:layout_editor_absoluteX="137dp"
+        android:id="@+id/editText3"
+        android:hint="Insert your protein intake (g)" />
+
+    <EditText
+        android:layout_width="255dp"
+        android:layout_height="46dp"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        tools:layout_editor_absoluteY="51dp"
+        tools:layout_editor_absoluteX="113dp"
+        android:id="@+id/editText4"
+        android:hint="Insert your calorie intake (kcal)" />
+
+    <Button
+        android:text="Update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="489dp"
+        tools:layout_editor_absoluteX="149dp"
+        android:id="@+id/Update_cal_protein_btn" />
+
 </android.support.constraint.ConstraintLayout>

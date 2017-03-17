@@ -9,7 +9,7 @@ import uk.ac.tees.gingerbread.myfitness.R;
 
 public class DietScreenMain extends AppCompatActivity {
 
-    @Override
+/*    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet_screen_main);
@@ -28,4 +28,5 @@ public class DietScreenMain extends AppCompatActivity {
         }
         //Load goal and protein for day using diet entry
     }
+}*/
 }

@@ -43,7 +43,7 @@ public class SplashRoutineGeneration extends AppCompatActivity {
                         editor.putBoolean("setupComplete",true);
                         editor.commit();
                         //Finished
-                        Intent intent = new Intent(context, DietScreenMain.class);
+                        Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
                     }
                 }

@@ -108,7 +108,7 @@ public class SplashGoal extends AppCompatActivity {
                         DatabaseHandler dh = new DatabaseHandler(context);
                         //addDbFromIntent(context,getIntent(),"Muscle");
                         setSetupComplete();
-                        Intent intent = new Intent(context, InfoScreenMain.class);
+                        Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
                     }
                 }
@@ -121,7 +121,7 @@ public class SplashGoal extends AppCompatActivity {
                         //Put routine and/or diet plan in table
                         //addDbFromIntent(context,getIntent(),"WeightLoss");
                         setSetupComplete();
-                        Intent intent = new Intent(context, InfoScreenMain.class);
+                        Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
                     }
                 }
@@ -134,7 +134,7 @@ public class SplashGoal extends AppCompatActivity {
                         //Put routine and/or diet plan in table
                         //addDbFromIntent(context,getIntent(),"Health");
                         setSetupComplete();
-                        Intent intent = new Intent(context, InfoScreenMain.class);
+                        Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
                     }
                 }
