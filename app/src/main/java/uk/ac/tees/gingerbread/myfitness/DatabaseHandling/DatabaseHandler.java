@@ -368,6 +368,276 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
+    public long addDietEntryToday()
+    {
+        //Calendar setup
+        final Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        //Get info
+        InfoEntry todaysInfo = getInfoEntry(c.getTimeInMillis());
+        //Form calorie and protein goal based on info
+        if (goal == "Muscle")
+        {
+            if (intent.getStringExtra("gender") == "Male")
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) + 200),
+                            0,
+                            120);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) + 200),
+                            0,
+                            120);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) + 200),
+                            0,
+                            120);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) + 200),
+                            0,
+                            120);
+                }
+
+            }
+            else
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) + 200),
+                            0,
+                            120);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) + 200),
+                            0,
+                            120);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) + 200),
+                            0,
+                            120);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) + 200),
+                            0,
+                            120);
+                }
+            }
+
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Bench Press"));
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Dumbbell Bench Press"));
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Pushups"));
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Dumbbell Flyes"));
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("3/4 Sit-Up"));
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Alternate Heel Touchers"));
+            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Deadlift"));
+            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Seated Cable Rows"));
+            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("T-Bar Row with Handle"));
+            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Shotgun Row"));
+            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Close-Grip Front Lat Pulldown"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Triceps Dips"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Decline EZ Bar Triceps Extension"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Reverse Grip Triceps Pushdown"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Barbell Curl"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Hammer Curls"));
+            dh.addRoutine("Friday",dh.getExerciseIDFromName("Dumbbell Bicep Curl"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Side Laterals to Front Raise"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("One-Arm Side Laterals"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Front Dumbbell Raise"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Barbell Full Squat"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Bodyweight Lunge"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Seated Calf Raise"));
+
+        }
+        else if (goal == "WeightLoss")
+        {
+            if (intent.getStringExtra("gender") == "Male")
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) - 500),
+                            0,
+                            0);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) - 500),
+                            0,
+                            0);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) - 500),
+                            0,
+                            0);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5) - 500),
+                            0,
+                            0);
+                }
+            }
+            else
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) - 500),
+                            0,
+                            0);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) - 500),
+                            0,
+                            0);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) - 500),
+                            0,
+                            0);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161) - 500),
+                            0,
+                            0);
+                }
+            }
+
+            dh.addRoutine("Monday",dh.getExerciseIDFromName("Bicycling"));
+            dh.addRoutine("Thursday",dh.getExerciseIDFromName("Treadmill"));
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Bicycling"));
+        }
+        else
+        {
+            if (intent.getStringExtra("gender") == "Male")
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5)),
+                            0,
+                            0);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5)),
+                            0,
+                            0);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5)),
+                            0,
+                            0);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) + 5)),
+                            0,
+                            0);
+                }
+            }
+            else
+            {
+                if (intent.getIntExtra("activityLevel",0) == 0)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.2 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161)),
+                            0,
+                            0);
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 1)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.37 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161)),
+                            0,
+                            0);
+
+                }
+                else if (intent.getIntExtra("activityLevel",0) == 2)
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.5 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161)),
+                            0,
+                            0);
+                }
+                else
+                {
+                    dh.addDietEntryToday(
+                            0,
+                            (int) (1.7 * Math.round(10 * intent.getFloatExtra("weight",0) + 6.25 * (intent.getFloatExtra("height",0) * 100) - 5 * intent.getIntExtra("age",0) - 161)),
+                            0,
+                            0);
+                }
+            }
+            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Bicycling"));
+        }
+
+    }
+
     public long addDietEntryToday(int calories, int caloriesGoal, float protein, float proteinGoal)
     {
         //Setting up date getting
