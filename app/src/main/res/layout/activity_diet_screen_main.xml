@@ -1,98 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="uk.ac.tees.gingerbread.myfitness.Activities.DietScreenMain">
-
-    <TextView
-        android:text="0 kcal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="67dp"
-        tools:layout_editor_absoluteX="18dp"
-        android:id="@+id/Calories" />
-
-    <TextView
-        android:text="Calorie Goal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="108dp"
-        tools:layout_editor_absoluteX="16dp"
-        android:id="@+id/CalorieGoalTitle"
-        android:textAppearance="@android:style/TextAppearance.Material.Large" />
-
-    <TextView
-        android:text="Calories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="25dp"
-        tools:layout_editor_absoluteX="16dp"
-        android:id="@+id/CalorieTitle"
-        android:textAppearance="@android:style/TextAppearance.Material.Large" />
-
-    <TextView
-        android:text="2800 kcal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="149dp"
-        tools:layout_editor_absoluteX="16dp"
-        android:id="@+id/CalorieGoal" />
-
-    <TextView
-        android:text="Protein"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="217dp"
-        tools:layout_editor_absoluteX="16dp"
-        android:id="@+id/ProteinTitle"
-        android:textAppearance="@android:style/TextAppearance.Material.Large" />
-
-    <TextView
-        android:text="0g"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="267dp"
-        tools:layout_editor_absoluteX="16dp"
-        android:id="@+id/Protein" />
-
-    <TextView
-        android:text="Protein Goal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="308dp"
-        tools:layout_editor_absoluteX="16dp"
-        android:id="@+id/ProteinGoalTitle"
-        android:textAppearance="@android:style/TextAppearance.Material.Large" />
-
-    <TextView
-        android:text="100g"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="358dp"
-        tools:layout_editor_absoluteX="19dp"
-        android:id="@+id/ProteinGoal" />
-
-    <EditText
-        android:layout_width="231dp"
-        android:layout_height="46dp"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        tools:layout_editor_absoluteY="254dp"
-        tools:layout_editor_absoluteX="137dp"
-        android:id="@+id/editText3"
-        android:hint="Insert your protein intake (g)" />
-
-    <EditText
-        android:layout_width="255dp"
-        android:layout_height="46dp"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        tools:layout_editor_absoluteY="51dp"
-        tools:layout_editor_absoluteX="113dp"
-        android:id="@+id/editText4"
-        android:hint="Insert your calorie intake (kcal)" />
 
     <Button
         android:text="Update"
@@ -100,6 +12,93 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteY="489dp"
         tools:layout_editor_absoluteX="149dp"
-        android:id="@+id/Update_cal_protein_btn" />
+        android:id="@+id/Update_cal_protein_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:text="Calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:id="@+id/textView14"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Protein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:id="@+id/textView16"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_below="@+id/textView15"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="0 kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:id="@+id/textView18"
+        android:layout_below="@+id/textView14"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15" />
+
+    <TextView
+        android:text="2800 kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView15"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15"
+        android:layout_marginTop="22dp"
+        android:id="@+id/textView20" />
+
+    <TextView
+        android:text="Protein Goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:id="@+id/textView17"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_below="@+id/textView16"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Calorie Goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView15"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:layout_marginTop="22dp"
+        android:layout_below="@+id/textView18"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="0g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView16"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="17dp"
+        android:id="@+id/textView21" />
+
+    <TextView
+        android:text="110g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView17"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="17dp"
+        android:id="@+id/textView22" />
+
+</RelativeLayout>
