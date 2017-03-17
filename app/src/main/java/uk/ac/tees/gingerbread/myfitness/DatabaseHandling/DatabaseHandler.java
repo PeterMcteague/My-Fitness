@@ -24,7 +24,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database Name
     private static final String DATABASE_NAME = "Fitness.db";
-    // Contacts table name
+    // Table names
     private static final String TABLE_NAME_EXERCISES = "Exercises";
     private static final String TABLE_NAME_ROUTINE = "Routine";
     private static final String TABLE_NAME_DIET = "Diet";
@@ -52,6 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COL_INFO_WEIGHT = "weight";
     private static final String COL_INFO_GENDER = "gender";
     private static final String COL_INFO_ACTIVITY_LEVEL = "activity_level";
+    private static final String COL_INFO_GOAL = "goal";
 
     /**Constructor for database handler object
      *
@@ -89,8 +90,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_INFO_HEIGHT + "REAL,"
                 + COL_INFO_AGE + "INTEGER,"
                 + COL_INFO_WEIGHT + "REAL,"
-                +COL_INFO_GENDER + "TEXT,"
-                +COL_INFO_ACTIVITY_LEVEL + "INTEGER" + "CHECK activity_level <=4 && > 0)";
+                + COL_INFO_GENDER + "TEXT,"
+                + COL_INFO_ACTIVITY_LEVEL + "INTEGER" + "CHECK activity_level <=4 && > 0, +"
+                + COL_INFO_GOAL + " STRING)";
 
         String CREATE_TABLE_ROUTINE = TABLE_NAME_ROUTINE
                 + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_DAY + "TEXT,"
@@ -444,6 +446,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
+    public DietEntry getDietEntryToday()
+    {
+        //Setting up date getting
+        final Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_DIET + " WHERE " + COL_DIET_DATE + " = " + c.getTimeInMillis();
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idCalories = cursor.getColumnIndex(COL_DIET_CAL);
+            int idCaloriesGoal = cursor.getColumnIndex(COL_DIET_CAL_GOAL);
+            int idProtein = cursor.getColumnIndex(COL_DIET_PROTEIN);
+            int idProteinGoal = cursor.getColumnIndex(COL_DIET_PROTEIN_GOAL);
+            DietEntry returnValue = new DietEntry(
+                    cursor.getLong(idDate),
+                    cursor.getInt(idCalories),
+                    cursor.getInt(idCaloriesGoal),
+                    cursor.getFloat(idProtein),
+                    cursor.getFloat(idProteinGoal)
+            );
+            db.close();
+            return returnValue;
+        }
+        return null;
+    }
+
     /**Returns an arraylist containing all records in the diet entry database in the form of
      * DietEntry objects.
      *
@@ -753,9 +790,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @param gender The users gender
      * @param activityLevel The users activity level
      * @param date The date on which this got pushed to the db
+     * @param goal The goal for the user
      * @return The id of the entry
      */
-    public long addInfo(String name,float height, int age, float weight, String gender , int activityLevel, long date)
+    public long addInfo(String name,float height, int age, float weight, String gender , int activityLevel, String goal, long date)
     {
         // Open database connection (for write)
         SQLiteDatabase db = this.getWritableDatabase();
@@ -766,7 +804,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_INFO_WEIGHT, weight);
         values.put(COL_INFO_GENDER, gender);
         values.put(COL_INFO_ACTIVITY_LEVEL, activityLevel);
+        values.put(COL_INFO_GOAL, goal);
         values.put(COL_DIET_DATE, date);
+
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_INFO, null, values);
@@ -820,6 +860,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int idGender = cursor.getColumnIndex(COL_INFO_GENDER);
             int idActivity = cursor.getColumnIndex(COL_INFO_ACTIVITY_LEVEL);
             int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idGoal = cursor.getColumnIndex(COL_INFO_GOAL);
             InfoEntry returnValue = new InfoEntry(
                     cursor.getInt(idAge),
                     cursor.getFloat(idHeight),
@@ -827,7 +868,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getString(idName),
                     cursor.getString(idGender),
                     cursor.getInt(idActivity),
-                    cursor.getLong(idDate)
+                    cursor.getLong(idDate),
+                    cursor.getString(idGoal)
             );
             db.close();
             return returnValue;

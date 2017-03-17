@@ -44,6 +44,7 @@ public class SplashGoal extends AppCompatActivity {
                 intent.getFloatExtra("weight",0),
                 intent.getStringExtra("gender"),
                 intent.getIntExtra("activityLevel",0),
+                goal,
                 c.getTimeInMillis());
         //Add diet and routine
         if (goal == "Muscle")
