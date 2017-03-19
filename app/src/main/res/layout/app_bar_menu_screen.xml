@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="content_menu_screen" />
+    <include layout="@layout/content_menu_screen" />
 
 
 </android.support.design.widget.CoordinatorLayout>
