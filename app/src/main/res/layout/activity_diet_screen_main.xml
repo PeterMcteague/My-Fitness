@@ -12,10 +12,11 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteY="489dp"
         tools:layout_editor_absoluteX="149dp"
-        android:id="@+id/Update_cal_protein_btn"
+        android:id="@+id/update_button"
+        android:layout_marginBottom="22dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp" />
+        android:layout_alignLeft="@+id/btn_date"
+        android:layout_alignStart="@+id/btn_date" />
 
     <TextView
         android:text="Calories"
@@ -44,20 +45,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:id="@+id/textView18"
+        android:id="@+id/calories_current"
         android:layout_below="@+id/textView14"
         android:layout_alignLeft="@+id/textView15"
         android:layout_alignStart="@+id/textView15" />
 
     <TextView
-        android:text="2800 kcal"
+        android:id="@+id/calories_goal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView15"
         android:layout_alignLeft="@+id/textView15"
         android:layout_alignStart="@+id/textView15"
+        android:layout_below="@+id/textView15"
         android:layout_marginTop="22dp"
-        android:id="@+id/textView20" />
+        android:text="2800 kcal" />
 
     <TextView
         android:text="Protein Goal"
@@ -77,28 +78,56 @@
         android:id="@+id/textView15"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         android:layout_marginTop="22dp"
-        android:layout_below="@+id/textView18"
+        android:layout_below="@+id/calories_current"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="0g"
+        android:id="@+id/protein_current"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView16"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView16"
         android:layout_marginTop="17dp"
-        android:id="@+id/textView21" />
+        android:text="0g" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT DATE"
+        android:id="@+id/btn_date"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="110g"
+        android:id="@+id/protein_goal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView17"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView17"
         android:layout_marginTop="17dp"
-        android:id="@+id/textView22" />
+        android:text="110g" />
+
+    <EditText
+        android:id="@+id/value_entry_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/update_choice_spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/update_button"
+        android:layout_toStartOf="@+id/update_button"
+        android:ems="10"
+        android:hint="Enter calories, protein or food."
+        android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/update_choice_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/update_button" />
 
 </RelativeLayout>

@@ -750,6 +750,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
+    public void updateDietEntry(DietEntry dietIn , Long day)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
+        String selectQuery = "UPDATE " + TABLE_NAME_DIET
+                + " SET " + COL_DIET_CAL + " = " + dietIn.getCalories()
+                + ", SET " + COL_DIET_CAL_GOAL + " = " + dietIn.getCaloriesGoal()
+                + ", SET " + COL_DIET_PROTEIN + " = " + dietIn.getProtein()
+                + ", SET " + COL_DIET_PROTEIN_GOAL + " = " + dietIn.getProteinGoal()
+                + " WHERE " + COL_DIET_DATE + " = " + day;
+        db.execSQL(selectQuery);
+        db.close();
+    }
+
     //--------------Accessor methods for exercises table------------------------------------------//
 
     /**Gets an excercise by it's name.
