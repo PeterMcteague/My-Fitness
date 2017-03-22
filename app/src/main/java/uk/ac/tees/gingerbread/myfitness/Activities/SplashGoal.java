@@ -6,12 +6,11 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CalendarView;
 import android.widget.ImageButton;
 
 import java.util.Calendar;
 
-import uk.ac.tees.gingerbread.myfitness.DatabaseHandling.DatabaseHandler;
+import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 import uk.ac.tees.gingerbread.myfitness.R;
 
 //Caloric intake taken from http://www.calculator.net/calorie-calculator.html

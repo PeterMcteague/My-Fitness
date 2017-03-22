@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.view.View;
 
 import uk.ac.tees.gingerbread.myfitness.R;
+import uk.ac.tees.gingerbread.myfitness.Services.NutritionixQuery;
 
 public class SplashIntroduction extends AppCompatActivity {
 
