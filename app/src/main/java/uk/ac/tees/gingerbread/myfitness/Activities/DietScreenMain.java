@@ -1,23 +1,37 @@
 package uk.ac.tees.gingerbread.myfitness.Activities;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import uk.ac.tees.gingerbread.myfitness.Adapters.NutritionixAdapter;
+import uk.ac.tees.gingerbread.myfitness.Clients.NutritionixRestClient;
 import uk.ac.tees.gingerbread.myfitness.DatabaseHandling.DatabaseHandler;
+import uk.ac.tees.gingerbread.myfitness.Models.NutritionixModel;
 import uk.ac.tees.gingerbread.myfitness.R;
 import uk.ac.tees.gingerbread.myfitness.Classes.DietEntry;
 
@@ -27,6 +41,34 @@ public class DietScreenMain extends AppCompatActivity {
     private long todayTimeInMillis;
     private final DatabaseHandler dh = new DatabaseHandler(this);
     private DietEntry diet;
+    private Spinner foodList;
+    private final Activity activity = DietScreenMain.this;
+
+    private void getEntries(final Activity activity, String searchQuery) {
+        List<Header> headers = new ArrayList<>();
+        headers.add(new BasicHeader("Accept", "application/json"));
+
+        NutritionixRestClient.get(activity, searchQuery + "?fields=item_name%2Cnf_calories%2Cnf_protein&appId=f7a6647d&appKey=973127408431e443f91406c6aa837715", headers.toArray(new Header[headers.size()]),
+                null, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        ArrayList<NutritionixModel> nutritionixArray = new ArrayList<NutritionixModel>();
+                        NutritionixAdapter nutritionixAdapter = new NutritionixAdapter(activity,nutritionixArray);
+
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                nutritionixAdapter.add(new NutritionixModel(response.getJSONObject(i)));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        //Use nutritionix adapter here by updating a listview and setting adapter.
+                        foodList = (Spinner) findViewById(R.id.spinner_food_choice);
+                        nutritionixAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        foodList.setAdapter(nutritionixAdapter);
+                        foodList.setVisibility(View.VISIBLE);
+                    }});}
 
     /**Updates text fields on the screen with info from a diet object
      *
@@ -125,9 +167,43 @@ public class DietScreenMain extends AppCompatActivity {
         dataAdapterActivity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         updateChoice.setAdapter(dataAdapterActivity);
 
+        updateChoice.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //Find value of spinner
+                String selection = updateChoice.getSelectedItem().toString();
+                if (selection == "Food")
+                {
+                    //Set the food chooser to visible
+                    foodList = (Spinner) findViewById(R.id.spinner_food_choice);
+                    foodList.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         //Bind update button
         Button updateButton = (Button) findViewById(R.id.update_button);
         final EditText textField = (EditText) findViewById(R.id.value_entry_field);
+
+        textField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Don't care about this
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //If nutritionix selected, send a query with the text
+                getEntries(activity,s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //Don't care about this
+            }
+        });
 
         updateButton.setOnClickListener(
                 new View.OnClickListener()
@@ -154,8 +230,8 @@ public class DietScreenMain extends AppCompatActivity {
                         else if (selection == "Food")
                         {
                             //Ask nurtitionix for calories and protein KEY 973127408431e443f91406c6aa837715 DOC https://developer.nutritionix.com/v1_1/quick-start/simple-food-search
-                            diet.setProtein(diet.getProtein() + PROTEINFROMNUT);
-                            diet.setCalories(diet.getCalories()+ CALORIESFROMNUT);
+                            diet.setProtein(diet.getProtein() + (((NutritionixModel) foodList.getSelectedItem()).getProtein()));
+                            diet.setCalories(diet.getCalories()+ (((NutritionixModel) foodList.getSelectedItem()).getCalories()));
                             dh.updateDietEntry(diet , timeInMillis);
                             updateTextFields(diet);
                         }

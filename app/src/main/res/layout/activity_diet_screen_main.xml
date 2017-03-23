@@ -130,4 +130,13 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/update_button" />
 
+    <Spinner
+        android:id="@+id/spinner_food_choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/update_choice_spinner"
+        android:visibility="invisible" />
+
 </RelativeLayout>
