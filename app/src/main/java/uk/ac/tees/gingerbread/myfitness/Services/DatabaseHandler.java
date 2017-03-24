@@ -522,7 +522,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }
             }
         }
-        else
+        else if (todaysInfo.getGoal() == "Fitness")
         {
             if (todaysInfo.getGender() == "Male")
             {
@@ -596,6 +596,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             0);
                 }
             }
+        }
+        else
+        {
+            return addDietEntryToday(
+                    0,
+                    0,
+                    0,
+                    0);
         }
 
     }
