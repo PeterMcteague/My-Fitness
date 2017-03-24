@@ -12,4 +12,15 @@
         android:layout_height="wrap_content"
         android:text="Diet info" />
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDiet"
+        android:layout_alignLeft="@+id/textViewDiet"
+        android:layout_alignStart="@+id/textViewDiet"
+        android:layout_marginTop="264dp"
+        android:id="@+id/textView7"
+        tools:text="blah blah blah" />
+
 </RelativeLayout>

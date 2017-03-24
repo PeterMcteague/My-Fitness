@@ -1,4 +1,4 @@
-package uk.ac.tees.gingerbread.myfitness.DatabaseHandling;
+package uk.ac.tees.gingerbread.myfitness.Services;
 
 import android.content.ContentValues;
 import android.database.Cursor;

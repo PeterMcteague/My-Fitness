@@ -1,11 +1,7 @@
 package uk.ac.tees.gingerbread.myfitness.Activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +13,7 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 
 import uk.ac.tees.gingerbread.myfitness.Fragments.DietFragment;
+import uk.ac.tees.gingerbread.myfitness.Fragments.DietScreenMain;
 import uk.ac.tees.gingerbread.myfitness.Fragments.InfoFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.ProgressFragment;
 import uk.ac.tees.gingerbread.myfitness.R;
@@ -52,7 +49,7 @@ public class MenuScreen extends AppCompatActivity
                 fragment = new InfoFragment();
                 break;
             case R.id.nav_diet:
-                fragment = new DietFragment();
+                fragment = new DietScreenMain();
                 break;
             case R.id.nav_progress:
                 fragment = new ProgressFragment();

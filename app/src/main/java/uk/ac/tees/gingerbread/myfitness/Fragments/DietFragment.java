@@ -20,7 +20,8 @@ public class DietFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_diet, container, false);
+        View myFrag = inflater.inflate(R.layout.fragment_diet, container,false);
+        return myFrag;
     }
 
     @Override
