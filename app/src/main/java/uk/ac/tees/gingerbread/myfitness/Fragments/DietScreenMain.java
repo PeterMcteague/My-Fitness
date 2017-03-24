@@ -51,8 +51,8 @@ public class DietScreenMain extends Fragment {
     private long todayTimeInMillis;
     private DietEntry diet;
     private ListView foodList;
-    private final Activity activity = getActivity();
-    private final DatabaseHandler dh = new DatabaseHandler(activity);
+    private Activity activity;
+    private DatabaseHandler dh;
 
     @Nullable
     @Override
@@ -159,6 +159,9 @@ public class DietScreenMain extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setContentView(R.layout.activity_diet_screen_main);
+
+        activity = getActivity();
+        dh = new DatabaseHandler(activity);
 
         //DATE BUTTON
         Button dateButton = (Button)getActivity().findViewById(R.id.diet_date_button);

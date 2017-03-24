@@ -72,36 +72,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Generating a create SQL Statement
         String CREATE_TABLE_DIET = "CREATE TABLE "
                 + TABLE_NAME_DIET
-                + "("  + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_DIET_DATE + "DATE,"
-                + COL_DIET_CAL + "INTEGER,"
-                + COL_DIET_CAL_GOAL + "INTEGER,"
-                + COL_DIET_PROTEIN + "REAL,"
-                + COL_DIET_PROTEIN_GOAL + "REAL" + ")";
+                + "("  + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_DIET_DATE + " DATE, "
+                + COL_DIET_CAL + " INTEGER, "
+                + COL_DIET_CAL_GOAL + " INTEGER, "
+                + COL_DIET_PROTEIN + " REAL, "
+                + COL_DIET_PROTEIN_GOAL + " REAL" + ")";
 
         String CREATE_TABLE_EXERCISES = "CREATE TABLE " +
                 TABLE_NAME_EXERCISES
-                + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COL_NAME + "TEXT NOT NULL UNIQUE,"
-                + COL_DESCRIPTION + "TEXT" + ")";
+                + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_NAME + " TEXT NOT NULL UNIQUE, "
+                + COL_DESCRIPTION + " TEXT" + ")";
 
-        String CREATE_TABLE_INFO = TABLE_NAME_INFO +
-                "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_INFO_NAME + "TEXT,"
-                + COL_DIET_DATE + " DATE NOT NULL UNIQUE,"
-                + COL_INFO_HEIGHT + "REAL,"
-                + COL_INFO_AGE + "INTEGER,"
-                + COL_INFO_WEIGHT + "REAL,"
-                + COL_INFO_GENDER + "TEXT,"
-                + COL_INFO_ACTIVITY_LEVEL + "INTEGER" + "CHECK activity_level <=4 && > 0, +"
+        String CREATE_TABLE_INFO = "CREATE TABLE " + TABLE_NAME_INFO +
+                "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_INFO_NAME +  " TEXT, "
+                + COL_DIET_DATE + " DATE NOT NULL UNIQUE, "
+                + COL_INFO_HEIGHT + " REAL, "
+                + COL_INFO_AGE + " INTEGER, "
+                + COL_INFO_WEIGHT + " REAL, "
+                + COL_INFO_GENDER + " TEXT, "
+                + COL_INFO_ACTIVITY_LEVEL + " INTEGER CHECK (" + COL_INFO_ACTIVITY_LEVEL + "<=4 AND " + COL_INFO_ACTIVITY_LEVEL + "> 0),"
                 + COL_INFO_GOAL + " STRING)";
 
-        String CREATE_TABLE_ROUTINE = TABLE_NAME_ROUTINE
-                + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," + COL_DAY + "TEXT,"
-                + COL_EXERCISE_ID + "INTEGER" +
-                "FOREIGN KEY(" + COL_EXERCISE_ID + ") REFERENCES " + TABLE_NAME_EXERCISES + "(" + COL_EXERCISE_ID + "))";
+        String CREATE_TABLE_ROUTINE = "CREATE TABLE " + TABLE_NAME_ROUTINE
+                + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_DAY + " TEXT, "
+                + COL_EXERCISE_ID + " INTEGER," +
+                " FOREIGN KEY(" + COL_EXERCISE_ID + ") REFERENCES " + TABLE_NAME_EXERCISES + "(" + COL_EXERCISE_ID + "))";
 
-        String CREATE_TABLE_PICTURE = TABLE_NAME_PICTURES
-                + "(" + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COL_DIET_DATE + " DATE,"
+        String CREATE_TABLE_PICTURE = "CREATE TABLE " + TABLE_NAME_PICTURES
+                + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_DIET_DATE + " DATE, "
                 + COL_PICTURES_IMAGE + " BLOB" + ")";
 
         //Execute/run the create SQL statement
