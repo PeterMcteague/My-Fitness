@@ -118,7 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "    From the starting position, breathe in and begin coming down slowly until the bar touches your middle chest.\n" +
                 "    After a brief pause, push the bar back to the starting position as you breathe out. Focus on pushing the bar using your chest muscles. Lock your arms and squeeze your chest in the contracted position at the top of the motion, hold for a second and then start coming down slowly again. Tip: Ideally, lowering the weight should take about twice as long as raising it.\n" +
                 "    Repeat the movement for the prescribed amount of repetitions.\n" +
-                "    When you are done, place the bar back in the rack.'),");
+                "    When you are done, place the bar back in the rack.')");
 
         db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Dumbbell Bench Press' , 'Lie down on a flat bench with a dumbbell in each hand resting on top of your thighs. The palms of your hands will be facing each other.\n" +
                 "    Then, using your thighs to help raise the dumbbells up, lift the dumbbells one at a time so that you can hold them in front of you at shoulder width.\n" +
@@ -132,7 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "    After a brief pause at the top contracted position, you can begin to lower yourself downward again for as many repetitions as needed.')");
 
         db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Dumbbell Flyes','Lie down on a flat bench with a dumbbell on each hand resting on top of your thighs. The palms of your hand will be facing each other.\n" +
-                "    Then using your thighs to help raise the dumbbells, lift the dumbbells one at a time so you can hold them in front of you at shoulder width with the palms of your hands facing each other. Raise the dumbbells up like you're pressing them, but stop and hold just before you lock out. This will be your starting position.\n" +
+                "    Then using your thighs to help raise the dumbbells, lift the dumbbells one at a time so you can hold them in front of you at shoulder width with the palms of your hands facing each other. Raise the dumbbells up like you''re pressing them, but stop and hold just before you lock out. This will be your starting position.\n" +
                 "    With a slight bend on your elbows in order to prevent stress at the biceps tendon, lower your arms out at both sides in a wide arc until you feel a stretch on your chest. Breathe in as you perform this portion of the movement. Tip: Keep in mind that throughout the movement, the arms should remain stationary; the movement should only occur at the shoulder joint.\n" +
                 "    Return your arms back to the starting position as you squeeze your chest muscles and breathe out. Tip: Make sure to use the same arc of motion used to lower the weights.\n" +
                 "    Hold for a second at the contracted position and repeat the movement for the prescribed amount of repetitions.')");
@@ -140,7 +140,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Single-Arm Linear Jammer','Position a bar into a landmine or securely anchor it in a corner. Load the bar to an appropriate weight.\n" +
                 "    Raise the bar from the floor, taking it to your shoulders with one or both hands. Adopt a wide stance. This will be your starting position.\n" +
                 "    Perform the movement by extending the elbow, pressing the weight up. Move explosively, extending the hips and knees fully to produce maximal force.\n" +
-                "    Return to the starting position.'),");
+                "    Return to the starting position.')");
 
         db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Side Laterals to Front Raise','In a standing position, hold a pair of dumbbells at your side. This will be your starting position.\n" +
                 "    Keeping your elbows slightly bent, raise the weights directly in front of you to shoulder height, avoiding any swinging or cheating.\n" +
@@ -184,7 +184,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "    After the brief pause, inhale and slowly begin the lower the dumbbells back down to the starting position.\n" +
                 "    Repeat for the recommended amount of repetitions.')");
 
-        db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Concentration Curls',Sit down on a flat bench with one dumbbell in front of you between your legs. Your legs should be spread with your knees bent and feet on the floor.\n" +
+        db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Concentration Curls','Sit down on a flat bench with one dumbbell in front of you between your legs. Your legs should be spread with your knees bent and feet on the floor.\n" +
                 "    Use your right arm to pick the dumbbell up. Place the back of your right upper arm on the top of your inner right thigh. Rotate the palm of your hand until it is facing forward away from your thigh. Tip: Your arm should be extended and the dumbbell should be above the floor. This will be your starting position.\n" +
                 "    While holding the upper arm stationary, curl the weights forward while contracting the biceps as you breathe out. Only the forearms should move. Continue the movement until your biceps are fully contracted and the dumbbells are at shoulder level. Tip: At the top of the movement make sure that the little finger of your arm is higher than your thumb. This guarantees a good contraction. Hold the contracted position for a second as you squeeze the biceps.\n" +
                 "    Slowly begin to bring the dumbbells back to starting position as your breathe in. Caution: Avoid swinging motions at any time.\n" +
@@ -196,7 +196,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "    Slowly begin to bring the bar back to starting position as your breathe in.\n" +
                 "    Repeat for the recommended amount of repetitions.')");
 
-        db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Dumbbell Bicep Curl','Stand up straight with a dumbbell in each hand at arm's length. Keep your elbows close to your torso and rotate the palms of your hands until they are facing forward. This will be your starting position.\n" +
+        db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Dumbbell Bicep Curl','Stand up straight with a dumbbell in each hand at arm''s length. Keep your elbows close to your torso and rotate the palms of your hands until they are facing forward. This will be your starting position.\n" +
                 "    Now, keeping the upper arms stationary, exhale and curl the weights while contracting your biceps. Continue to raise the weights until your biceps are fully contracted and the dumbbells are at shoulder level. Hold the contracted position for a brief pause as you squeeze your biceps.\n" +
                 "    Then, inhale and slowly begin to lower the dumbbells back to the starting position.\n" +
                 "    Repeat for the recommended amount of repetitions.')");
@@ -245,7 +245,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "    Step forward with your rear foot, repeating the lunge on the opposite leg.')");
 
         db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Bodyweight Lunge','Stand erect with your feet hip-width apart, chest out, and shoulders back, maintaining the natural curvature of your spine. Your knees should be unlocked and your hand on your hips. This is your starting position.\n" +
-                "    Take a moderate-length step forward with one foot, descending to a point in which your rear knee approaches the floor without touching, maintaining your body's upright posture. Your front knee should bend about 90 degrees, but for knee health it should not be forward of the vertical plane that extends straight up from your toes. If so, take a slightly longer step.\n" +
+                "    Take a moderate-length step forward with one foot, descending to a point in which your rear knee approaches the floor without touching, maintaining your body''s upright posture. Your front knee should bend about 90 degrees, but for knee health it should not be forward of the vertical plane that extends straight up from your toes. If so, take a slightly longer step.\n" +
                 "    From the bottom position, push back up from your forward foot, bringing it back beside the other.\n" +
                 "    Repeat on the opposite side for the required number of repetitions. ')");
 
@@ -265,7 +265,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "    Raise the heels by extending the ankles as high as possible as you contract the calves and breathe out. Hold the top contraction for a second.\n" +
                 "    Repeat for the recommended amount of repetitions.')");
 
-        db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Triceps Dips','To get into the starting position, hold your body at arm's length with your arms nearly locked above the bars.\n" +
+        db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Triceps Dips','To get into the starting position, hold your body at arm''s length with your arms nearly locked above the bars.\n" +
                 "    Now, inhale and slowly lower yourself downward. Your torso should remain upright and your elbows should stay close to your body. This helps to better focus on tricep involvement. Lower yourself until there is a 90 degree angle formed between the upper arm and forearm.\n" +
                 "    Then, exhale and push your torso back up using your triceps to bring your body back to the starting position.\n" +
                 "    Repeat the movement for the prescribed amount of repetitions.')");
@@ -416,233 +416,240 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Get info
         InfoEntry todaysInfo = getInfoEntry(c.getTimeInMillis());
         //Form calorie and protein goal based on info
-        if (todaysInfo.getGoal() == "Muscle")
+        if (todaysInfo != null)
         {
-            if (todaysInfo.getGender() == "Male")
+            if (todaysInfo.getGoal() == "Muscle")
             {
-                if (todaysInfo.getActivityLevel() == 0)
+                if (todaysInfo.getGender() == "Male")
                 {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
-                            0,
-                            120);
-                }
-                else if (todaysInfo.getActivityLevel() == 1)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
-                            0,
-                            120);
+                    if (todaysInfo.getActivityLevel() == 0)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
+                                0,
+                                120);
+                    }
+                    else if (todaysInfo.getActivityLevel() == 1)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
+                                0,
+                                120);
 
-                }
-                else if (todaysInfo.getActivityLevel() == 2)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
-                            0,
-                            120);
+                    }
+                    else if (todaysInfo.getActivityLevel() == 2)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
+                                0,
+                                120);
+                    }
+                    else
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
+                                0,
+                                120);
+                    }
+
                 }
                 else
                 {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
-                            0,
-                            120);
-                }
+                    if (todaysInfo.getActivityLevel() == 0)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
+                                0,
+                                120);
+                    }
+                    else if (todaysInfo.getActivityLevel() == 1)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
+                                0,
+                                120);
 
+                    }
+                    else if (todaysInfo.getActivityLevel() == 2)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
+                                0,
+                                120);
+                    }
+                    else
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
+                                0,
+                                120);
+                    }
+                }
+            }
+            else if (todaysInfo.getGoal() == "WeightLoss")
+            {
+                if (todaysInfo.getGender() == "Male")
+                {
+                    if (todaysInfo.getActivityLevel() == 0)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
+                                0,
+                                0);
+                    }
+                    else if (todaysInfo.getActivityLevel() == 1)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
+                                0,
+                                0);
+
+                    }
+                    else if (todaysInfo.getActivityLevel() == 2)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
+                                0,
+                                0);
+                    }
+                    else
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
+                                0,
+                                0);
+                    }
+                }
+                else {
+                    if (todaysInfo.getActivityLevel() == 0) {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
+                                0,
+                                0);
+                    } else if (todaysInfo.getActivityLevel() == 1) {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
+                                0,
+                                0);
+
+                    } else if (todaysInfo.getActivityLevel() == 2) {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
+                                0,
+                                0);
+                    } else {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
+                                0,
+                                0);
+                    }
+                }
+            }
+            else if (todaysInfo.getGoal() == "Fitness")
+            {
+                if (todaysInfo.getGender() == "Male")
+                {
+                    if (todaysInfo.getActivityLevel() == 0)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
+                                0,
+                                0);
+                    }
+                    else if (todaysInfo.getActivityLevel() == 1)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
+                                0,
+                                0);
+
+                    }
+                    else if (todaysInfo.getActivityLevel() == 2)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
+                                0,
+                                0);
+                    }
+                    else
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
+                                0,
+                                0);
+                    }
+                }
+                else
+                {
+                    if (todaysInfo.getActivityLevel() == 0)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
+                                0,
+                                0);
+                    }
+                    else if (todaysInfo.getActivityLevel() == 1)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
+                                0,
+                                0);
+
+                    }
+                    else if (todaysInfo.getActivityLevel() == 2)
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
+                                0,
+                                0);
+                    }
+                    else
+                    {
+                        return addDietEntryToday(
+                                0,
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
+                                0,
+                                0);
+                    }
+                }
             }
             else
             {
-                if (todaysInfo.getActivityLevel() == 0)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
-                            0,
-                            120);
-                }
-                else if (todaysInfo.getActivityLevel() == 1)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
-                            0,
-                            120);
-
-                }
-                else if (todaysInfo.getActivityLevel() == 2)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
-                            0,
-                            120);
-                }
-                else
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
-                            0,
-                            120);
-                }
+                return addDietEntryToday(
+                        0,
+                        0,
+                        0,
+                        0);
             }
         }
-        else if (todaysInfo.getGoal() == "WeightLoss")
-        {
-            if (todaysInfo.getGender() == "Male")
-            {
-                if (todaysInfo.getActivityLevel() == 0)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
-                            0,
-                            0);
-                }
-                else if (todaysInfo.getActivityLevel() == 1)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
-                            0,
-                            0);
-
-                }
-                else if (todaysInfo.getActivityLevel() == 2)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
-                            0,
-                            0);
-                }
-                else
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
-                            0,
-                            0);
-                }
-            }
-            else {
-                if (todaysInfo.getActivityLevel() == 0) {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
-                            0,
-                            0);
-                } else if (todaysInfo.getActivityLevel() == 1) {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
-                            0,
-                            0);
-
-                } else if (todaysInfo.getActivityLevel() == 2) {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
-                            0,
-                            0);
-                } else {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
-                            0,
-                            0);
-                }
-            }
-        }
-        else if (todaysInfo.getGoal() == "Fitness")
-        {
-            if (todaysInfo.getGender() == "Male")
-            {
-                if (todaysInfo.getActivityLevel() == 0)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
-                            0,
-                            0);
-                }
-                else if (todaysInfo.getActivityLevel() == 1)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
-                            0,
-                            0);
-
-                }
-                else if (todaysInfo.getActivityLevel() == 2)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
-                            0,
-                            0);
-                }
-                else
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
-                            0,
-                            0);
-                }
-            }
-            else
-            {
-                if (todaysInfo.getActivityLevel() == 0)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
-                            0,
-                            0);
-                }
-                else if (todaysInfo.getActivityLevel() == 1)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
-                            0,
-                            0);
-
-                }
-                else if (todaysInfo.getActivityLevel() == 2)
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
-                            0,
-                            0);
-                }
-                else
-                {
-                    return addDietEntryToday(
-                            0,
-                            (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
-                            0,
-                            0);
-                }
-            }
-        }
-        else
-        {
-            return addDietEntryToday(
-                    0,
-                    0,
-                    0,
-                    0);
-        }
-
+        return addDietEntryToday(
+                0,
+                0,
+                0,
+                0);
     }
 
     public long addDietEntryToday(int calories, int caloriesGoal, float protein, float proteinGoal)
