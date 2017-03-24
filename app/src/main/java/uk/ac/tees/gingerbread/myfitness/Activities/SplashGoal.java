@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 
 import java.util.Calendar;
 
-import uk.ac.tees.gingerbread.myfitness.DatabaseHandling.DatabaseHandler;
+import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 import uk.ac.tees.gingerbread.myfitness.R;
 
 //Caloric intake taken from http://www.calculator.net/calorie-calculator.html
@@ -106,7 +106,7 @@ public class SplashGoal extends AppCompatActivity {
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
                         DatabaseHandler dh = new DatabaseHandler(context);
-                        //addDbFromIntent(context,getIntent(),"Muscle");
+                        addDbFromIntent(context,getIntent(),"Muscle");
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
@@ -119,7 +119,7 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        //addDbFromIntent(context,getIntent(),"WeightLoss");
+                        addDbFromIntent(context,getIntent(),"WeightLoss");
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
@@ -132,7 +132,7 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        //addDbFromIntent(context,getIntent(),"Health");
+                        addDbFromIntent(context,getIntent(),"Health");
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);

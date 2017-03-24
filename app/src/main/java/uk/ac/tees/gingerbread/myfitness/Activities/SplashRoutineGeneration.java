@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import uk.ac.tees.gingerbread.myfitness.R;
+import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 
 public class SplashRoutineGeneration extends AppCompatActivity {
 
@@ -28,6 +29,8 @@ public class SplashRoutineGeneration extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(context, SplashPersonal.class);
+                        //Create the database..
+                        DatabaseHandler dh = new DatabaseHandler(context);
                         startActivity(intent);
                     }
                 }
