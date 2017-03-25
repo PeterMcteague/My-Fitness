@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -76,6 +78,8 @@ public class DietScreenMain extends Fragment {
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        Log.d("RESPONSE",response + "");
+
                         ArrayList<NutritionixModel> nutritionixArray = new ArrayList<NutritionixModel>();
                         NutritionixAdapter nutritionixAdapter = new NutritionixAdapter(activity,nutritionixArray);
 
@@ -112,7 +116,25 @@ public class DietScreenMain extends Fragment {
                                         .setNegativeButton(android.R.string.no, null).show();
                             }
                         });
-                    }});}
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        ArrayList<NutritionixModel> nutritionixArray = new ArrayList<NutritionixModel>();
+                        NutritionixAdapter nutritionixAdapter = new NutritionixAdapter(activity,nutritionixArray);
+
+                        foodList = (ListView) getActivity().findViewById(R.id.diet_food_list);
+                        foodList.clearChoices();
+
+                        Log.d("SUCCESS", response + "");
+                        try {
+                            JSONArray array = response.getJSONArray("hits");
+                            onSuccess(statusCode, headers, array);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+        });}
 
     /**Updates text fields on the screen with info from a diet object
      *
@@ -156,7 +178,7 @@ public class DietScreenMain extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity().getApplicationContext(), new DatePickerDialog.OnDateSetListener()
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener()
                         {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
