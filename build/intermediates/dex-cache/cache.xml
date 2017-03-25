@@ -16,26 +16,8 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="a85b280c5abbfb525d4a7b03b439af33da2a4342">
+        sha1="e0987fedaa7a7c323f97e2ceb6706b851769c10a">
         <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_40b73285880b021849c4a14f9813e756f2d3e700\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\07mct\.gradle\caches\modules-2\files-2.1\cz.msebera.android\httpclient\4.3.6\526a9f794eab830eae4f23a62c572878b3f491ab\httpclient-4.3.6.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="526a9f794eab830eae4f23a62c572878b3f491ab">
-        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\httpclient-4.3.6_28e302f56923ccc04b831b2de359fdc4dae91329\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\07mct\.gradle\caches\modules-2\files-2.1\com.loopj.android\android-async-http\1.4.9\386a4339ffe52d5d63e80f9bed8d2b1d1a418249\android-async-http-1.4.9.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="386a4339ffe52d5d63e80f9bed8d2b1d1a418249">
-        <dex dex="C:\Users\07mct\OneDrive\Documents\GitHub\My-Fitness\app\build\intermediates\transforms\dex\debug\folders\1000\10\android-async-http-1.4.9_33fd67718e5aa1de67e0984b6f364057b82d1b1f\classes.dex" />
     </item>
 
 </items>
