@@ -121,38 +121,16 @@ public class DietScreenMain extends Fragment {
     protected void updateTextFields(DietEntry diet)
     {
         EditText currentCaloriesView = (EditText) getActivity().findViewById(R.id.diet_calories_entry);
-        TextView goalCaloriesView = (TextView) getActivity().findViewById(R.id.diet_calories_goal_text);
-        TextView caloriesTextView = (TextView) getActivity().findViewById(R.id.diet_calories_text);
+        EditText goalCaloriesView = (EditText) getActivity().findViewById(R.id.diet_calories_goal_entry);
 
         EditText currentProteinView = (EditText) getActivity().findViewById(R.id.diet_protein_entry);
-        TextView goalProteinView = (TextView) getActivity().findViewById(R.id.diet_protein_goal_text);
-        TextView proteinTextView = (TextView) getActivity().findViewById(R.id.diet_protein_text);
+        EditText goalProteinView = (EditText) getActivity().findViewById(R.id.diet_protein_goal_entry);
 
+        currentCaloriesView.setText(Integer.toString(diet.getCalories()));
+        goalCaloriesView.setText(Integer.toString(diet.getCaloriesGoal()));
 
-        if (diet.getCaloriesGoal() != 0)
-        {
-            currentCaloriesView.setText(Integer.toString(diet.getCalories()));
-            goalCaloriesView.setText(Integer.toString(diet.getCaloriesGoal()));
-        }
-        else
-        {
-            currentCaloriesView.setVisibility(View.GONE);
-            goalCaloriesView.setVisibility(View.GONE);
-            caloriesTextView.setVisibility(View.GONE);
-        }
-
-        //Same for protein
-        if (diet.getProteinGoal() != 0)
-        {
-            currentProteinView.setText(Float.toString(diet.getProtein()));
-            goalProteinView.setText(Float.toString(diet.getProteinGoal()));
-        }
-        else
-        {
-            currentProteinView.setVisibility(View.GONE);
-            goalProteinView.setVisibility(View.GONE);
-            proteinTextView.setVisibility(View.GONE);
-        }
+        currentProteinView.setText(Float.toString(diet.getProtein()));
+        goalProteinView.setText(Float.toString(diet.getProteinGoal()));
     }
 
     @Override
@@ -206,7 +184,9 @@ public class DietScreenMain extends Fragment {
 
         //Bind EditText's
         EditText currentCaloriesView = (EditText) getActivity().findViewById(R.id.diet_calories_entry);
+        EditText goalCaloriesView = (EditText) getActivity().findViewById(R.id.diet_calories_goal_entry);
         EditText currentProteinView = (EditText) getActivity().findViewById(R.id.diet_protein_entry);
+        EditText goalProteinView = (EditText) getActivity().findViewById(R.id.diet_protein_goal_entry);
         EditText foodEntryView = (EditText) getActivity().findViewById(R.id.diet_food_entry);
 
         currentCaloriesView.addTextChangedListener(new TextWatcher() {
@@ -224,6 +204,21 @@ public class DietScreenMain extends Fragment {
             }
         });
 
+        goalCaloriesView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                diet.setCaloriesGoal(Integer.parseInt(s.toString()));
+                dh.updateDietEntry(diet,timeInMillis);
+                Toast.makeText(getActivity().getApplicationContext(),"Calories goal updated.",Toast.LENGTH_SHORT);
+            }
+        });
+
         currentProteinView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -236,6 +231,21 @@ public class DietScreenMain extends Fragment {
                 diet.setProtein(Integer.parseInt(s.toString()));
                 dh.updateDietEntry(diet,timeInMillis);
                 Toast.makeText(getActivity().getApplicationContext(),"Protein updated.",Toast.LENGTH_SHORT);
+            }
+        });
+
+        goalProteinView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                diet.setProteinGoal(Integer.parseInt(s.toString()));
+                dh.updateDietEntry(diet,timeInMillis);
+                Toast.makeText(getActivity().getApplicationContext(),"Protein goal updated.",Toast.LENGTH_SHORT);
             }
         });
 
