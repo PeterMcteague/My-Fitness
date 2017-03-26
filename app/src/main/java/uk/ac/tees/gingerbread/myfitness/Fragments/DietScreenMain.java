@@ -79,6 +79,11 @@ public class DietScreenMain extends Fragment {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                         Log.d("RESPONSE",response + "");
+                        try {
+                            Log.d("LOGFIELDS",((JSONObject) response.get(1)).get("fields") + "");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                         ArrayList<NutritionixModel> nutritionixArray = new ArrayList<NutritionixModel>();
                         NutritionixAdapter nutritionixAdapter = new NutritionixAdapter(activity,nutritionixArray);
@@ -220,9 +225,13 @@ public class DietScreenMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                diet.setCalories(Integer.parseInt(s.toString()));
-                dh.updateDietEntry(diet,timeInMillis);
-                Toast.makeText(getActivity().getApplicationContext(),"Calories updated.",Toast.LENGTH_SHORT);
+                if (diet.getCalories() != (int) Double.parseDouble(s.toString()))
+                {
+                    diet.setCalories((int) Double.parseDouble(s.toString()));
+                    dh.updateDietEntry(diet,timeInMillis);
+                    Toast.makeText(getActivity().getApplicationContext(),"Calories updated.",Toast.LENGTH_SHORT);
+                }
+
             }
         });
 
@@ -235,9 +244,12 @@ public class DietScreenMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                diet.setCaloriesGoal(Integer.parseInt(s.toString()));
-                dh.updateDietEntry(diet,timeInMillis);
-                Toast.makeText(getActivity().getApplicationContext(),"Calories goal updated.",Toast.LENGTH_SHORT);
+                if (diet.getCaloriesGoal() != (int) Double.parseDouble(s.toString()))
+                {
+                    diet.setCaloriesGoal((int) Double.parseDouble(s.toString()));
+                    dh.updateDietEntry(diet, timeInMillis);
+                    Toast.makeText(getActivity().getApplicationContext(), "Calories goal updated.", Toast.LENGTH_SHORT);
+                }
             }
         });
 
@@ -250,9 +262,11 @@ public class DietScreenMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                diet.setProtein(Integer.parseInt(s.toString()));
-                dh.updateDietEntry(diet,timeInMillis);
-                Toast.makeText(getActivity().getApplicationContext(),"Protein updated.",Toast.LENGTH_SHORT);
+                if (diet.getProtein() != (int) Double.parseDouble(s.toString())) {
+                    diet.setProtein((int) Double.parseDouble(s.toString()));
+                    dh.updateDietEntry(diet, timeInMillis);
+                    Toast.makeText(getActivity().getApplicationContext(), "Protein updated.", Toast.LENGTH_SHORT);
+                }
             }
         });
 
@@ -265,9 +279,11 @@ public class DietScreenMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                diet.setProteinGoal(Integer.parseInt(s.toString()));
-                dh.updateDietEntry(diet,timeInMillis);
-                Toast.makeText(getActivity().getApplicationContext(),"Protein goal updated.",Toast.LENGTH_SHORT);
+                if (diet.getProteinGoal() != (int) Double.parseDouble(s.toString())) {
+                    diet.setProteinGoal((int) Double.parseDouble(s.toString()));
+                    dh.updateDietEntry(diet, timeInMillis);
+                    Toast.makeText(getActivity().getApplicationContext(), "Protein updated.", Toast.LENGTH_SHORT);
+                }
             }
         });
 

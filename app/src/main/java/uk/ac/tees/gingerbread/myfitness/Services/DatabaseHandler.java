@@ -811,11 +811,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
         String selectQuery = "UPDATE " + TABLE_NAME_DIET
                 + " SET " + COL_DIET_CAL + " = " + dietIn.getCalories()
-                + ", SET " + COL_DIET_CAL_GOAL + " = " + dietIn.getCaloriesGoal()
-                + ", SET " + COL_DIET_PROTEIN + " = " + dietIn.getProtein()
-                + ", SET " + COL_DIET_PROTEIN_GOAL + " = " + dietIn.getProteinGoal()
+                + "," + COL_DIET_CAL_GOAL + " = " + dietIn.getCaloriesGoal()
+                + "," + COL_DIET_PROTEIN + " = " + dietIn.getProtein()
+                + "," + COL_DIET_PROTEIN_GOAL + " = " + dietIn.getProteinGoal()
                 + " WHERE " + COL_DIET_DATE + " = " + day;
-        db.execSQL(selectQuery);
+            db.execSQL(selectQuery);
         db.close();
     }
 
