@@ -3,4 +3,8 @@
     <string name="choose_gender">Choose a gender</string>
     <string name="label_nutritionix_id">ID</string>
     <string name="label_nutritionix_name">Name</string>
+    <string name="action_settings">Replace this</string>
+    <string name="title_activity_menu_screen">Menu screen</string>
+    <string name="navigation_drawer_open"></string>
+    <string name="navigation_drawer_close"></string>
 </resources>

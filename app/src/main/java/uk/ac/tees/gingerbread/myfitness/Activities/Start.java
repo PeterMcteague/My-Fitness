@@ -20,12 +20,12 @@ public class Start extends AppCompatActivity
         //Get whether the setup has been completed before.
         SharedPreferences settings = getSharedPreferences("MyFitnessPrefs",0);
         //Just set this to false if you want to go to setup.
-        boolean setupComplete = false;
-        //boolean setupComplete = settings.getBoolean("setupComplete",false);
+        //boolean setupComplete = false;
+        boolean setupComplete = settings.getBoolean("setupComplete",false);
 
         if(setupComplete)//if running for first time
         {
-            Intent intent = new Intent(context, Home.class);
+            Intent intent = new Intent(context, MenuScreen.class);
             startActivity(intent);
             finish();
         }

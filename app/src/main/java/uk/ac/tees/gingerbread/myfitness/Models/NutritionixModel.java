@@ -17,11 +17,31 @@ public class NutritionixModel
 
     public NutritionixModel(JSONObject object) {
         try {
-            this.name = object.getString("item_name");
-            this.calories= Integer.parseInt(object.getString("nf_calories"));
-            this.protein = Float.parseFloat(object.getString("nf_protein"));
-            this.servingSize = Integer.parseInt(object.getString("nf_serving_size_qty"));
-            this.id = object.getString("_id");
+            this.name = (object.getJSONObject("fields")).getString("item_name");
+
+            try {
+                this.calories = (int) Double.parseDouble(object.getJSONObject("fields").getString("nf_calories").trim());
+            }
+            catch (NumberFormatException s){
+                this.calories = 0;
+            }
+
+            try {
+                this.protein = Float.parseFloat((object.getJSONObject("fields")).getString("nf_protein"));
+            }
+            catch (NumberFormatException s){
+                this.protein = 0;
+            }
+
+            try {
+                this.servingSize = Integer.parseInt((object.getJSONObject("fields")).getString("nf_serving_size_qty"));
+            }
+            catch (NumberFormatException s)
+            {
+                this.servingSize = 1;
+            }
+
+            this.id = (object.getJSONObject("fields")).getString("item_id");
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -12,8 +12,9 @@ public class InfoEntry {
     private String gender;
     private int activityLevel;
     private long date;
+    private String goal;
 
-    public InfoEntry(int age, float height, float weight, String name, String gender , int activityLevel , long date)
+    public InfoEntry(int age, float height, float weight, String name, String gender , int activityLevel , long date, String goal)
     {
         this.age = age;
         this.height = height;
@@ -22,6 +23,7 @@ public class InfoEntry {
         this.weight = weight;
         this.name = name;
         this.date = date;
+        this.goal = goal;
     }
 
     public int getAge() {
@@ -79,5 +81,9 @@ public class InfoEntry {
     public void setDate(long date) {
         this.date = date;
     }
+
+    public String getGoal(){return goal;}
+
+    public void setGoal(){this.goal = goal;}
 }
 
