@@ -74,6 +74,8 @@ public class DietScreenMain extends Fragment {
         List<Header> headers = new ArrayList<>();
         headers.add(new BasicHeader("Accept", "application/json"));
 
+        foodList = (ListView) getActivity().findViewById(R.id.diet_food_list);
+
         NutritionixRestClient.get(activity, searchQuery + "?fields=item_name%2Cnf_calories%2Cnf_protein&appId=f7a6647d&appKey=973127408431e443f91406c6aa837715", headers.toArray(new Header[headers.size()]),
                 null, new JsonHttpResponseHandler() {
                     @Override
@@ -97,7 +99,6 @@ public class DietScreenMain extends Fragment {
                         }
 
                         //Use nutritionix to populate list view with buttons
-                        foodList = (ListView) getActivity().findViewById(R.id.diet_food_list);
                         foodList.setAdapter(nutritionixAdapter);
                         foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -121,6 +122,7 @@ public class DietScreenMain extends Fragment {
                                         .setNegativeButton(android.R.string.no, null).show();
                             }
                         });
+                        nutritionixAdapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -139,7 +141,8 @@ public class DietScreenMain extends Fragment {
                             e.printStackTrace();
                         }
                     }
-        });}
+                });
+    }
 
     /**Updates text fields on the screen with info from a diet object
      *
@@ -297,7 +300,17 @@ public class DietScreenMain extends Fragment {
             @Override
             public void afterTextChanged(Editable s)
             {
-                getEntries(activity,s.toString());
+                if (foodList != null)
+                {
+                    if (foodList.getAdapter() != null)
+                    {
+                        ((NutritionixAdapter) foodList.getAdapter()).clear();
+                        ((NutritionixAdapter) foodList.getAdapter()).notifyDataSetChanged();
+                    }
+                }
+                if (s.toString().length() > 2 && !s.toString().matches("")){
+                    getEntries(activity,s.toString());
+                }
             }
         });
     }
