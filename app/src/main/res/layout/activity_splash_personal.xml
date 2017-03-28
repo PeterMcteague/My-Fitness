@@ -53,16 +53,16 @@
         android:inputType="textPersonName" />
 
     <EditText
+        android:id="@+id/intro_personal_info_birth_date_entry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/intro_personal_info_age_entry"
-        android:hint="Age"
-        android:layout_below="@+id/intro_personal_info_name_entry"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:backgroundTint="@color/colorPrimary"/>
+        android:layout_below="@+id/intro_personal_info_name_entry"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="Birth Date (DD/MM/YYYY)"
+        android:inputType="date" />
 
     <EditText
         android:id="@+id/intro_personal_info_height_entry"
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/intro_personal_info_age_entry"
+        android:layout_below="@+id/intro_personal_info_birth_date_entry"
         android:ems="10"
         android:hint="Height (Metres)"
         android:inputType="numberDecimal"
