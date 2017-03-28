@@ -51,31 +51,35 @@ public class DietScreenMain extends Fragment {
 
     private long timeInMillis;
     private long todayTimeInMillis;
+    private Calendar c;
     private DietEntry diet;
-    private ListView foodList;
-    private Activity activity;
     private DatabaseHandler dh;
 
-    //Empty public constructor required
-    public DietScreenMain()
-    {}
+    private Button dateButton;
+    private EditText caloriesEntry;
+    private EditText caloriesGoalEntry;
+    private EditText proteinEntry;
+    private EditText proteinGoalEntry;
+    private EditText foodEntry;
+    private ListView foodList;
+
 
     @Nullable
     @Override
+    //Include any getting of views in here and assign to variables.
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_diet_screen_main, container,false);
-    }
+        View view = inflater.inflate(R.layout.activity_diet_screen_main, container,false);
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        activity = getActivity();
-        dh = new DatabaseHandler(activity);
+        dateButton = (Button) view.findViewById(R.id.diet_date_button);
+        caloriesEntry = (EditText) view.findViewById(R.id.diet_calories_entry);
+        caloriesGoalEntry = (EditText) view.findViewById(R.id.diet_calories_goal_entry);
+        proteinEntry = (EditText) view.findViewById(R.id.diet_protein_entry);
+        proteinGoalEntry = (EditText) view.findViewById(R.id.diet_protein_goal_entry);
+        foodEntry = (EditText) view.findViewById(R.id.diet_food_entry);
+        foodList = (ListView) view.findViewById(R.id.diet_food_list);
 
-        //DATE BUTTON
-        Button dateButton = (Button) getView().findViewById(R.id.diet_date_button);
-        //Set variables
-        final Calendar c = Calendar.getInstance();
+        //Set calendar up
+        c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
@@ -83,11 +87,19 @@ public class DietScreenMain extends Fragment {
         timeInMillis = c.getTimeInMillis();
         todayTimeInMillis = c.getTimeInMillis();
 
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        dh = new DatabaseHandler(getActivity());
+
         dateButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener()
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
                         {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
@@ -113,14 +125,7 @@ public class DietScreenMain extends Fragment {
 
         updateTextFields(diet);
 
-        //Bind EditText's
-        EditText currentCaloriesView = (EditText) getView().findViewById(R.id.diet_calories_entry);
-        EditText goalCaloriesView = (EditText) getView().findViewById(R.id.diet_calories_goal_entry);
-        EditText currentProteinView = (EditText) getView().findViewById(R.id.diet_protein_entry);
-        EditText goalProteinView = (EditText) getView().findViewById(R.id.diet_protein_goal_entry);
-        EditText foodEntryView = (EditText) getView().findViewById(R.id.diet_food_entry);
-
-        currentCaloriesView.addTextChangedListener(new TextWatcher() {
+        caloriesEntry.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -139,7 +144,7 @@ public class DietScreenMain extends Fragment {
             }
         });
 
-        goalCaloriesView.addTextChangedListener(new TextWatcher() {
+        caloriesGoalEntry.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -157,7 +162,7 @@ public class DietScreenMain extends Fragment {
             }
         });
 
-        currentProteinView.addTextChangedListener(new TextWatcher() {
+        proteinEntry.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -174,7 +179,7 @@ public class DietScreenMain extends Fragment {
             }
         });
 
-        goalProteinView.addTextChangedListener(new TextWatcher() {
+        proteinGoalEntry.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -191,7 +196,7 @@ public class DietScreenMain extends Fragment {
             }
         });
 
-        foodEntryView.addTextChangedListener(new TextWatcher() {
+        foodEntry.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -210,7 +215,7 @@ public class DietScreenMain extends Fragment {
                     }
                 }
                 if (s.toString().length() > 2 && !s.toString().matches("")){
-                    getEntries(activity,s.toString());
+                    getEntries(getActivity(),s.toString());
                 }
             }
         });
