@@ -2,9 +2,7 @@ package uk.ac.tees.gingerbread.myfitness.Fragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
@@ -15,19 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -45,7 +37,7 @@ import uk.ac.tees.gingerbread.myfitness.Clients.NutritionixRestClient;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 import uk.ac.tees.gingerbread.myfitness.Models.NutritionixModel;
 import uk.ac.tees.gingerbread.myfitness.R;
-import uk.ac.tees.gingerbread.myfitness.Classes.DietEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.DietEntry;
 
 public class DietScreenMain extends Fragment {
 

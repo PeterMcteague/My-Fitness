@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
+
 /**
  * Created by 07mct on 14/03/2017.
  */
@@ -18,10 +20,10 @@ public class Start extends AppCompatActivity
         final Context context = this;
 
         //Get whether the setup has been completed before.
-        SharedPreferences settings = getSharedPreferences("MyFitnessPrefs",0);
+        //SharedPreferences settings = getSharedPreferences("MyFitnessPrefs",0);
         //Just set this to false if you want to go to setup.
-        //boolean setupComplete = false;
-        boolean setupComplete = settings.getBoolean("setupComplete",false);
+        boolean setupComplete = false;
+        //boolean setupComplete = settings.getBoolean("setupComplete",false);
 
         if(setupComplete)//if running for first time
         {
@@ -31,6 +33,9 @@ public class Start extends AppCompatActivity
         }
         else
         {
+            //Delete database. If we're going through setup we're probably doing testing
+            DatabaseHandler dh = new DatabaseHandler(context);
+            dh.deleteDB(context);
 
             Intent intent = new Intent(context, SplashIntroduction.class);
             startActivity(intent);  // Launch next activity

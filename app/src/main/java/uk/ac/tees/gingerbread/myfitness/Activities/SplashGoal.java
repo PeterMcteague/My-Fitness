@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 
 import java.util.Calendar;
 
+import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 import uk.ac.tees.gingerbread.myfitness.R;
 
@@ -37,15 +38,9 @@ public class SplashGoal extends AppCompatActivity {
         c.set(Calendar.MILLISECOND, 0);
         //Adding db entry for info
         DatabaseHandler dh = new DatabaseHandler(context);
-        dh.addInfo(
-                intent.getStringExtra("name"),
-                intent.getFloatExtra("height",0),
-                intent.getIntExtra("age",0),
-                intent.getFloatExtra("weight",0),
-                intent.getStringExtra("gender"),
-                intent.getIntExtra("activityLevel",0),
-                goal,
-                c.getTimeInMillis());
+        InfoEntry info = dh.getInfoEntry(c.getTimeInMillis());
+        info.setGoal(goal);
+        dh.updateInfoEntry(info);
         //Add diet and routine
         dh.addDietEntryToday();
         if (goal == "Muscle")
