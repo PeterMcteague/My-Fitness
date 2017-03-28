@@ -52,3 +52,14 @@ Temporary Items
 .idea/libraries/support_core_ui_25_2_0.xml
 .idea/workspace.xml
 build/android-profile/profile-2017-03-08-18-35-28-145.rawproto
+
+#Gradle bullshit
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
