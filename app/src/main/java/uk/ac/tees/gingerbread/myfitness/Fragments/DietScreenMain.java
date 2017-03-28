@@ -131,13 +131,15 @@ public class DietScreenMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (diet.getCalories() != (int) Double.parseDouble(s.toString()))
+                if (!s.toString().equalsIgnoreCase(""))
                 {
-                    diet.setCalories((int) Double.parseDouble(s.toString()));
-                    dh.updateDietEntry(diet,timeInMillis);
-                    Toast.makeText(getActivity().getApplicationContext(),"Calories updated.",Toast.LENGTH_SHORT);
+                    if (diet.getCalories() != (int) Double.parseDouble(s.toString()))
+                    {
+                        diet.setCalories((int) Double.parseDouble(s.toString()));
+                        dh.updateDietEntry(diet,timeInMillis);
+                        Toast.makeText(getActivity().getApplicationContext(),"Calories updated.",Toast.LENGTH_SHORT);
+                    }
                 }
-
             }
         });
 
@@ -150,11 +152,12 @@ public class DietScreenMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (diet.getCaloriesGoal() != (int) Double.parseDouble(s.toString()))
-                {
-                    diet.setCaloriesGoal((int) Double.parseDouble(s.toString()));
-                    dh.updateDietEntry(diet, timeInMillis);
-                    Toast.makeText(getActivity().getApplicationContext(), "Calories goal updated.", Toast.LENGTH_SHORT);
+                if (!s.toString().equalsIgnoreCase("")) {
+                    if (diet.getCaloriesGoal() != (int) Double.parseDouble(s.toString())) {
+                        diet.setCaloriesGoal((int) Double.parseDouble(s.toString()));
+                        dh.updateDietEntry(diet, timeInMillis);
+                        Toast.makeText(getActivity().getApplicationContext(), "Calories goal updated.", Toast.LENGTH_SHORT);
+                    }
                 }
             }
         });
@@ -168,10 +171,13 @@ public class DietScreenMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (diet.getProtein() != (int) Double.parseDouble(s.toString())) {
-                    diet.setProtein((int) Double.parseDouble(s.toString()));
-                    dh.updateDietEntry(diet, timeInMillis);
-                    Toast.makeText(getActivity().getApplicationContext(), "Protein updated.", Toast.LENGTH_SHORT);
+                if (!s.toString().equalsIgnoreCase(""))
+                {
+                    if (diet.getProtein() != (int) Double.parseDouble(s.toString())) {
+                        diet.setProtein((int) Double.parseDouble(s.toString()));
+                        dh.updateDietEntry(diet, timeInMillis);
+                        Toast.makeText(getActivity().getApplicationContext(), "Protein updated.", Toast.LENGTH_SHORT);
+                    }
                 }
             }
         });
@@ -185,10 +191,12 @@ public class DietScreenMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (diet.getProteinGoal() != (int) Double.parseDouble(s.toString())) {
-                    diet.setProteinGoal((int) Double.parseDouble(s.toString()));
-                    dh.updateDietEntry(diet, timeInMillis);
-                    Toast.makeText(getActivity().getApplicationContext(), "Protein updated.", Toast.LENGTH_SHORT);
+                if (!s.toString().equalsIgnoreCase("")) {
+                    if (diet.getProteinGoal() != (int) Double.parseDouble(s.toString())) {
+                        diet.setProteinGoal((int) Double.parseDouble(s.toString()));
+                        dh.updateDietEntry(diet, timeInMillis);
+                        Toast.makeText(getActivity().getApplicationContext(), "Protein updated.", Toast.LENGTH_SHORT);
+                    }
                 }
             }
         });
