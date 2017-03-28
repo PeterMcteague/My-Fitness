@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +40,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
@@ -93,6 +97,7 @@ public class DietScreenMain extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
+
         dh = new DatabaseHandler(getActivity());
 
         dateButton.setOnClickListener(
@@ -320,5 +325,20 @@ public class DietScreenMain extends Fragment {
 
         currentProteinView.setText(Float.toString(diet.getProtein()));
         goalProteinView.setText(Float.toString(diet.getProteinGoal()));
+
+        if (timeInMillis != todayTimeInMillis)
+        {
+            caloriesEntry.setInputType(InputType.TYPE_NULL);
+            caloriesGoalEntry.setInputType(InputType.TYPE_NULL);
+            proteinEntry.setInputType(InputType.TYPE_NULL);
+            proteinGoalEntry.setInputType(InputType.TYPE_NULL);
+        }
+        else
+        {
+            caloriesEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
+            caloriesGoalEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
+            proteinEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
+            proteinGoalEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
     }
 }
