@@ -690,7 +690,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_DIET_CAL_GOAL, dietEntry.getCaloriesGoal());
         values.put(COL_DIET_PROTEIN, dietEntry.getProtein());
         values.put(COL_DIET_PROTEIN_GOAL, dietEntry.getProteinGoal());
-        Log.d("DATE1",dietEntry.getDate() + "");
+        Log.d("DATE FOR ADD ENTRY",dietEntry.getDate() + "");
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_DIET, null, values);
@@ -753,7 +753,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int idCaloriesGoal = cursor.getColumnIndex(COL_DIET_CAL_GOAL);
             int idProtein = cursor.getColumnIndex(COL_DIET_PROTEIN);
             int idProteinGoal = cursor.getColumnIndex(COL_DIET_PROTEIN_GOAL);
-            Log.d("DATE",cursor.getLong(idDate) + "");
+            Log.d("DATE FOR GET TODAY",cursor.getLong(idDate) + "");
             DietEntry returnValue = new DietEntry(
                     cursor.getLong(idDate),
                     cursor.getInt(idCalories),
@@ -761,6 +761,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getFloat(idProtein),
                     cursor.getFloat(idProteinGoal)
             );
+            Log.d("GET TODAY CALS",returnValue.getCalories() + "");
             db.close();
             return returnValue;
         }
