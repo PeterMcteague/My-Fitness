@@ -1196,6 +1196,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**Gets the latest info entry for a user.
+     *
+     * @return Returns the latest info entry
+     */
+    public InfoEntry getLatestInfo()
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_INFO + " WHERE " + COL_DIET_DATE + " = (SELECT MAX("+COL_DIET_DATE+")  FROM "+TABLE_NAME_INFO+")";
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idHeight = cursor.getColumnIndex(COL_INFO_HEIGHT);
+            int idWeight = cursor.getColumnIndex(COL_INFO_WEIGHT);
+            int idActivity = cursor.getColumnIndex(COL_INFO_ACTIVITY_LEVEL);
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idGoal = cursor.getColumnIndex(COL_INFO_GOAL);
+            InfoEntry returnValue = new InfoEntry(
+                    cursor.getFloat(idHeight),
+                    cursor.getFloat(idWeight),
+                    cursor.getInt(idActivity),
+                    cursor.getLong(idDate),
+                    cursor.getString(idGoal)
+            );
+            db.close();
+            return returnValue;
+        }
+        return null;
+    }
+
     //------------------------Persistent info methods--------------------------------------------//
 
     /**Adds a persistent info entry
