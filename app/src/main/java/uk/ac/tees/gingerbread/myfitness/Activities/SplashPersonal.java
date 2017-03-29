@@ -87,7 +87,7 @@ public class SplashPersonal extends AppCompatActivity {
                                         Float.valueOf(heightEntry.getText().toString()),
                                         Float.valueOf(weightEntry.getText().toString()),
                                         activitySpinner.getSelectedItemPosition() + 1,
-                                        "notSet",
+                                        "Not Set",
                                         todaysDate);
                                 dh.addPersistentInfo(nameEntry.getText().toString(),cal.getTimeInMillis(),genderSpinner.getSelectedItem().toString());
 
