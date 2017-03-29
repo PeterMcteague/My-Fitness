@@ -137,7 +137,7 @@ public class DietScreenMain extends Fragment {
                     {
                         diet.setCalories((int) Double.parseDouble(s.toString()));
                         dh.updateDietEntry(diet,timeInMillis);
-                        Toast.makeText(getActivity().getApplicationContext(),"Calories updated.",Toast.LENGTH_SHORT);
+                        Toast.makeText(getActivity().getApplicationContext(),"Calories updated.",Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -156,7 +156,7 @@ public class DietScreenMain extends Fragment {
                     if (diet.getCaloriesGoal() != (int) Double.parseDouble(s.toString())) {
                         diet.setCaloriesGoal((int) Double.parseDouble(s.toString()));
                         dh.updateDietEntry(diet, timeInMillis);
-                        Toast.makeText(getActivity().getApplicationContext(), "Calories goal updated.", Toast.LENGTH_SHORT);
+                        Toast.makeText(getActivity().getApplicationContext(), "Calories goal updated.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -176,7 +176,7 @@ public class DietScreenMain extends Fragment {
                     if (diet.getProtein() != (int) Double.parseDouble(s.toString())) {
                         diet.setProtein((int) Double.parseDouble(s.toString()));
                         dh.updateDietEntry(diet, timeInMillis);
-                        Toast.makeText(getActivity().getApplicationContext(), "Protein updated.", Toast.LENGTH_SHORT);
+                        Toast.makeText(getActivity().getApplicationContext(), "Protein updated.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -195,7 +195,7 @@ public class DietScreenMain extends Fragment {
                     if (diet.getProteinGoal() != (int) Double.parseDouble(s.toString())) {
                         diet.setProteinGoal((int) Double.parseDouble(s.toString()));
                         dh.updateDietEntry(diet, timeInMillis);
-                        Toast.makeText(getActivity().getApplicationContext(), "Protein updated.", Toast.LENGTH_SHORT);
+                        Toast.makeText(getActivity().getApplicationContext(), "Protein updated.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
