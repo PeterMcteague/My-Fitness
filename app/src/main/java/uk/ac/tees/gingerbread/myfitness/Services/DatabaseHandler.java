@@ -13,11 +13,12 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import uk.ac.tees.gingerbread.myfitness.Classes.DietEntry;
-import uk.ac.tees.gingerbread.myfitness.Classes.ExerciseEntry;
-import uk.ac.tees.gingerbread.myfitness.Classes.PictureEntry;
-import uk.ac.tees.gingerbread.myfitness.Classes.InfoEntry;
-import uk.ac.tees.gingerbread.myfitness.Classes.RoutineEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.DietEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.ExerciseEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.PersistentInfoEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.PictureEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.RoutineEntry;
 
 /**A class for interacting with the sqlite database tables.*/
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -30,6 +31,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_NAME_DIET = "Diet";
     private static final String TABLE_NAME_PICTURES = "ProgressPictures";
     private static final String TABLE_NAME_INFO = "UserInfo";
+    private static final String TABLE_NAME_PERSISTENT_INFO = "PersistentUserInfo";
     // Exercises table column names
     private static final String COL_ID = "_id"; // Primary key column must be _id
     private static final String COL_NAME = "name";
@@ -46,13 +48,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Progress picture column names
     private static final String COL_PICTURES_IMAGE = "image";
     //Personal info columns
-    private static final String COL_INFO_NAME = "name";
     private static final String COL_INFO_HEIGHT = "height";
-    private static final String COL_INFO_AGE = "age" ;
     private static final String COL_INFO_WEIGHT = "weight";
-    private static final String COL_INFO_GENDER = "gender";
     private static final String COL_INFO_ACTIVITY_LEVEL = "activity_level";
     private static final String COL_INFO_GOAL = "goal";
+    //Persistent info columns
+    private static final String COL_PERSISTENT_INFO_BIRTHDATE = "date" ;
+    private static final String COL_PERSISTENT_INFO_NAME = "name";
+    private static final String COL_PERSISTENT_INFO_GENDER = "gender";
 
     /**Constructor for database handler object
      *
@@ -85,14 +88,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_DESCRIPTION + " TEXT" + ")";
 
         String CREATE_TABLE_INFO = "CREATE TABLE " + TABLE_NAME_INFO +
-                "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_INFO_NAME +  " TEXT, "
+                "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_DIET_DATE + " DATE NOT NULL UNIQUE, "
                 + COL_INFO_HEIGHT + " REAL, "
-                + COL_INFO_AGE + " INTEGER, "
                 + COL_INFO_WEIGHT + " REAL, "
-                + COL_INFO_GENDER + " TEXT, "
                 + COL_INFO_ACTIVITY_LEVEL + " INTEGER CHECK (" + COL_INFO_ACTIVITY_LEVEL + "<=4 AND " + COL_INFO_ACTIVITY_LEVEL + "> 0),"
                 + COL_INFO_GOAL + " STRING)";
+
+        String CREATE_TABLE_PERSISTENT_INFO = "CREATE TABLE " + TABLE_NAME_PERSISTENT_INFO
+                + "(" +
+                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_PERSISTENT_INFO_NAME + " STRING, " +
+                COL_PERSISTENT_INFO_BIRTHDATE + "  DATE NOT NULL, " +
+                COL_PERSISTENT_INFO_GENDER + "  STRING)";
 
         String CREATE_TABLE_ROUTINE = "CREATE TABLE " + TABLE_NAME_ROUTINE
                 + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_DAY + " TEXT, "
@@ -110,6 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_INFO);
         db.execSQL(CREATE_TABLE_ROUTINE);
         db.execSQL(CREATE_TABLE_PICTURE);
+        db.execSQL(CREATE_TABLE_PERSISTENT_INFO);
 
         Log.d("Database", "Database Created.");
 
@@ -373,8 +382,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_ROUTINE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_PICTURES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_INFO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_PERSISTENT_INFO);
         onCreate(db);
         db.close();
+    }
+
+    public void deleteDB(Context context)
+    {
+        context.deleteDatabase(DATABASE_NAME);
     }
 
     //--------------Accessor methods for diet table----------------------------------------------//
@@ -415,18 +430,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         c.set(Calendar.MILLISECOND, 0);
         //Get info
         InfoEntry todaysInfo = getInfoEntry(c.getTimeInMillis());
+        PersistentInfoEntry info = getPersistentInfo();
         //Form calorie and protein goal based on info
         if (todaysInfo != null)
         {
             if (todaysInfo.getGoal() == "Muscle")
             {
-                if (todaysInfo.getGender() == "Male")
+                if (info.getGender() == "Male")
                 {
                     if (todaysInfo.getActivityLevel() == 0)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
                                 0,
                                 120);
                     }
@@ -434,7 +450,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
                                 0,
                                 120);
 
@@ -443,7 +459,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
                                 0,
                                 120);
                     }
@@ -451,7 +467,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) + 200),
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
                                 0,
                                 120);
                     }
@@ -463,7 +479,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
                                 0,
                                 120);
                     }
@@ -471,7 +487,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
                                 0,
                                 120);
 
@@ -480,7 +496,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
                                 0,
                                 120);
                     }
@@ -488,7 +504,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) + 200),
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
                                 0,
                                 120);
                     }
@@ -496,13 +512,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
             else if (todaysInfo.getGoal() == "WeightLoss")
             {
-                if (todaysInfo.getGender() == "Male")
+                if (info.getGender() == "Male")
                 {
                     if (todaysInfo.getActivityLevel() == 0)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
                                 0,
                                 0);
                     }
@@ -510,7 +526,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
                                 0,
                                 0);
 
@@ -519,7 +535,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
                                 0,
                                 0);
                     }
@@ -527,7 +543,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5) - 500),
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
                                 0,
                                 0);
                     }
@@ -536,26 +552,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     if (todaysInfo.getActivityLevel() == 0) {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
                                 0,
                                 0);
                     } else if (todaysInfo.getActivityLevel() == 1) {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
                                 0,
                                 0);
 
                     } else if (todaysInfo.getActivityLevel() == 2) {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
                                 0,
                                 0);
                     } else {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161) - 500),
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
                                 0,
                                 0);
                     }
@@ -563,13 +579,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
             else if (todaysInfo.getGoal() == "Fitness")
             {
-                if (todaysInfo.getGender() == "Male")
+                if (info.getGender() == "Male")
                 {
                     if (todaysInfo.getActivityLevel() == 0)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5)),
                                 0,
                                 0);
                     }
@@ -577,7 +593,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5)),
                                 0,
                                 0);
 
@@ -586,7 +602,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5)),
                                 0,
                                 0);
                     }
@@ -594,7 +610,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() + 5)),
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5)),
                                 0,
                                 0);
                     }
@@ -605,7 +621,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
+                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161)),
                                 0,
                                 0);
                     }
@@ -613,7 +629,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
+                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161)),
                                 0,
                                 0);
 
@@ -622,7 +638,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
+                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161)),
                                 0,
                                 0);
                     }
@@ -630,7 +646,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * todaysInfo.getAge() - 161)),
+                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161)),
                                 0,
                                 0);
                     }
@@ -690,7 +706,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_DIET_CAL_GOAL, dietEntry.getCaloriesGoal());
         values.put(COL_DIET_PROTEIN, dietEntry.getProtein());
         values.put(COL_DIET_PROTEIN_GOAL, dietEntry.getProteinGoal());
-        Log.d("DATE1",dietEntry.getDate() + "");
+        Log.d("DATE FOR ADD ENTRY",dietEntry.getDate() + "");
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_DIET, null, values);
@@ -753,7 +769,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int idCaloriesGoal = cursor.getColumnIndex(COL_DIET_CAL_GOAL);
             int idProtein = cursor.getColumnIndex(COL_DIET_PROTEIN);
             int idProteinGoal = cursor.getColumnIndex(COL_DIET_PROTEIN_GOAL);
-            Log.d("DATE",cursor.getLong(idDate) + "");
+            Log.d("DATE FOR GET TODAY",cursor.getLong(idDate) + "");
             DietEntry returnValue = new DietEntry(
                     cursor.getLong(idDate),
                     cursor.getInt(idCalories),
@@ -761,6 +777,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getFloat(idProtein),
                     cursor.getFloat(idProteinGoal)
             );
+            Log.d("GET TODAY CALS",returnValue.getCalories() + "");
             db.close();
             return returnValue;
         }
@@ -859,7 +876,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
         // Generate SQL SELECT statement
-        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXERCISES + " WHERE " + COL_NAME + " = " + name;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_EXERCISES + " WHERE " + COL_NAME + " = " + "'" + name + "'";
 
         // Execute select statement
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -1084,26 +1101,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     /**Adds an info object to the database.
      *
-     * @param name The users name
      * @param height The users height
-     * @param age The users age
      * @param weight The users weight
-     * @param gender The users gender
      * @param activityLevel The users activity level
      * @param date The date on which this got pushed to the db
      * @param goal The goal for the user
      * @return The id of the entry
      */
-    public long addInfo(String name,float height, int age, float weight, String gender , int activityLevel, String goal, long date)
+    public long addInfo(float height, float weight, int activityLevel, String goal, long date)
     {
         // Open database connection (for write)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_INFO_NAME , name);
         values.put(COL_INFO_HEIGHT, height);
-        values.put(COL_INFO_AGE, age);
         values.put(COL_INFO_WEIGHT, weight);
-        values.put(COL_INFO_GENDER, gender);
         values.put(COL_INFO_ACTIVITY_LEVEL, activityLevel);
         values.put(COL_INFO_GOAL, goal);
         values.put(COL_DIET_DATE, date);
@@ -1125,12 +1136,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Open database connection (for write)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_INFO_NAME , info.getName());
-        values.put(COL_INFO_AGE, info.getAge());
         values.put(COL_INFO_HEIGHT, info.getHeight());
         values.put(COL_INFO_WEIGHT, info.getWeight());
         values.put(COL_INFO_ACTIVITY_LEVEL, info.getActivityLevel());
-        values.put(COL_INFO_GENDER, info.getGender());
         values.put(COL_DIET_DATE, info.getDate());
 
         // Add record to database and get id of new record (must long integer).
@@ -1154,20 +1162,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Execute select statement
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) { // If data (records) available
-            int idName = cursor.getColumnIndex(COL_INFO_NAME);
-            int idAge = cursor.getColumnIndex(COL_INFO_AGE);
             int idHeight = cursor.getColumnIndex(COL_INFO_HEIGHT);
             int idWeight = cursor.getColumnIndex(COL_INFO_WEIGHT);
-            int idGender = cursor.getColumnIndex(COL_INFO_GENDER);
             int idActivity = cursor.getColumnIndex(COL_INFO_ACTIVITY_LEVEL);
             int idDate = cursor.getColumnIndex(COL_DIET_DATE);
             int idGoal = cursor.getColumnIndex(COL_INFO_GOAL);
             InfoEntry returnValue = new InfoEntry(
-                    cursor.getInt(idAge),
                     cursor.getFloat(idHeight),
                     cursor.getFloat(idWeight),
-                    cursor.getString(idName),
-                    cursor.getString(idGender),
                     cursor.getInt(idActivity),
                     cursor.getLong(idDate),
                     cursor.getString(idGoal)
@@ -1177,6 +1179,123 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return null;
     }
+
+    public void updateInfoEntry(InfoEntry infoIn)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
+        String selectQuery = "UPDATE " + TABLE_NAME_INFO
+                + " SET " + COL_INFO_HEIGHT + " = " + infoIn.getHeight() + ","
+                + COL_INFO_WEIGHT + " = " + infoIn.getWeight() + ","
+                + COL_INFO_ACTIVITY_LEVEL + " = " + infoIn.getActivityLevel() + ","
+                + COL_DIET_DATE + " = " + infoIn.getDate() + ","
+                + COL_INFO_GOAL + " = " + "'" +  infoIn.getGoal() + "'"
+                + " WHERE " + COL_DIET_DATE + " = " + infoIn.getDate();
+        db.execSQL(selectQuery);
+        db.close();
+    }
+
+    //------------------------Persistent info methods--------------------------------------------//
+
+    /**Adds a persistent info entry
+     *
+     * @param name The name of the user
+     * @param birthDate The birth date of the user
+     * @param gender The gender of the user
+     * @return
+     */
+    public long addPersistentInfo(String name, long birthDate, String gender)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_PERSISTENT_INFO_BIRTHDATE , birthDate);
+        values.put(COL_PERSISTENT_INFO_GENDER, gender);
+        values.put(COL_PERSISTENT_INFO_NAME,name);
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_PERSISTENT_INFO, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
+
+    /**Gets the persistent info for the user
+     *
+     * @return Returns a persistent info entry.
+     */
+    public PersistentInfoEntry getPersistentInfo()
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Integer> list = new ArrayList<>();
+
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_PERSISTENT_INFO;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) { // If data (records) available
+            int birthDateID = cursor.getColumnIndex(COL_PERSISTENT_INFO_BIRTHDATE);
+            int genderID = cursor.getColumnIndex(COL_PERSISTENT_INFO_GENDER);
+            int nameID = cursor.getColumnIndex(COL_PERSISTENT_INFO_NAME);
+            long birthDate = cursor.getLong(birthDateID);
+            String name = cursor.getString(nameID);
+            String gender = cursor.getString(genderID);
+            db.close();
+            return new PersistentInfoEntry(birthDate,name,gender);
+        }
+        return null;
+    }
+
+    /**Updates the info based on a infoentry.
+     *
+     * @param infoIn The info object to update using.
+     */
+    public void updatePersistentInfo(PersistentInfoEntry infoIn)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
+        String selectQuery = "UPDATE " + TABLE_NAME_PERSISTENT_INFO
+                + " SET " + COL_PERSISTENT_INFO_GENDER + " = " + infoIn.getGender() + ","
+                + " SET " + COL_PERSISTENT_INFO_BIRTHDATE + " = " + infoIn.getBirthDate() + ","
+                + " SET " + COL_PERSISTENT_INFO_NAME + " = " + infoIn.getName();
+        db.execSQL(selectQuery);
+        db.close();
+    }
+
+    /**Gets the users age
+     *
+     * @return The users age
+     */
+    public int getAge()
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Integer> list = new ArrayList<>();
+
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_PERSISTENT_INFO;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) { // If data (records) available
+            int birthDateID = cursor.getColumnIndex(COL_PERSISTENT_INFO_BIRTHDATE);
+            long birthDate = cursor.getLong(birthDateID);
+            db.close();
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR_OF_DAY, 0);
+            today.set(Calendar.MINUTE, 0);
+            today.set(Calendar.SECOND, 0);
+            today.set(Calendar.MILLISECOND, 0);
+            Calendar birthDateCalendar = Calendar.getInstance();
+            birthDateCalendar.setTimeInMillis(birthDate);
+            return (today.get(Calendar.YEAR) - birthDateCalendar.get(Calendar.YEAR));
+        }
+        return 0;
+    }
+
+
+    //-------------------------Routine methods---------------------------------------------------//
 
     /**Adds a routine from day and exerciseID
      *

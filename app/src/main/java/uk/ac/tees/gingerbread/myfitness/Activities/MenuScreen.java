@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 
-import uk.ac.tees.gingerbread.myfitness.Fragments.DietFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.DietScreenMain;
 import uk.ac.tees.gingerbread.myfitness.Fragments.InfoFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.ProgressFragment;
