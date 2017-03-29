@@ -6,6 +6,7 @@
 
 
     <TextView
+        android:layout_marginTop="?android:attr/actionBarSize"
         android:layout_centerHorizontal="true"
         android:id="@+id/textViewProgress"
         android:layout_width="match_parent"

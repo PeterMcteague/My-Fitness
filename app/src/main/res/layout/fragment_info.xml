@@ -6,6 +6,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:layout_marginTop="?android:attr/actionBarSize"
         android:layout_centerHorizontal="true"
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
