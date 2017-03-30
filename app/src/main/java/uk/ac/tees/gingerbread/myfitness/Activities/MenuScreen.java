@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 import uk.ac.tees.gingerbread.myfitness.Fragments.DietScreenMain;
 import uk.ac.tees.gingerbread.myfitness.Fragments.InfoFragment;
@@ -39,32 +40,6 @@ public class MenuScreen extends AppCompatActivity
 
     }
 
-    private void displaySelectedItem(int id)
-    {
-        Fragment fragment = null;
-
-        switch (id){
-            case R.id.nav_info:
-                fragment = new InfoFragment();
-                break;
-            case R.id.nav_diet:
-                fragment = new DietScreenMain();
-                break;
-            case R.id.nav_progress:
-                fragment = new ProgressFragment();
-                break;
-
-        }
-
-        if(fragment!= null){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(android.R.id.content, fragment);
-            ft.commit();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-    }
 
     @Override
     public void onBackPressed() {
@@ -103,7 +78,26 @@ public class MenuScreen extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        displaySelectedItem(id);
+        Fragment fragment = null;
+        Class fragmentClass = null;
+        if (id == R.id.nav_info) {
+            fragmentClass = InfoFragment.class;
+        } else if (id == R.id.nav_diet) {
+            fragmentClass = DietScreenMain.class;
+        } else if (id == R.id.nav_progress) {
+            fragmentClass = ProgressFragment.class;
+        }
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }
