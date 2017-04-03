@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -59,12 +60,13 @@ public class DietScreenMain extends Fragment {
     private EditText foodEntry;
     private ListView foodList;
 
-
     @Nullable
     @Override
     //Include any getting of views in here and assign to variables.
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_diet_screen_main, container,false);
+
+
 
         dateButton = (Button) view.findViewById(R.id.diet_date_button);
         caloriesEntry = (EditText) view.findViewById(R.id.diet_calories_entry);
@@ -91,6 +93,8 @@ public class DietScreenMain extends Fragment {
     {
 
         dh = new DatabaseHandler(getActivity());
+
+
 
         dateButton.setOnClickListener(
                 new View.OnClickListener() {

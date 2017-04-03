@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -58,7 +59,6 @@ public class InfoFragment extends Fragment {
         goalList.add("Build Muscle");
         goalList.add("Lose weight");
         goalList.add("Stay healthy");
-
 
         weightField.setText(String.valueOf(info.getWeight()));
         heightField.setText(String.valueOf(info.getHeight()));

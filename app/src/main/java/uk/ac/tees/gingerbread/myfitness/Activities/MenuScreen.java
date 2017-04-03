@@ -1,5 +1,6 @@
 package uk.ac.tees.gingerbread.myfitness.Activities;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -8,10 +9,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
+import android.widget.DatePicker;
+
+import java.util.Calendar;
 
 import uk.ac.tees.gingerbread.myfitness.Fragments.DietScreenMain;
 import uk.ac.tees.gingerbread.myfitness.Fragments.InfoFragment;
@@ -20,6 +26,9 @@ import uk.ac.tees.gingerbread.myfitness.R;
 
 public class MenuScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private MenuItem calendarButton;
+    Class fragmentClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +42,8 @@ public class MenuScreen extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        calendarButton = (MenuItem) findViewById(R.id.action_calendar);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -66,8 +77,12 @@ public class MenuScreen extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_calendar) {
+            //If fragment class isn't null , set variables in fragment class. Call some method defined in class.
+            if (fragmentClass != null)
+            {
+
+            }
         }
 
         return super.onOptionsItemSelected(item);
