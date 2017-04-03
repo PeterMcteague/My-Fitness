@@ -84,6 +84,7 @@ public class DietScreenMain extends Fragment {
                     updateTextFields(diet);
                 }
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.getDatePicker().setMaxDate(todayTimeInMillis);
             datePickerDialog.show();
             return true;
         }
