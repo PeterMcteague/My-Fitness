@@ -28,13 +28,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/diet_date_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Diet for 01/01/2001" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -61,7 +54,8 @@
                 android:layout_weight="0.17"
                 android:ems="10"
                 android:inputType="number"
-                android:text="CurrentCalories" />
+                android:text="CurrentCalories"
+                android:backgroundTint="@color/colorPrimary"/>
 
             <TextView
                 android:id="@+id/diet_calories_goal_slash"
@@ -82,7 +76,8 @@
                 android:layout_weight="0.15"
                 android:ems="10"
                 android:inputType="number"
-                android:text="CurrentCalories" />
+                android:text="CurrentCalories"
+                android:backgroundTint="@color/colorPrimary"/>
 
         </LinearLayout>
 
@@ -114,7 +109,8 @@
                 android:layout_weight="0.11"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                android:text="CurrentProtein" />
+                android:text="CurrentProtein"
+                android:backgroundTint="@color/colorPrimary"/>
 
             <TextView
                 android:id="@+id/diet_protein_goal_skash"
@@ -135,7 +131,8 @@
                 android:layout_weight="0.24"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                android:text="ProteinGoal" />
+                android:text="ProteinGoal"
+                android:backgroundTint="@color/colorPrimary"/>
         </LinearLayout>
 
         <Space
@@ -167,14 +164,16 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="text"
-                    android:text="FoodName" />
+                    android:text="FoodName"
+                    android:backgroundTint="@color/colorPrimary"/>
             </LinearLayout>
 
             <ListView
                 android:id="@+id/diet_food_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent" />
+                android:background="?android:attr/colorAccent"
+                android:divider="@android:drawable/divider_horizontal_dark" />
 
         </LinearLayout>
 

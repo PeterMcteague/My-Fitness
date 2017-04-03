@@ -51,10 +51,6 @@ public class MenuScreen extends AppCompatActivity
 
     }
 
-    public void calendarClicked(MenuItem item){
-        Log.d("Menu screen","calendar clicked.");
-    }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

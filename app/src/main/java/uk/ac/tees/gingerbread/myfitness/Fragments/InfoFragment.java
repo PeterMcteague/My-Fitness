@@ -45,7 +45,6 @@ public class InfoFragment extends Fragment {
     private InfoEntry info;
     private DatabaseHandler dh;
 
-    private FloatingActionButton dateButton;
     private EditText weightField;
     private EditText heightField;
     private Spinner activitySpinner;

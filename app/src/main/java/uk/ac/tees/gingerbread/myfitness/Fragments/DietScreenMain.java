@@ -148,6 +148,8 @@ public class DietScreenMain extends Fragment {
         timeInMillis = c.getTimeInMillis();
         todayTimeInMillis = c.getTimeInMillis();
 
+        //Set prompt in list
+
         return view;
     }
 
