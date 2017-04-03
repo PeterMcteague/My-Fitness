@@ -51,6 +51,9 @@ public class MenuScreen extends AppCompatActivity
 
     }
 
+    public void calendarClicked(MenuItem item){
+        Log.d("Menu screen","calendar clicked.");
+    }
 
     @Override
     public void onBackPressed() {
@@ -78,14 +81,10 @@ public class MenuScreen extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_calendar) {
-            //If fragment class isn't null , set variables in fragment class. Call some method defined in class.
-            if (fragmentClass != null)
-            {
-
-            }
+            return false; //this'll make it get handled by the fragments one.
         }
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

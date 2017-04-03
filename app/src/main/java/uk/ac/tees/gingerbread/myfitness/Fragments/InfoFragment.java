@@ -13,6 +13,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -47,6 +48,49 @@ public class InfoFragment extends Fragment {
     private EditText heightField;
     private Spinner activitySpinner;
     private Spinner goalSpinner;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_calendar) {
+            Log.d("Calendar Button","Info");
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
+            {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+                {
+                    c.set(year, monthOfYear, dayOfMonth);
+                    timeInMillis = c.getTimeInMillis();
+                    info = dh.getInfoEntry(timeInMillis);
+                    if (info == null)
+                    {
+                        info = dh.getLatestInfo();
+                        if (info != null)
+                        {
+                            info.setDate(timeInMillis);
+                        }
+                        else
+                        {
+                            info = new InfoEntry(0,0,0,timeInMillis,"Not set");
+                        }
+                        dh.addInfo(info);
+                    }
+                    updateFields(info);
+                }
+            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.getDatePicker().setMaxDate(todayTimeInMillis);
+            datePickerDialog.show();
+            return true;
+        }
+
+        return false;
+    }
 
     public InfoFragment() {
         // Required empty public constructor
@@ -89,8 +133,9 @@ public class InfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
-                //Get resources
-        dateButton = (FloatingActionButton) view.findViewById(R.id.date_picker);
+
+        setHasOptionsMenu(true);
+
         weightField = (EditText) view.findViewById(R.id.editText_weight);
         heightField = (EditText) view.findViewById(R.id.editText_Height);
 
@@ -152,39 +197,6 @@ public class InfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         updateFields(info);
-
-        //Add listeners
-        dateButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
-                        {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-                            {
-                                c.set(year, monthOfYear, dayOfMonth);
-                                timeInMillis = c.getTimeInMillis();
-                                info = dh.getInfoEntry(timeInMillis);
-                                if (info == null)
-                                {
-                                    info = dh.getLatestInfo();
-                                    if (info != null)
-                                    {
-                                        info.setDate(timeInMillis);
-                                    }
-                                    else
-                                    {
-                                        info = new InfoEntry(0,0,0,timeInMillis,"Not set");
-                                    }
-                                    dh.addInfo(info);
-                                }
-                                updateFields(info);
-                            }
-                        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                        datePickerDialog.getDatePicker().setMaxDate(todayTimeInMillis);
-                        datePickerDialog.show();
-                    }});
 
         weightField.addTextChangedListener(new TextWatcher() {
             @Override

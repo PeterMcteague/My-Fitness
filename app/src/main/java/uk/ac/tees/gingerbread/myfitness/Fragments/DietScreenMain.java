@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -60,15 +61,44 @@ public class DietScreenMain extends Fragment {
     private EditText foodEntry;
     private ListView foodList;
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_calendar) {
+            Log.d("Calendar Button","Diet");
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
+            {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+                {
+                    //On date set read diet entry from db for selected day and set timeinmillis
+                    c.set(year, monthOfYear, dayOfMonth);
+                    timeInMillis = c.getTimeInMillis();
+                    diet = dh.getDietEntry(timeInMillis);
+                    updateTextFields(diet);
+                }
+            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     @Nullable
     @Override
     //Include any getting of views in here and assign to variables.
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_diet_screen_main, container,false);
 
+        setHasOptionsMenu(true);
 
-
-        dateButton = (Button) view.findViewById(R.id.diet_date_button);
         caloriesEntry = (EditText) view.findViewById(R.id.diet_calories_entry);
         caloriesGoalEntry = (EditText) view.findViewById(R.id.diet_calories_goal_entry);
         proteinEntry = (EditText) view.findViewById(R.id.diet_protein_entry);
@@ -93,28 +123,6 @@ public class DietScreenMain extends Fragment {
     {
 
         dh = new DatabaseHandler(getActivity());
-
-
-
-        dateButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
-                        {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-                            {
-                                //On date set read diet entry from db for selected day and set timeinmillis
-                                c.set(year, monthOfYear, dayOfMonth);
-                                timeInMillis = c.getTimeInMillis();
-                                diet = dh.getDietEntry(timeInMillis);
-                                updateTextFields(diet);
-                            }
-                        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                        datePickerDialog.show();
-                    }});
-
 
         //Create record for diet in db if there isn't one for today
         diet = dh.getDietEntryToday();

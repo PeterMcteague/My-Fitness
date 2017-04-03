@@ -35,18 +35,6 @@
                 android:layout_weight="1"
                 android:text="Diet for 01/01/2001" />
 
-            <Button
-                android:id="@+id/diet_date_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:text="SELECT DATE"
-                android:textAlignment="center" />
-
         </LinearLayout>
 
         <LinearLayout
