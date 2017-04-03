@@ -47,7 +47,7 @@
             android:text=" Welcome to My Fitness!"
             android:textAlignment="viewStart"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/white" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -76,7 +76,7 @@
                 android:id="@+id/splash_intro_next_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="bottom|center_horizontal"
                 android:clickable="true"
                 android:textAlignment="center"
                 app:backgroundTint="@color/colorPrimary"
