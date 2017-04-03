@@ -3,10 +3,12 @@ package uk.ac.tees.gingerbread.myfitness.Fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
@@ -65,19 +67,41 @@ public class InfoFragment extends Fragment {
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
                 {
+                    final Long previousDate = timeInMillis;
                     c.set(year, monthOfYear, dayOfMonth);
                     timeInMillis = c.getTimeInMillis();
 
                     if (dh.getInfoEntry(timeInMillis) == null)
                     {
-                        Toast.makeText(getContext(),"Could not find info for today.",Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder
+                                .setTitle("Create info")
+                                .setMessage("Could not find info for selected day. Would you like to create some?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //Add for selected date
+                                        info = dh.getInfoEntry(todayTimeInMillis);
+                                        info.setDate(timeInMillis);
+                                        dh.addInfo(info);
+                                        //Update text fields
+                                        updateFields(info);
+                                        Toast.makeText(getContext(),"Info created",Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        c.setTimeInMillis(previousDate);
+                                    }
+                                })
+                                .show();
                     }
                     else
                     {
                         info = dh.getInfoEntry(timeInMillis);
                         updateFields(info);
                     }
-
                 }
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.getDatePicker().setMaxDate(todayTimeInMillis);
@@ -105,21 +129,6 @@ public class InfoFragment extends Fragment {
         activitySpinner.setSelection(info.getActivityLevel() - 1);
 
         goalSpinner.setSelection(goalList.indexOf(info.getGoal()));
-
-        if (timeInMillis != todayTimeInMillis)
-        {
-            weightField.setInputType(InputType.TYPE_NULL);
-            heightField.setInputType(InputType.TYPE_NULL);
-            activitySpinner.setClickable(true);
-            goalSpinner.setClickable(true);
-        }
-        else
-        {
-            weightField.setInputType(InputType.TYPE_CLASS_NUMBER);
-            heightField.setInputType(InputType.TYPE_CLASS_NUMBER);
-            activitySpinner.setClickable(false);
-            goalSpinner.setClickable(false);
-        }
     }
 
 

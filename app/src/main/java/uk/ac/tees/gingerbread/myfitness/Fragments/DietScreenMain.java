@@ -77,13 +77,36 @@ public class DietScreenMain extends Fragment {
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
                 {
+                    final Long previousDate = timeInMillis;
                     //On date set read diet entry from db for selected day and set timeinmillis
                     c.set(year, monthOfYear, dayOfMonth);
                     timeInMillis = c.getTimeInMillis();
 
                     if (dh.getDietEntry(timeInMillis) == null)
                     {
-                        Toast.makeText(getContext(),"Could not find diet info for this day.",Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder
+                                .setTitle("Create diet info")
+                                .setMessage("Could not find diet info for selected day. Would you like to create some?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //Add for selected date
+                                        diet = dh.getDietEntry(todayTimeInMillis);
+                                        diet.setDate(timeInMillis);
+                                        dh.addDietEntry(diet);
+                                        //Update text fields
+                                        updateTextFields(diet);
+                                        Toast.makeText(getContext(),"Info created",Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        c.setTimeInMillis(previousDate);
+                                    }
+                                })
+                                .show();
                     }
                     else
                     {
@@ -347,20 +370,5 @@ public class DietScreenMain extends Fragment {
 
         currentProteinView.setText(Float.toString(diet.getProtein()));
         goalProteinView.setText(Float.toString(diet.getProteinGoal()));
-
-        if (timeInMillis != todayTimeInMillis)
-        {
-            caloriesEntry.setInputType(InputType.TYPE_NULL);
-            caloriesGoalEntry.setInputType(InputType.TYPE_NULL);
-            proteinEntry.setInputType(InputType.TYPE_NULL);
-            proteinGoalEntry.setInputType(InputType.TYPE_NULL);
-        }
-        else
-        {
-            caloriesEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
-            caloriesGoalEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
-            proteinEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
-            proteinGoalEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
-        }
     }
 }
