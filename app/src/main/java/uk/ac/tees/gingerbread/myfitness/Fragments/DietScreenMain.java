@@ -80,7 +80,16 @@ public class DietScreenMain extends Fragment {
                     //On date set read diet entry from db for selected day and set timeinmillis
                     c.set(year, monthOfYear, dayOfMonth);
                     timeInMillis = c.getTimeInMillis();
-                    diet = dh.getDietEntry(timeInMillis);
+
+                    if (dh.getDietEntry(timeInMillis) == null)
+                    {
+                        Toast.makeText(getContext(),"Could not find diet info for this day.",Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        diet = dh.getDietEntry(timeInMillis);
+                        Toast.makeText(getContext(),"Diet info loaded.",Toast.LENGTH_SHORT).show();
+                    }
                     updateTextFields(diet);
                 }
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));

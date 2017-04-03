@@ -67,21 +67,17 @@ public class InfoFragment extends Fragment {
                 {
                     c.set(year, monthOfYear, dayOfMonth);
                     timeInMillis = c.getTimeInMillis();
-                    info = dh.getInfoEntry(timeInMillis);
-                    if (info == null)
+
+                    if (dh.getInfoEntry(timeInMillis) == null)
                     {
-                        info = dh.getLatestInfo();
-                        if (info != null)
-                        {
-                            info.setDate(timeInMillis);
-                        }
-                        else
-                        {
-                            info = new InfoEntry(0,0,0,timeInMillis,"Not set");
-                        }
-                        dh.addInfo(info);
+                        Toast.makeText(getContext(),"Could not find info for today.",Toast.LENGTH_SHORT).show();
                     }
-                    updateFields(info);
+                    else
+                    {
+                        info = dh.getInfoEntry(timeInMillis);
+                        updateFields(info);
+                    }
+
                 }
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.getDatePicker().setMaxDate(todayTimeInMillis);
@@ -107,8 +103,6 @@ public class InfoFragment extends Fragment {
         weightField.setText(String.valueOf(info.getWeight()));
         heightField.setText(String.valueOf(info.getHeight()));
         activitySpinner.setSelection(info.getActivityLevel() - 1);
-
-        Log.d("GOAL",info.getGoal());
 
         goalSpinner.setSelection(goalList.indexOf(info.getGoal()));
 
