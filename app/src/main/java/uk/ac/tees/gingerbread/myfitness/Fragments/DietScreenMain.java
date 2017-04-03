@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.support.v4.app.Fragment;
@@ -53,13 +54,24 @@ public class DietScreenMain extends Fragment {
     private DietEntry diet;
     private DatabaseHandler dh;
 
-    private Button dateButton;
+    private ImageButton searchButton;
     private EditText caloriesEntry;
     private EditText caloriesGoalEntry;
     private EditText proteinEntry;
     private EditText proteinGoalEntry;
     private EditText foodEntry;
     private ListView foodList;
+
+    public void updateTitleBar(long date)
+    {
+        c = Calendar.getInstance();
+        c.setTimeInMillis(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        getActivity().setTitle("Diet Info " + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR));
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -97,6 +109,7 @@ public class DietScreenMain extends Fragment {
                                         dh.addDietEntry(diet);
                                         //Update text fields
                                         updateTextFields(diet);
+                                        updateTitleBar(timeInMillis);
                                         Toast.makeText(getContext(),"Info created",Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -138,6 +151,7 @@ public class DietScreenMain extends Fragment {
         proteinGoalEntry = (EditText) view.findViewById(R.id.diet_protein_goal_entry);
         foodEntry = (EditText) view.findViewById(R.id.diet_food_entry);
         foodList = (ListView) view.findViewById(R.id.diet_food_list);
+        searchButton = (ImageButton) view.findViewById(R.id.food_search_button);
 
         //Set calendar up
         c = Calendar.getInstance();
@@ -148,7 +162,8 @@ public class DietScreenMain extends Fragment {
         timeInMillis = c.getTimeInMillis();
         todayTimeInMillis = c.getTimeInMillis();
 
-        //Set prompt in list
+        //Change date on title
+        updateTitleBar(timeInMillis);
 
         return view;
     }
@@ -248,16 +263,9 @@ public class DietScreenMain extends Fragment {
             }
         });
 
-        foodEntry.addTextChangedListener(new TextWatcher() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void onClick(View v) {
                 if (foodList != null)
                 {
                     if (foodList.getAdapter() != null)
@@ -266,8 +274,8 @@ public class DietScreenMain extends Fragment {
                         ((NutritionixAdapter) foodList.getAdapter()).notifyDataSetChanged();
                     }
                 }
-                if (s.toString().length() > 2 && !s.toString().matches("")){
-                    getEntries(getActivity(),s.toString());
+                if (!foodEntry.getText().toString().matches("")){
+                    getEntries(getActivity(),foodEntry.getText().toString());
                 }
             }
         });

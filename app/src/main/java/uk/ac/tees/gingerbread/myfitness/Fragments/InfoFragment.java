@@ -50,6 +50,17 @@ public class InfoFragment extends Fragment {
     private Spinner activitySpinner;
     private Spinner goalSpinner;
 
+    public void updateTitleBar(long date)
+    {
+        c = Calendar.getInstance();
+        c.setTimeInMillis(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        getActivity().setTitle("Personal Info " + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR));
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -85,6 +96,7 @@ public class InfoFragment extends Fragment {
                                         dh.addInfo(info);
                                         //Update text fields
                                         updateFields(info);
+                                        updateTitleBar(timeInMillis);
                                         Toast.makeText(getContext(),"Info created",Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -171,6 +183,8 @@ public class InfoFragment extends Fragment {
         c.set(Calendar.MILLISECOND, 0);
         timeInMillis = c.getTimeInMillis();
         todayTimeInMillis = c.getTimeInMillis();
+
+        updateTitleBar(timeInMillis);
 
         dh = new DatabaseHandler(getActivity());
         //Create record for diet in db if there isn't one for today

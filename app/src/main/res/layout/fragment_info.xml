@@ -48,7 +48,6 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:ems="10"
-                android:gravity="top"
                 android:inputType="numberDecimal" />
 
         </LinearLayout>
@@ -73,7 +72,6 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:ems="10"
-                android:gravity="top"
                 android:inputType="numberDecimal" />
         </LinearLayout>
 
