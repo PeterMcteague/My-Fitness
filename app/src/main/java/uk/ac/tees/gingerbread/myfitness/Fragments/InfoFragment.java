@@ -3,15 +3,19 @@ package uk.ac.tees.gingerbread.myfitness.Fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,11 +45,83 @@ public class InfoFragment extends Fragment {
     private InfoEntry info;
     private DatabaseHandler dh;
 
-    private FloatingActionButton dateButton;
     private EditText weightField;
     private EditText heightField;
     private Spinner activitySpinner;
     private Spinner goalSpinner;
+
+    public void updateTitleBar(long date)
+    {
+        c = Calendar.getInstance();
+        c.setTimeInMillis(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        getActivity().setTitle("Personal Info " + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_calendar) {
+            Log.d("Calendar Button","Info");
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
+            {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+                {
+                    final Long previousDate = timeInMillis;
+                    c.set(year, monthOfYear, dayOfMonth);
+                    timeInMillis = c.getTimeInMillis();
+
+                    if (dh.getInfoEntry(timeInMillis) == null)
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder
+                                .setTitle("Create info")
+                                .setMessage("Could not find info for selected day. Would you like to create some?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //Add for selected date
+                                        info = dh.getInfoEntry(todayTimeInMillis);
+                                        info.setDate(timeInMillis);
+                                        dh.addInfo(info);
+                                        //Update text fields
+                                        updateFields(info);
+                                        updateTitleBar(timeInMillis);
+                                        Toast.makeText(getContext(),"Info created",Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        c.setTimeInMillis(previousDate);
+                                    }
+                                })
+                                .show();
+                    }
+                    else
+                    {
+                        info = dh.getInfoEntry(timeInMillis);
+                        updateFields(info);
+                    }
+                }
+            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.getDatePicker().setMaxDate(todayTimeInMillis);
+            datePickerDialog.show();
+            return true;
+        }
+
+        return false;
+    }
 
     public InfoFragment() {
         // Required empty public constructor
@@ -59,29 +135,11 @@ public class InfoFragment extends Fragment {
         goalList.add("Lose weight");
         goalList.add("Stay healthy");
 
-
         weightField.setText(String.valueOf(info.getWeight()));
         heightField.setText(String.valueOf(info.getHeight()));
         activitySpinner.setSelection(info.getActivityLevel() - 1);
 
-        Log.d("GOAL",info.getGoal());
-
         goalSpinner.setSelection(goalList.indexOf(info.getGoal()));
-
-        if (timeInMillis != todayTimeInMillis)
-        {
-            weightField.setInputType(InputType.TYPE_NULL);
-            heightField.setInputType(InputType.TYPE_NULL);
-            activitySpinner.setClickable(true);
-            goalSpinner.setClickable(true);
-        }
-        else
-        {
-            weightField.setInputType(InputType.TYPE_CLASS_NUMBER);
-            heightField.setInputType(InputType.TYPE_CLASS_NUMBER);
-            activitySpinner.setClickable(false);
-            goalSpinner.setClickable(false);
-        }
     }
 
 
@@ -89,8 +147,9 @@ public class InfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
-                //Get resources
-        dateButton = (FloatingActionButton) view.findViewById(R.id.date_picker);
+
+        setHasOptionsMenu(true);
+
         weightField = (EditText) view.findViewById(R.id.editText_weight);
         heightField = (EditText) view.findViewById(R.id.editText_Height);
 
@@ -125,6 +184,8 @@ public class InfoFragment extends Fragment {
         timeInMillis = c.getTimeInMillis();
         todayTimeInMillis = c.getTimeInMillis();
 
+        updateTitleBar(timeInMillis);
+
         dh = new DatabaseHandler(getActivity());
         //Create record for diet in db if there isn't one for today
         info = dh.getInfoEntry(todayTimeInMillis);
@@ -152,39 +213,6 @@ public class InfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         updateFields(info);
-
-        //Add listeners
-        dateButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
-                        {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-                            {
-                                c.set(year, monthOfYear, dayOfMonth);
-                                timeInMillis = c.getTimeInMillis();
-                                info = dh.getInfoEntry(timeInMillis);
-                                if (info == null)
-                                {
-                                    info = dh.getLatestInfo();
-                                    if (info != null)
-                                    {
-                                        info.setDate(timeInMillis);
-                                    }
-                                    else
-                                    {
-                                        info = new InfoEntry(0,0,0,timeInMillis,"Not set");
-                                    }
-                                    dh.addInfo(info);
-                                }
-                                updateFields(info);
-                            }
-                        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                        datePickerDialog.getDatePicker().setMaxDate(todayTimeInMillis);
-                        datePickerDialog.show();
-                    }});
 
         weightField.addTextChangedListener(new TextWatcher() {
             @Override

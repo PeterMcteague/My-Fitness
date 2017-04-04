@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +14,14 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.support.v4.app.Fragment;
@@ -51,7 +54,7 @@ public class DietScreenMain extends Fragment {
     private DietEntry diet;
     private DatabaseHandler dh;
 
-    private Button dateButton;
+    private ImageButton searchButton;
     private EditText caloriesEntry;
     private EditText caloriesGoalEntry;
     private EditText proteinEntry;
@@ -59,6 +62,80 @@ public class DietScreenMain extends Fragment {
     private EditText foodEntry;
     private ListView foodList;
 
+    public void updateTitleBar(long date)
+    {
+        c = Calendar.getInstance();
+        c.setTimeInMillis(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        getActivity().setTitle("Diet Info " + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_calendar) {
+            Log.d("Calendar Button","Diet");
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
+            {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+                {
+                    final Long previousDate = timeInMillis;
+                    //On date set read diet entry from db for selected day and set timeinmillis
+                    c.set(year, monthOfYear, dayOfMonth);
+                    timeInMillis = c.getTimeInMillis();
+
+                    if (dh.getDietEntry(timeInMillis) == null)
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder
+                                .setTitle("Create diet info")
+                                .setMessage("Could not find diet info for selected day. Would you like to create some?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //Add for selected date
+                                        diet = dh.getDietEntry(todayTimeInMillis);
+                                        diet.setDate(timeInMillis);
+                                        dh.addDietEntry(diet);
+                                        //Update text fields
+                                        updateTextFields(diet);
+                                        updateTitleBar(timeInMillis);
+                                        Toast.makeText(getContext(),"Info created",Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        c.setTimeInMillis(previousDate);
+                                    }
+                                })
+                                .show();
+                    }
+                    else
+                    {
+                        diet = dh.getDietEntry(timeInMillis);
+                        Toast.makeText(getContext(),"Diet info loaded.",Toast.LENGTH_SHORT).show();
+                    }
+                    updateTextFields(diet);
+                }
+            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.getDatePicker().setMaxDate(todayTimeInMillis);
+            datePickerDialog.show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Nullable
     @Override
@@ -66,13 +143,15 @@ public class DietScreenMain extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_diet_screen_main, container,false);
 
-        dateButton = (Button) view.findViewById(R.id.diet_date_button);
+        setHasOptionsMenu(true);
+
         caloriesEntry = (EditText) view.findViewById(R.id.diet_calories_entry);
         caloriesGoalEntry = (EditText) view.findViewById(R.id.diet_calories_goal_entry);
         proteinEntry = (EditText) view.findViewById(R.id.diet_protein_entry);
         proteinGoalEntry = (EditText) view.findViewById(R.id.diet_protein_goal_entry);
         foodEntry = (EditText) view.findViewById(R.id.diet_food_entry);
         foodList = (ListView) view.findViewById(R.id.diet_food_list);
+        searchButton = (ImageButton) view.findViewById(R.id.food_search_button);
 
         //Set calendar up
         c = Calendar.getInstance();
@@ -83,6 +162,9 @@ public class DietScreenMain extends Fragment {
         timeInMillis = c.getTimeInMillis();
         todayTimeInMillis = c.getTimeInMillis();
 
+        //Change date on title
+        updateTitleBar(timeInMillis);
+
         return view;
     }
 
@@ -91,26 +173,6 @@ public class DietScreenMain extends Fragment {
     {
 
         dh = new DatabaseHandler(getActivity());
-
-        dateButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
-                        {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-                            {
-                                //On date set read diet entry from db for selected day and set timeinmillis
-                                c.set(year, monthOfYear, dayOfMonth);
-                                timeInMillis = c.getTimeInMillis();
-                                diet = dh.getDietEntry(timeInMillis);
-                                updateTextFields(diet);
-                            }
-                        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                        datePickerDialog.show();
-                    }});
-
 
         //Create record for diet in db if there isn't one for today
         diet = dh.getDietEntryToday();
@@ -201,16 +263,9 @@ public class DietScreenMain extends Fragment {
             }
         });
 
-        foodEntry.addTextChangedListener(new TextWatcher() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void onClick(View v) {
                 if (foodList != null)
                 {
                     if (foodList.getAdapter() != null)
@@ -219,8 +274,8 @@ public class DietScreenMain extends Fragment {
                         ((NutritionixAdapter) foodList.getAdapter()).notifyDataSetChanged();
                     }
                 }
-                if (s.toString().length() > 2 && !s.toString().matches("")){
-                    getEntries(getActivity(),s.toString());
+                if (!foodEntry.getText().toString().matches("")){
+                    getEntries(getActivity(),foodEntry.getText().toString());
                 }
             }
         });
@@ -325,20 +380,5 @@ public class DietScreenMain extends Fragment {
 
         currentProteinView.setText(Float.toString(diet.getProtein()));
         goalProteinView.setText(Float.toString(diet.getProteinGoal()));
-
-        if (timeInMillis != todayTimeInMillis)
-        {
-            caloriesEntry.setInputType(InputType.TYPE_NULL);
-            caloriesGoalEntry.setInputType(InputType.TYPE_NULL);
-            proteinEntry.setInputType(InputType.TYPE_NULL);
-            proteinGoalEntry.setInputType(InputType.TYPE_NULL);
-        }
-        else
-        {
-            caloriesEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
-            caloriesGoalEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
-            proteinEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
-            proteinGoalEntry.setInputType(InputType.TYPE_CLASS_NUMBER);
-        }
     }
 }
