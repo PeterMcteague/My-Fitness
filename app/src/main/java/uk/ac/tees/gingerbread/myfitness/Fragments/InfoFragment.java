@@ -1,9 +1,12 @@
 package uk.ac.tees.gingerbread.myfitness.Fragments;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,7 +33,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import uk.ac.tees.gingerbread.myfitness.Adapters.ProgressPicAdapter;
 import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.PictureEntry;
 import uk.ac.tees.gingerbread.myfitness.R;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 
@@ -49,6 +55,7 @@ public class InfoFragment extends Fragment {
     private EditText heightField;
     private Spinner activitySpinner;
     private Spinner goalSpinner;
+    private FloatingActionButton addPictureButton;
 
     public void updateTitleBar(long date)
     {
@@ -59,6 +66,22 @@ public class InfoFragment extends Fragment {
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
         getActivity().setTitle("Personal Info " + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR));
+    }
+
+    public void populateImageList()
+    {
+        ListView pictureList = (ListView) getView().findViewById(R.id.info_picture_list);
+        DatabaseHandler dh = new DatabaseHandler(getContext());
+
+        ArrayList<PictureEntry> pictures = dh.getPicturesForDate(timeInMillis);
+        ProgressPicAdapter adapter = new ProgressPicAdapter(getActivity(),pictures);
+        for (int i = 0; i < pictures.size(); i++) {
+            //add to adapter object
+            adapter.add(pictures.get(i));
+        }
+
+        pictureList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -112,6 +135,7 @@ public class InfoFragment extends Fragment {
                     {
                         info = dh.getInfoEntry(timeInMillis);
                         updateFields(info);
+                        populateImageList();
                     }
                 }
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
@@ -152,6 +176,8 @@ public class InfoFragment extends Fragment {
 
         weightField = (EditText) view.findViewById(R.id.editText_weight);
         heightField = (EditText) view.findViewById(R.id.editText_Height);
+
+        addPictureButton = (FloatingActionButton) view.findViewById(R.id.add_picture_button);
 
         activitySpinner = (Spinner) view.findViewById(R.id.spinner_activity);
         List<String> activityList = new ArrayList<>();
@@ -204,6 +230,7 @@ public class InfoFragment extends Fragment {
                 dh.addInfo(info);
             }
         }
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -213,6 +240,14 @@ public class InfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         updateFields(info);
+        populateImageList();
+
+        addPictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Image picker here
+            }
+        });
 
         weightField.addTextChangedListener(new TextWatcher() {
             @Override
