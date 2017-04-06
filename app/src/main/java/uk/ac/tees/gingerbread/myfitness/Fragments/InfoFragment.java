@@ -245,7 +245,38 @@ public class InfoFragment extends Fragment {
         addPictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Image picker here
+                //Ask whether to pick from camera, gallery or cancel
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Add picture");
+                builder.setIcon(R.drawable.ic_menu_gallery);
+                builder.setMessage("Where would you like to add a picture from?");
+                builder.setPositiveButton("Camera",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                //Start camera intent and get bitmap and save to db and refresh
+                            }
+                        });
+
+                builder.setNeutralButton("Cancel",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                dialog.cancel();
+                            }
+                        });
+
+                builder.setNegativeButton("Gallery",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                //Start gallery intent and get bitmap and save to db and refresh
+                            }
+                        });
+                builder.show();
             }
         });
 
