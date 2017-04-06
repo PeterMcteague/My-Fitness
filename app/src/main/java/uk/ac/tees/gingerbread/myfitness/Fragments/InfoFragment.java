@@ -6,8 +6,11 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -29,6 +32,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -38,6 +42,8 @@ import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.PictureEntry;
 import uk.ac.tees.gingerbread.myfitness.R;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +62,40 @@ public class InfoFragment extends Fragment {
     private Spinner activitySpinner;
     private Spinner goalSpinner;
     private FloatingActionButton addPictureButton;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        switch(requestCode) {
+            case 0:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
+                        DatabaseHandler dh = new DatabaseHandler(getContext());
+                        dh.addPictureEntry(timeInMillis,bitmap);
+                        populateImageList();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                break;
+            case 1:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
+                        DatabaseHandler dh = new DatabaseHandler(getContext());
+                        dh.addPictureEntry(timeInMillis,bitmap);
+                        populateImageList();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+        }
+    }
 
     public void updateTitleBar(long date)
     {
@@ -256,6 +296,8 @@ public class InfoFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id)
                             {
                                 //Start camera intent and get bitmap and save to db and refresh
+                                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(takePicture, 0);//zero can be replaced with any action code
                             }
                         });
 
@@ -274,6 +316,9 @@ public class InfoFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id)
                             {
                                 //Start gallery intent and get bitmap and save to db and refresh
+                                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
                             }
                         });
                 builder.show();
