@@ -1,19 +1,25 @@
 package uk.ac.tees.gingerbread.myfitness.Fragments;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.SyncStateContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -84,19 +90,6 @@ public class InfoFragment extends Fragment {
                     DatabaseHandler dh = new DatabaseHandler(getContext());
                     dh.addPictureEntry(timeInMillis,imageBitmap);
                     populateImageList();
-                }
-                break;
-            case 1:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
-                        DatabaseHandler dh = new DatabaseHandler(getContext());
-                        dh.addPictureEntry(timeInMillis,bitmap);
-                        populateImageList();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
                 break;
         }
@@ -204,6 +197,15 @@ public class InfoFragment extends Fragment {
         heightField.setText(String.valueOf(info.getHeight()));
         activitySpinner.setSelection(info.getActivityLevel() - 1);
 
+        if (timeInMillis != todayTimeInMillis)
+        {
+            addPictureButton.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            addPictureButton.setVisibility(View.VISIBLE);
+        }
+
         goalSpinner.setSelection(goalList.indexOf(info.getGoal()));
     }
 
@@ -308,18 +310,6 @@ public class InfoFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id)
                             {
                                 dialog.cancel();
-                            }
-                        });
-
-                builder.setNegativeButton("Gallery",
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int id)
-                            {
-                                //Start gallery intent and get bitmap and save to db and refresh
-                                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                startActivityForResult(pickPhoto , 1);//one can be replaced with any action code
                             }
                         });
                 builder.show();
