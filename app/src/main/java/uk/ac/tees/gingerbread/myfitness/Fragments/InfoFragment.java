@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,17 +70,21 @@ public class InfoFragment extends Fragment {
         switch(requestCode) {
             case 0:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
-                        DatabaseHandler dh = new DatabaseHandler(getContext());
-                        dh.addPictureEntry(timeInMillis,bitmap);
-                        populateImageList();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                    Bundle extras = imageReturnedIntent.getExtras();
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 8;
+                    Bitmap imageBitmap= (Bitmap) extras.get("data");
 
+                    //Compression of bitmap
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    imageBitmap = BitmapFactory.decodeByteArray(byteArray,0,byteArray.length);
+
+                    DatabaseHandler dh = new DatabaseHandler(getContext());
+                    dh.addPictureEntry(timeInMillis,imageBitmap);
+                    populateImageList();
+                }
                 break;
             case 1:
                 if(resultCode == RESULT_OK){
@@ -115,11 +120,6 @@ public class InfoFragment extends Fragment {
 
         ArrayList<PictureEntry> pictures = dh.getPicturesForDate(timeInMillis);
         ProgressPicAdapter adapter = new ProgressPicAdapter(getActivity(),pictures);
-        for (int i = 0; i < pictures.size(); i++) {
-            //add to adapter object
-            adapter.add(pictures.get(i));
-        }
-
         pictureList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -160,6 +160,7 @@ public class InfoFragment extends Fragment {
                                         //Update text fields
                                         updateFields(info);
                                         updateTitleBar(timeInMillis);
+                                        populateImageList();
                                         Toast.makeText(getContext(),"Info created",Toast.LENGTH_SHORT).show();
                                     }
                                 })
