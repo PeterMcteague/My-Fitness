@@ -15,6 +15,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import uk.ac.tees.gingerbread.myfitness.Models.ExerciseEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.PictureEntry;
@@ -31,7 +32,7 @@ public class RoutineExerciseAdapter extends ArrayAdapter<ExerciseEntry>
         TextView textView;
     }
 
-    public RoutineExerciseAdapter(Context context, ArrayList<ExerciseEntry> entries) {
+    public RoutineExerciseAdapter(Context context, List<ExerciseEntry> entries) {
         super(context, R.layout.item_exercise_routine, entries);
     }
 

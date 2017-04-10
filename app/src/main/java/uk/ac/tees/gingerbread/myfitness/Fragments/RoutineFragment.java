@@ -13,11 +13,15 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import uk.ac.tees.gingerbread.myfitness.Adapters.ProgressPicAdapter;
+import uk.ac.tees.gingerbread.myfitness.Adapters.RoutineExerciseAdapter;
 import uk.ac.tees.gingerbread.myfitness.Models.ExerciseEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.PictureEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.RoutineEntry;
 import uk.ac.tees.gingerbread.myfitness.R;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
@@ -55,7 +59,9 @@ public class RoutineFragment extends Fragment {
         for (ExerciseEntry e : routine.getExercises())
         {
             //Add list entry item and bind
-            
+            RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getActivity(),routine.getExercises());
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }
     }
 
