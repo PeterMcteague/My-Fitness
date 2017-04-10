@@ -1,27 +1,21 @@
 package uk.ac.tees.gingerbread.myfitness.Activities;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
-import android.widget.DatePicker;
-
-import java.util.Calendar;
 
 import uk.ac.tees.gingerbread.myfitness.Fragments.DietScreenMain;
+import uk.ac.tees.gingerbread.myfitness.Fragments.GymFindFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.InfoFragment;
-import uk.ac.tees.gingerbread.myfitness.Fragments.ProgressFragment;
+import uk.ac.tees.gingerbread.myfitness.Fragments.RoutineFragment;
 import uk.ac.tees.gingerbread.myfitness.R;
 
 public class MenuScreen extends AppCompatActivity
@@ -94,8 +88,12 @@ public class MenuScreen extends AppCompatActivity
             fragmentClass = InfoFragment.class;
         } else if (id == R.id.nav_diet) {
             fragmentClass = DietScreenMain.class;
-        } else if (id == R.id.nav_progress) {
-            fragmentClass = ProgressFragment.class;
+        } else if (id == R.id.nav_routine) {
+            fragmentClass = RoutineFragment.class;
+        }
+        else if (id == R.id.nav_gym_finder)
+        {
+            fragmentClass = GymFindFragment.class;
         }
 
         try {
