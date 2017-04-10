@@ -10,11 +10,13 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Locale;
 
+import uk.ac.tees.gingerbread.myfitness.Models.ExerciseEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.RoutineEntry;
 import uk.ac.tees.gingerbread.myfitness.R;
@@ -30,6 +32,7 @@ public class RoutineFragment extends Fragment {
     private Calendar c;
     private RoutineEntry routine;
     private DatabaseHandler dh;
+    private ListView listView;
     private FloatingActionButton addExerciseButton;
 
     public RoutineFragment() {
@@ -47,6 +50,14 @@ public class RoutineFragment extends Fragment {
         getActivity().setTitle("Routine for " + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR));
     }
 
+    public void updateList(RoutineEntry routine)
+    {
+        for (ExerciseEntry e : routine.getExercises())
+        {
+            //Add list entry item and bind
+            
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +65,9 @@ public class RoutineFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_routine, container, false);
         setHasOptionsMenu(true);
+
+        listView = (ListView) view.findViewById(R.id.routine_layout_list);
+        addExerciseButton = (FloatingActionButton) view.findViewById(R.id.routine_add_to_routine_button);
 
         //Set calendar up
         c = Calendar.getInstance();
@@ -107,6 +121,11 @@ public class RoutineFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //Populate list
+        updateList(routine);
+
+        //Bind add button
 
         getActivity().setTitle("Routine");
     }
