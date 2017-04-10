@@ -1,15 +1,19 @@
 package uk.ac.tees.gingerbread.myfitness.Fragments;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.RoutineEntry;
@@ -32,12 +36,72 @@ public class RoutineFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public void updateTitleBar(long date)
+    {
+        c = Calendar.getInstance();
+        c.setTimeInMillis(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        getActivity().setTitle("Routine for " + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR));
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_routine, container, false);
+        View view = inflater.inflate(R.layout.fragment_routine, container, false);
+        setHasOptionsMenu(true);
+
+        //Set calendar up
+        c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        timeInMillis = c.getTimeInMillis();
+        todayTimeInMillis = c.getTimeInMillis();
+
+        updateTitleBar(timeInMillis);
+
+        dh = new DatabaseHandler(getActivity());
+        //Get (or prompt to create) routine entry.
+        if (dh.getRoutineEntry(todayTimeInMillis) == null)
+        {
+            //If a previous entry with same day of week exists , offer to copy. Otherwise ask to create blank one.
+            if (dh.getRoutineForDay(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault())) != null)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder
+                        .setTitle("Create routine for day")
+                        .setMessage("Could not find routine for day but one was found for the same day last week.")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Copy last weeks", new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Get last entry update date and add to db
+                                routine = dh.getRoutineForDay(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
+                                routine.setDate(todayTimeInMillis);
+                                dh.addRoutine(routine);
+                            }
+                        })
+                        .setNegativeButton("Create blank routine", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Do nothing, only add when you add an exercise.
+                            }
+                        })
+                        .show();
+            }
+        }
+        else
+        {
+            routine = dh.getRoutineEntry(todayTimeInMillis);
+        }
+
+        // Inflate the layout for this fragment
+        return view;
     }
 
     @Override
