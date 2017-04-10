@@ -17,10 +17,13 @@
             android:layout_height="?attr/actionBarSize"
             android:background="#d84949"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_menu_screen" />
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize" />
 
 
 </android.support.design.widget.CoordinatorLayout>
