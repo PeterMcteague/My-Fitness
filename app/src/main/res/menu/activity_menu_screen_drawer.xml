@@ -5,15 +5,19 @@
         <item
             android:id="@+id/nav_info"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Info" />
+            android:title="Personal Info" />
         <item
-            android:id="@+id/nav_progress"
+            android:id="@+id/nav_routine"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Progress" />
+            android:title="Routine and exercises" />
         <item
             android:id="@+id/nav_diet"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Diet" />
+            android:title="Diet planner" />
+        <item
+            android:id="@+id/nav_gym_finder"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Gym finder" />
 
     </group>
 

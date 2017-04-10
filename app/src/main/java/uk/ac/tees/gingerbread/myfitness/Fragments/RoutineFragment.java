@@ -13,10 +13,10 @@ import uk.ac.tees.gingerbread.myfitness.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProgressFragment extends Fragment {
+public class RoutineFragment extends Fragment {
 
 
-    public ProgressFragment() {
+    public RoutineFragment() {
         // Required empty public constructor
     }
 
