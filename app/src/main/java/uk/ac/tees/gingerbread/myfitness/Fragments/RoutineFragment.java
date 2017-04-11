@@ -1,30 +1,25 @@
 package uk.ac.tees.gingerbread.myfitness.Fragments;
 
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import uk.ac.tees.gingerbread.myfitness.Adapters.ProgressPicAdapter;
-import uk.ac.tees.gingerbread.myfitness.Adapters.RoutineExerciseAdapter;
 import uk.ac.tees.gingerbread.myfitness.Models.ExerciseEntry;
-import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
-import uk.ac.tees.gingerbread.myfitness.Models.PictureEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.RoutineEntry;
 import uk.ac.tees.gingerbread.myfitness.R;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
@@ -59,13 +54,14 @@ public class RoutineFragment extends Fragment {
 
     public void updateList(RoutineEntry routine)
     {
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
         for (ExerciseEntry e : routine.getExercises())
         {
             //Add list entry item and bind
-            RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getActivity(),routine.getExercises(),routine);
-            listView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+            arrayAdapter.add(e.getName());
         }
+        listView.setAdapter(arrayAdapter);
+        arrayAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -132,35 +128,70 @@ public class RoutineFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Populate list
-        updateList(routine);
+        if (routine != null)
+        {
+            updateList(routine);
+        }
+
 
         //Bind add button
         addExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Show a list of exercises to add with cancel button, containing all exercises not added to routineentry already
-                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
-                builderSingle.setIcon(android.R.drawable.ic_menu_add);
-                builderSingle.setTitle("Add an excercise");
+                if (routine != null)
+                {
+                    //Show a list of exercises to add with cancel button, containing all exercises not added to routineentry already
+                    AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
+                    builderSingle.setIcon(android.R.drawable.ic_menu_add);
+                    builderSingle.setTitle("Add an exercise");
 
-                final List<ExerciseEntry> excercises = dh.getExcercisesNotInRoutine(routine);
-                RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getContext(),excercises,routine);
-
-                builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                    final List<ExerciseEntry> exercises = dh.getExcercisesNotInRoutine(routine);
+                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
+                    for (ExerciseEntry entry : exercises)
+                    {
+                        arrayAdapter.add(entry.getName());
                     }
-                });
 
-                builderSingle.setAdapter(adapter , new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dh.addExcerciseToRoutine(routine,excercises.get(which).getId());
-                        updateList(routine);
-                    }
-                });
-                builderSingle.show();
+                    builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    builderSingle.setAdapter(arrayAdapter , new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.d("Selected",exercises.get(which).getName());
+                            dh.addExcerciseToRoutine(routine,exercises.get(which).getId());
+                            updateList(routine);
+                        }
+                    });
+                    builderSingle.show();
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder
+                            .setTitle("Create routine for day")
+                            .setMessage("Could not find routine for selected day.")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Create one", new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //Get last entry update date and add to db
+                                    routine = new RoutineEntry(timeInMillis,new ArrayList<ExerciseEntry>());
+                                    dh.addRoutineEntry(routine);
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .show();
+                }
+
             }
         });
 
