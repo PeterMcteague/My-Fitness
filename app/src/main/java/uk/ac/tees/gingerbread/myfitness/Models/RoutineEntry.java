@@ -10,25 +10,19 @@ import java.util.Locale;
 
 public class RoutineEntry {
 
-    private String day;
     private List<ExerciseEntry> exercises;
     private long date;
 
     public RoutineEntry(Long date, List<ExerciseEntry> exercises)
     {
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(date);
         this.date = date;
-        this.day = c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault());
         this.exercises = exercises;
     }
 
     public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(date);
+        return c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault());
     }
 
     public List<ExerciseEntry> getExercises() {
@@ -57,12 +51,20 @@ public class RoutineEntry {
         this.date = date;
     }
 
-    //Gets day of date in and updates that too.
-    public void setDateDay(long date)
+    public boolean containsExcercise(int excerciseId)
     {
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(date);
-        this.date = date;
-        this.day = c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault());
+        for (ExerciseEntry exercise : exercises)
+        {
+            if (exercise.getId() == excerciseId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsExcercise(ExerciseEntry excercise)
+    {
+        return exercises.contains(excercise);
     }
 }

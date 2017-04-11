@@ -1,6 +1,7 @@
 package uk.ac.tees.gingerbread.myfitness.Fragments;
 
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -59,7 +61,7 @@ public class RoutineFragment extends Fragment {
         for (ExerciseEntry e : routine.getExercises())
         {
             //Add list entry item and bind
-            RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getActivity(),routine.getExercises());
+            RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getActivity(),routine.getExercises(),routine);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
@@ -91,7 +93,7 @@ public class RoutineFragment extends Fragment {
         if (dh.getRoutineEntry(todayTimeInMillis) == null)
         {
             //If a previous entry with same day of week exists , offer to copy. Otherwise ask to create blank one.
-            if (dh.getRoutineForDay(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault())) != null)
+            if (dh.getLatestRoutineForDay(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault())) != null)
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder
@@ -101,9 +103,9 @@ public class RoutineFragment extends Fragment {
                         .setPositiveButton("Copy last weeks", new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog, int which) {
                                 //Get last entry update date and add to db
-                                routine = dh.getRoutineForDay(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
+                                routine = dh.getLatestRoutineForDay(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
                                 routine.setDate(todayTimeInMillis);
-                                dh.addRoutine(routine);
+                                dh.addRoutineEntry(routine);
                             }
                         })
                         .setNegativeButton("Create blank routine", new DialogInterface.OnClickListener() {
@@ -132,6 +134,22 @@ public class RoutineFragment extends Fragment {
         updateList(routine);
 
         //Bind add button
+        addExerciseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Show a list of exercises to add with cancel button, containing all exercises not added to routineentry already
+                Dialog dialog = new Dialog(getActivity());
+                dialog.setContentView(R.layout.exercise_choice_dialog);
+                ListView lv = (ListView) dialog.findViewById(R.id.list_of_exercises);
+
+                ArrayAdapter<ExerciseEntry> adapter = new ArrayAdapter<ExerciseEntry>(this,android.R.layout.simple_list_item_1,routine.getExercises());
+                lv.setAdapter(adapter);
+
+                dialog.setCancelable(true);
+                dialog.setTitle("ListView");
+                dialog.show();
+            }
+        });
 
         getActivity().setTitle("Routine");
     }

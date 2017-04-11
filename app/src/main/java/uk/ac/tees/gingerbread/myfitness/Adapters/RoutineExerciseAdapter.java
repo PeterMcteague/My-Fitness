@@ -2,6 +2,7 @@ package uk.ac.tees.gingerbread.myfitness.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import uk.ac.tees.gingerbread.myfitness.Models.ExerciseEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.PictureEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.RoutineEntry;
 import uk.ac.tees.gingerbread.myfitness.R;
+import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 
 /**
  * Created by Peter on 05/04/2017.
@@ -28,14 +30,18 @@ import uk.ac.tees.gingerbread.myfitness.R;
 
 public class RoutineExerciseAdapter extends ArrayAdapter<ExerciseEntry>
 {
+    private RoutineEntry routine;
+
     private static class ViewHolder {
         TextView textView;
     }
 
-    public RoutineExerciseAdapter(Context context, List<ExerciseEntry> entries) {
+    public RoutineExerciseAdapter(Context context, List<ExerciseEntry> entries, RoutineEntry routine) {
         super(context, R.layout.item_exercise_routine, entries);
+        this.routine = routine;
     }
 
+    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ExerciseEntry exerciseEntry = getItem(position);
@@ -66,6 +72,15 @@ public class RoutineExerciseAdapter extends ArrayAdapter<ExerciseEntry>
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
+                                }
+                            });
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DELETE",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //Delete exercise entry and reg-et routine entry.
+                                    DatabaseHandler dh = new DatabaseHandler(getContext());
+                                    dh.removeExcerciseFromRoutine(routine,exerciseEntry.getId());
                                 }
                             });
                     alertDialog.show();

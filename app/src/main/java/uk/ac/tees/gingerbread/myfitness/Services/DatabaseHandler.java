@@ -11,6 +11,7 @@ import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -39,8 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COL_NAME = "name";
     private static final String COL_DESCRIPTION = "description";
     //Routine column names
-    private static final String COL_DAY = "day";
-    private static final String COL_EXERCISE_ID = "exercise_id";
+    private static final String COL_EXERCISE_IDS = "exercise_ids";
     //Diet column names
     private static final String COL_DIET_DATE = "date";
     private static final String COL_DIET_CAL = "calories";
@@ -107,9 +107,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_TABLE_ROUTINE = "CREATE TABLE " + TABLE_NAME_ROUTINE
                 + "("
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COL_DAY + " TEXT, "
                 + COL_DIET_DATE + " DATE NOT NULL UNIQUE, "
-                + COL_EXERCISE_ID + " INTEGER," + " FOREIGN KEY(" + COL_EXERCISE_ID + ") REFERENCES " + TABLE_NAME_EXERCISES + "(" + COL_EXERCISE_ID + "))";
+                + COL_EXERCISE_IDS + " STRING" + ")";
 
         String CREATE_TABLE_PICTURE = "CREATE TABLE " + TABLE_NAME_PICTURES
                 + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -859,7 +858,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) { // If data (records) available
             int idName = cursor.getColumnIndex(COL_NAME);
             int idDescription = cursor.getColumnIndex(COL_DESCRIPTION);
-            int idId = cursor.getColumnIndex(COL_EXERCISE_ID);
+            int idId = cursor.getColumnIndex(COL_ID);
             db.close();
             ExerciseEntry returnValue = new ExerciseEntry(
                     cursor.getString(idName),
@@ -911,7 +910,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) { // If data (records) available
             int idName = cursor.getColumnIndex(COL_NAME);
             int idDescription = cursor.getColumnIndex(COL_DESCRIPTION);
-            int idId = cursor.getColumnIndex(COL_EXERCISE_ID);
+            int idId = cursor.getColumnIndex(COL_ID);
             ExerciseEntry returnValue = new ExerciseEntry(
                     cursor.getString(idName),
                     cursor.getString(idDescription),
@@ -941,7 +940,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) { // If data (records) available
             int idName = cursor.getColumnIndex(COL_NAME);
             int idDescription = cursor.getColumnIndex(COL_DESCRIPTION);
-            int idId = cursor.getColumnIndex(COL_EXERCISE_ID);
+            int idId = cursor.getColumnIndex(COL_ID);
             do {
                 //Str,str,long,double,double,bitmap
                 list.add(new ExerciseEntry(
@@ -1339,23 +1338,60 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //-------------------------Routine methods---------------------------------------------------//
 
-    /**Adds a routine from date and exerciseID
-     *
-     * @param date The timeinmillis for the day of the routine
-     * @param exerciseId The id of the exercise
-     * @return The id of the routine entry
-     */
-    public long addRoutineExercise(Long date, int exerciseId)
+    private List<ExerciseEntry> getExcercisesFromCsl(String csl)
     {
-        //Set up calendar for getting day
-        Calendar c  = Calendar.getInstance();
-        c.setTimeInMillis(date);
+        if (csl.length() > 0)
+        {
+            List<ExerciseEntry> excerciseList = new ArrayList<>();
+            List<String> items = new ArrayList<String>(Arrays.asList(csl.split(",")));
+            for (String s: items)
+            {
+                if (s.length() > 0)
+                {
+                    excerciseList.add(getExcerciseByID(Integer.parseInt(s)));
+                }
+            }
+            return excerciseList;
+        }
+        return new ArrayList<ExerciseEntry>();
+    }
+
+    private String getCslFromExcercises(List<ExerciseEntry> excercises)
+    {
+        String csl = "";
+
+        for (ExerciseEntry excercise : excercises)
+        {
+            csl = csl + excercise.getId() + ",";
+        }
+        return csl;
+    }
+
+    //Create routine entry for date
+    public RoutineEntry getRoutineEntry(long dateIn)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_ROUTINE + " WHERE " + COL_DIET_DATE + " = " + dateIn;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            int dateId = cursor.getColumnIndex(COL_DIET_DATE);
+            int excerciseColId = cursor.getColumnIndex(COL_EXERCISE_IDS);
+            long date = cursor.getLong(dateId);
+            String excerciseCsl = cursor.getString(excerciseColId);
+
+            //Turn csl into list of excercises
+            return new RoutineEntry(date,getExcercisesFromCsl(excerciseCsl));
+        }
+        else{return null;}
+    }
+
+    public long addRoutineEntry(RoutineEntry routine)
+    {
         // Open database connection (for write)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_DAY , c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
-        values.put(COL_DIET_DATE , date);
-        values.put(COL_EXERCISE_ID, exerciseId);
+        values.put(COL_EXERCISE_IDS , getCslFromExcercises(routine.getExercises()));
+        values.put(COL_DIET_DATE, routine.getDate());
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_ROUTINE, null, values);
@@ -1363,117 +1399,58 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
-    /**A method to add a routine using a routine entry object.
-     *
-     * @param routineEntry The routine entry object to add.
-     * @return The id of the added routine entry.
-     */
-    public void addRoutine(RoutineEntry routineEntry)
-    {
-        //Delete any existing entries for that day and then add an entry for each exercise in routineEntry.
-        // Open database connection (for write)
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "DELETE FROM " + TABLE_NAME_ROUTINE + " WHERE " + COL_DIET_DATE + " = " + routineEntry.getDate();
-        db.execSQL(query);
-
-        List<ExerciseEntry> entries = routineEntry.getExercises();
-        for (ExerciseEntry entry : entries)
-        {
-            ContentValues values = new ContentValues();
-            values.put(COL_DAY , routineEntry.getDay());
-            values.put(COL_DIET_DATE , routineEntry.getDate());
-            values.put(COL_EXERCISE_ID, entry.getId());
-            db.insert(TABLE_NAME_ROUTINE, null, values);
-        }
-        db.close(); // Closing database connection
-    }
-
-    /**Gets a list of exercise entries from a routine day.
-     *
-     * @param date The date to get for
-     * @return The exercise entries for routine for that day.
-     */
-    public RoutineEntry getRoutineEntry(Long date)
+    //Add exercise to routine
+    public void addExcerciseToRoutine(RoutineEntry routine, int excerciseId)
     {
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Integer> list = new ArrayList<>();
-
-        // Generate SQL SELECT statement
-        String selectQuery = "SELECT * FROM " + TABLE_NAME_ROUTINE + " WHERE " + COL_DIET_DATE + " = " + date;
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        List<ExerciseEntry> listOfExercises = new ArrayList<>();
-        if (cursor.moveToFirst()) { // If data (records) available
-            int idExerciseID = cursor.getColumnIndex(COL_EXERCISE_ID);
-
-            do {
-                //Add exercise for exerciseId
-                String selectQuery2 = "SELECT * FROM " + TABLE_NAME_EXERCISES + " WHERE " + COL_EXERCISE_ID + " = " + cursor.getInt(idExerciseID);
-                Cursor cursor2 = db.rawQuery(selectQuery2, null);
-
-                //Name and description for exercise
-                int idExerciseName = cursor2.getColumnIndex(COL_NAME);
-                int idExerciseDescription = cursor2.getColumnIndex(COL_DESCRIPTION);
-                int idExerciseIdInner = cursor2.getColumnIndex(COL_EXERCISE_ID);
-
-                if (cursor2.moveToFirst())
-                {
-                    listOfExercises.add(new ExerciseEntry(cursor2.getString(idExerciseName),cursor2.getString(idExerciseDescription),cursor2.getInt(idExerciseIdInner)));
-                }
-            } while (cursor.moveToNext()); // repeat until there are no more records
-
-            return new RoutineEntry(date,listOfExercises);
-        }
-        return null;
+        // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
+        String selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
+                + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromExcercises(routine.getExercises()) + excerciseId + "'"
+                + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
+        db.execSQL(selectQuery);
+        db.close();
     }
 
-    public RoutineEntry getRoutineForDay(String day)
+    //Remove exercise from routine
+    public void removeExcerciseFromRoutine(RoutineEntry routine, int excerciseId)
     {
+        // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_NAME_ROUTINE + " WHERE " + COL_DAY + " = " + day + " ORDER BY " + COL_DIET_DATE;
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        //Get date
-        long date;
-        if (cursor.moveToFirst()) { // If data (records) available
-            date = (cursor.getLong(cursor.getColumnIndex(COL_DIET_DATE)));
-        }
-        else
-        {
-            return null;
-        }
-
-        //Add every exercise entry for the list
-        selectQuery = "SELECT * FROM " + TABLE_NAME_ROUTINE + " WHERE " + COL_DIET_DATE + " = " + date;
-        cursor = db.rawQuery(selectQuery, null);
-        List<ExerciseEntry> listOfExercises = new ArrayList<>();
-        if (cursor.moveToFirst()) { // If data (records) available
-            int idExerciseID = cursor.getColumnIndex(COL_EXERCISE_ID);
-
-            do {
-                //Add exercise for exerciseId
-                String selectQuery2 = "SELECT * FROM " + TABLE_NAME_EXERCISES + " WHERE " + COL_EXERCISE_ID + " = " + cursor.getInt(idExerciseID);
-                Cursor cursor2 = db.rawQuery(selectQuery2, null);
-
-                //Name and description for exercise
-                int idExerciseName = cursor2.getColumnIndex(COL_NAME);
-                int idExerciseDescription = cursor2.getColumnIndex(COL_DESCRIPTION);
-                int idExerciseIdInner = cursor2.getColumnIndex(COL_EXERCISE_ID);
-
-                if (cursor2.moveToFirst())
-                {
-                    listOfExercises.add(new ExerciseEntry(cursor2.getString(idExerciseName),cursor2.getString(idExerciseDescription),cursor2.getInt(idExerciseIdInner)));
-                }
-            } while (cursor.moveToNext()); // repeat until there are no more records
-
-            return new RoutineEntry(date,listOfExercises);
-        }
-        return null;
-
+        // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
+        String selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
+                + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromExcercises(routine.getExercises()).replace(excerciseId + ",","") + "'"
+                + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
+        db.execSQL(selectQuery);
+        db.close();
     }
 
+    //Get latest routine for that day (Otherwise return null)
+    public RoutineEntry getLatestRoutineForDay(String day)
+    {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
 
-
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_ROUTINE + " ORDER BY " + COL_DIET_DATE + " DESC";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idExcercises = cursor.getColumnIndex(COL_EXERCISE_IDS);
+            do {
+                c.setTimeInMillis(cursor.getInt(idDate));
+                //If the display name for that time matches the day of the week entered
+                if (c.getDisplayName(Calendar.DAY_OF_WEEK,Calendar.LONG,Locale.getDefault()).toLowerCase().trim().equals(day.toLowerCase().trim()))
+                {
+                    db.close();
+                    return new RoutineEntry(cursor.getLong(idDate),getExcercisesFromCsl(cursor.getString(idExcercises)));
+                }
+            } while (cursor.moveToNext()); // repeat until there are no more records
+        }
+        db.close();
+        return null;
+    }
 }
