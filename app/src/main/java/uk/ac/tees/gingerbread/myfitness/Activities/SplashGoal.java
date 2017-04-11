@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
@@ -74,6 +75,12 @@ public class SplashGoal extends AppCompatActivity {
             c.add(Calendar.DATE, 1);
         }
         long saturday = c.getTimeInMillis();
+
+        Log.d("Monday",monday + "");
+        Log.d("Wednesday",wednesday + "");
+        Log.d("Thursday",thursday + "");
+        Log.d("Friday",friday + "");
+        Log.d("Saturday",saturday + "");
 
         //Create routines and add excercises
         if (goal == "Muscle")

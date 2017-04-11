@@ -1356,13 +1356,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return new ArrayList<ExerciseEntry>();
     }
 
-    private String getCslFromExcercises(List<ExerciseEntry> excercises)
+    private String getCslFromExcercises(List<ExerciseEntry> exercises)
     {
         String csl = "";
 
-        for (ExerciseEntry excercise : excercises)
+        if (!exercises.isEmpty())
         {
-            csl = csl + excercise.getId() + ",";
+            Log.d("Exercises",exercises.toString());
+            for (ExerciseEntry excercise : exercises)
+            {
+                if (excercise != null)
+                {
+                    Log.d("Excercise:",excercise.getName() + " : " + excercise.getId());
+                    csl = csl + excercise.getId() + ",";
+                }
+            }
         }
         return csl;
     }
@@ -1405,6 +1413,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
         // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
+        Log.d("Routine ln1409",routine.getDate() + "");
+        Log.d("Current csl",getCslFromExcercises(routine.getExercises()));
         String selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
                 + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromExcercises(routine.getExercises()) + excerciseId + "'"
                 + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
