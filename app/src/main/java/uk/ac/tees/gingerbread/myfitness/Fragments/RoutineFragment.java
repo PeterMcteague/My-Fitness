@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import uk.ac.tees.gingerbread.myfitness.Adapters.ProgressPicAdapter;
@@ -138,16 +139,28 @@ public class RoutineFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Show a list of exercises to add with cancel button, containing all exercises not added to routineentry already
-                Dialog dialog = new Dialog(getActivity());
-                dialog.setContentView(R.layout.exercise_choice_dialog);
-                ListView lv = (ListView) dialog.findViewById(R.id.list_of_exercises);
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
+                builderSingle.setIcon(android.R.drawable.ic_menu_add);
+                builderSingle.setTitle("Add an excercise");
 
-                ArrayAdapter<ExerciseEntry> adapter = new ArrayAdapter<ExerciseEntry>(this,android.R.layout.simple_list_item_1,routine.getExercises());
-                lv.setAdapter(adapter);
+                final List<ExerciseEntry> excercises = dh.getExcercisesNotInRoutine(routine);
+                RoutineExerciseAdapter adapter = new RoutineExerciseAdapter(getContext(),excercises,routine);
 
-                dialog.setCancelable(true);
-                dialog.setTitle("ListView");
-                dialog.show();
+                builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                builderSingle.setAdapter(adapter , new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dh.addExcerciseToRoutine(routine,excercises.get(which).getId());
+                        updateList(routine);
+                    }
+                });
+                builderSingle.show();
             }
         });
 

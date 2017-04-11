@@ -1453,4 +1453,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return null;
     }
+
+    public List<ExerciseEntry> getExcercisesNotInRoutine(RoutineEntry routine)
+    {
+        List<ExerciseEntry> listOfAll = getAllExercises();
+        for (ExerciseEntry item : routine.getExercises())
+        {
+            if (listOfAll.contains(item))
+            {
+                listOfAll.remove(item);
+            }
+        }
+        return listOfAll;
+    }
 }
