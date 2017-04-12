@@ -1,6 +1,7 @@
 package uk.ac.tees.gingerbread.myfitness.Fragments;
 
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,10 +10,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,6 +46,110 @@ public class RoutineFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_calendar) {
+            Log.d("Calendar Button","Info");
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
+            {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    final Long previousDate = timeInMillis;
+                    c.set(year, monthOfYear, dayOfMonth);
+                    timeInMillis = c.getTimeInMillis();
+                    Log.d("Date selected: ",timeInMillis + "");
+                    if (dh.getRoutineEntry(timeInMillis) == null)
+                    {
+                        Log.d("Routine exists?","No");
+                        //If a previous entry with same day of week exists , offer to copy. Otherwise ask to create blank one.
+                        if (dh.getLatestRoutineForDay(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault())) != null)
+                        {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder
+                                    .setTitle("Create routine for day")
+                                    .setMessage("Could not find routine for day but one was found for the same day last week.")
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setPositiveButton("Copy last weeks", new DialogInterface.OnClickListener(){
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //Get last entry update date and add to db
+                                            routine = dh.getLatestRoutineForDay(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()));
+                                            routine.setDate(todayTimeInMillis);
+                                            dh.addRoutineEntry(routine);
+                                            updateTitleBar(timeInMillis);
+                                            updateList(routine);
+                                            c.setTimeInMillis(timeInMillis);
+                                        }
+                                    })
+                                    .setNegativeButton("Create blank routine", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dh.addRoutineEntry(new RoutineEntry(timeInMillis,new ArrayList<ExerciseEntry>()));
+                                            routine = dh.getRoutineEntry(timeInMillis);
+                                            updateTitleBar(timeInMillis);
+                                            updateList(routine);
+                                            c.setTimeInMillis(timeInMillis);
+                                        }
+                                    })
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            timeInMillis=previousDate;
+                                            c.setTimeInMillis(previousDate);
+                                        }
+                                    })
+                                    .show();
+                        }
+                        else
+                        {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder
+                                    .setTitle("Create routine for day")
+                                    .setMessage("Could not find routine for day.")
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setPositiveButton("Create blank routine", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dh.addRoutineEntry(new RoutineEntry(timeInMillis,new ArrayList<ExerciseEntry>()));
+                                            routine = dh.getRoutineEntry(timeInMillis);
+                                            updateTitleBar(timeInMillis);
+                                            updateList(routine);
+                                            c.setTimeInMillis(timeInMillis);
+                                        }
+                                    })
+                                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            timeInMillis=previousDate;
+                                            c.setTimeInMillis(previousDate);
+                                        }
+                                    })
+                                    .show();
+                        }
+                    }
+                    else
+                    {
+                        routine = dh.getRoutineEntry(timeInMillis);
+                        updateTitleBar(timeInMillis);
+                        updateList(routine);
+                        c.setTimeInMillis(timeInMillis);
+                    }
+                }
+            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.getDatePicker().setMaxDate(todayTimeInMillis);
+            datePickerDialog.show();
+            return true;
+        }
+
+        return false;
+    }
+
     public void updateTitleBar(long date)
     {
         c = Calendar.getInstance();
@@ -49,10 +158,10 @@ public class RoutineFragment extends Fragment {
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
-        getActivity().setTitle("Routine for " + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR));
+        getActivity().setTitle("Routine for " + c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.YEAR));
     }
 
-    public void updateList(RoutineEntry routine)
+    public void updateList(final RoutineEntry routine)
     {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
         for (ExerciseEntry e : routine.getExercises())
@@ -61,6 +170,32 @@ public class RoutineFragment extends Fragment {
             arrayAdapter.add(e.getName());
         }
         listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Get item
+                final ExerciseEntry exercise = routine.getExercises().get(position);
+                //Show ok/delete button dialog with description on it
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder
+                        .setTitle(exercise.getName())
+                        .setMessage(exercise.getDescription())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int which) {}
+                        })
+                        .setNegativeButton("Remove", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                routine.removeExercise(exercise);
+                                dh.removeExcerciseFromRoutine(routine,exercise.getId());
+                                updateList(routine);
+                            }
+                        })
+                        .show();
+
+            }
+        });
         arrayAdapter.notifyDataSetChanged();
     }
 
@@ -108,7 +243,8 @@ public class RoutineFragment extends Fragment {
                         .setNegativeButton("Create blank routine", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //Do nothing, only add when you add an exercise.
+                                dh.addRoutineEntry(new RoutineEntry(timeInMillis,new ArrayList<ExerciseEntry>()));
+                                routine = dh.getRoutineEntry(timeInMillis);
                             }
                         })
                         .show();
@@ -164,6 +300,7 @@ public class RoutineFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int which) {
                             Log.d("Selected",exercises.get(which).getName());
                             dh.addExcerciseToRoutine(routine,exercises.get(which).getId());
+                            routine.addExercise(exercises.get(which));
                             updateList(routine);
                         }
                     });
@@ -191,10 +328,9 @@ public class RoutineFragment extends Fragment {
                             })
                             .show();
                 }
-
             }
         });
 
-        getActivity().setTitle("Routine");
+        updateTitleBar(timeInMillis);
     }
 }

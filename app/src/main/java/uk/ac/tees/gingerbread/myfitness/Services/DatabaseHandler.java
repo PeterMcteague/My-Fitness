@@ -1413,8 +1413,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
         // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
-        Log.d("Routine ln1409",routine.getDate() + "");
-        Log.d("Current csl",getCslFromExcercises(routine.getExercises()));
         String selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
                 + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromExcercises(routine.getExercises()) + excerciseId + "'"
                 + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
