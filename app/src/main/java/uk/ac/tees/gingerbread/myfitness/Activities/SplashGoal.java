@@ -28,7 +28,7 @@ public class SplashGoal extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences("MyFitnessPrefs",0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("setupComplete",true);
-        editor.commit();
+        editor.apply();
     }
 
     //Activity: Sedentary * 1.2, Lightly active 1.37, Moderately 1.5, Very active 1.7
@@ -49,10 +49,9 @@ public class SplashGoal extends AppCompatActivity {
         dh.addDietEntryToday();
 
         //Get long for Monday, Wednesday, Thursday, Friday, Saturday
-        long currentDate = c.getTimeInMillis();
 
         while (c.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
-            c.add(Calendar.DATE, 1);
+            c.add(Calendar.DATE, -1);
         }
         long monday = c.getTimeInMillis();
 
@@ -75,12 +74,6 @@ public class SplashGoal extends AppCompatActivity {
             c.add(Calendar.DATE, 1);
         }
         long saturday = c.getTimeInMillis();
-
-        Log.d("Monday",monday + "");
-        Log.d("Wednesday",wednesday + "");
-        Log.d("Thursday",thursday + "");
-        Log.d("Friday",friday + "");
-        Log.d("Saturday",saturday + "");
 
         //Create routines and add excercises
         if (goal == "Muscle")

@@ -142,7 +142,6 @@ public class RoutineFragment extends Fragment {
                     }
                 }
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-            datePickerDialog.getDatePicker().setMaxDate(todayTimeInMillis);
             datePickerDialog.show();
             return true;
         }
@@ -163,40 +162,51 @@ public class RoutineFragment extends Fragment {
 
     public void updateList(final RoutineEntry routine)
     {
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
-        for (ExerciseEntry e : routine.getExercises())
+        if (!routine.getExercises().isEmpty())
         {
-            //Add list entry item and bind
-            arrayAdapter.add(e.getName());
-        }
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Get item
-                final ExerciseEntry exercise = routine.getExercises().get(position);
-                //Show ok/delete button dialog with description on it
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder
-                        .setTitle(exercise.getName())
-                        .setMessage(exercise.getDescription())
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton("Okay", new DialogInterface.OnClickListener(){
-                            public void onClick(DialogInterface dialog, int which) {}
-                        })
-                        .setNegativeButton("Remove", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                routine.removeExercise(exercise);
-                                dh.removeExcerciseFromRoutine(routine,exercise.getId());
-                                updateList(routine);
-                            }
-                        })
-                        .show();
-
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
+            for (ExerciseEntry e : routine.getExercises())
+            {
+                //Add list entry item and bind
+                arrayAdapter.add(e.getName());
             }
-        });
-        arrayAdapter.notifyDataSetChanged();
+            listView.setAdapter(arrayAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    //Get item
+                    final ExerciseEntry exercise = routine.getExercises().get(position);
+                    //Show ok/delete button dialog with description on it
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder
+                            .setTitle(exercise.getName())
+                            .setMessage(exercise.getDescription())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface dialog, int which) {}
+                            })
+                            .setNegativeButton("Remove", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    routine.removeExercise(exercise);
+                                    dh.removeExcerciseFromRoutine(routine,exercise.getId());
+                                    updateList(routine);
+                                }
+                            })
+                            .show();
+
+                }
+            });
+            arrayAdapter.notifyDataSetChanged();
+        }
+        else
+        {
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
+            arrayAdapter.add("No exercises in routine");
+            listView.setAdapter(arrayAdapter);
+            arrayAdapter.notifyDataSetChanged();
+            listView.setOnItemClickListener(null);
+        }
     }
 
     @Override
@@ -248,6 +258,13 @@ public class RoutineFragment extends Fragment {
                             }
                         })
                         .show();
+            }
+            else
+            {
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
+                arrayAdapter.add("Routine not found");
+                listView.setAdapter(arrayAdapter);
+                arrayAdapter.notifyDataSetChanged();
             }
         }
         else
@@ -318,6 +335,7 @@ public class RoutineFragment extends Fragment {
                                     //Get last entry update date and add to db
                                     routine = new RoutineEntry(timeInMillis,new ArrayList<ExerciseEntry>());
                                     dh.addRoutineEntry(routine);
+                                    updateList(routine);
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

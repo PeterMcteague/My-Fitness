@@ -1362,12 +1362,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (!exercises.isEmpty())
         {
-            Log.d("Exercises",exercises.toString());
             for (ExerciseEntry excercise : exercises)
             {
                 if (excercise != null)
                 {
-                    Log.d("Excercise:",excercise.getName() + " : " + excercise.getId());
                     csl = csl + excercise.getId() + ",";
                 }
             }
