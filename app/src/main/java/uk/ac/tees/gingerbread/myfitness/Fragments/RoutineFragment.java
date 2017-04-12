@@ -15,7 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -298,12 +301,100 @@ public class RoutineFragment extends Fragment {
                     builderSingle.setIcon(android.R.drawable.ic_menu_add);
                     builderSingle.setTitle("Add an exercise");
 
-                    final List<ExerciseEntry> exercises = dh.getExcercisesNotInRoutine(routine);
-                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
-                    for (ExerciseEntry entry : exercises)
+                    final List<ExerciseEntry> exercises = dh.getExercisesNotInRoutine(routine);
+
+                    if (exercises.isEmpty())
                     {
-                        arrayAdapter.add(entry.getName());
+                        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
+                        arrayAdapter.add("All exercises in routine");
                     }
+                    else
+                    {
+                        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
+                        for (ExerciseEntry entry : exercises)
+                        {
+                            arrayAdapter.add(entry.getName());
+                        }
+                        builderSingle.setAdapter(arrayAdapter , new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Exercise selected
+                                Log.d("Selected",exercises.get(which).getName());
+                                dh.addExcerciseToRoutine(routine,exercises.get(which).getId());
+                                routine.addExercise(exercises.get(which));
+                                updateList(routine);
+
+                            }
+                        });
+                    }
+
+                    builderSingle.setPositiveButton("Add new", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(final DialogInterface dialog, int which) {
+                            final AlertDialog alert = new AlertDialog.Builder(getContext()).create();
+                            alert.setIcon(android.R.drawable.ic_menu_add);
+                            alert.setTitle("Create new exercise");
+
+                            LinearLayout layout = new LinearLayout(getContext());
+                            layout.setOrientation(LinearLayout.VERTICAL);
+
+                            final EditText titleBox = new EditText(getContext());
+                            titleBox.setHint("Title");
+                            layout.addView(titleBox);
+
+                            final EditText descriptionBox = new EditText(getContext());
+                            descriptionBox.setHint("Description");
+                            layout.addView(descriptionBox);
+
+                            final Button addButton = new Button(getContext());
+                            addButton.setText("Add");
+                            addButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (titleBox.getText().length() == 0)
+                                    {
+                                        Toast.makeText(getContext(),"Please enter a title",Toast.LENGTH_SHORT).show();
+                                    }
+                                    else
+                                    {
+                                        List<ExerciseEntry> list = dh.getAllExercises();
+                                        boolean alreadyExists = false;
+                                        for (ExerciseEntry item : list)
+                                        {
+                                            if (item.getName().equals(titleBox.getText().toString()))
+                                            {
+                                                alreadyExists = true;
+                                            }
+                                        }
+
+                                        if (alreadyExists)
+                                        {
+                                            Toast.makeText(getContext(),"A exercise with that name already exists",Toast.LENGTH_SHORT).show();
+                                        }
+                                        else
+                                        {
+                                            dh.addExerciseEntry(titleBox.getText().toString(),descriptionBox.getText().toString());
+                                            addExerciseButton.performClick();
+                                        }
+                                    }
+                                }
+                            });
+                            layout.addView(addButton);
+
+                            final Button cancelButton = new Button(getContext());
+                            cancelButton.setText("Cancel");
+                            cancelButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alert.dismiss();
+                                }
+                            });
+                            layout.addView(cancelButton);
+
+                            alert.setView(layout);
+                            alert.show();
+                        }
+                    });
 
                     builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
@@ -312,15 +403,6 @@ public class RoutineFragment extends Fragment {
                         }
                     });
 
-                    builderSingle.setAdapter(arrayAdapter , new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Log.d("Selected",exercises.get(which).getName());
-                            dh.addExcerciseToRoutine(routine,exercises.get(which).getId());
-                            routine.addExercise(exercises.get(which));
-                            updateList(routine);
-                        }
-                    });
                     builderSingle.show();
                 }
                 else

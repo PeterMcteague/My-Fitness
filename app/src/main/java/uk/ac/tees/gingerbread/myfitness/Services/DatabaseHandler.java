@@ -1460,16 +1460,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return null;
     }
 
-    public List<ExerciseEntry> getExcercisesNotInRoutine(RoutineEntry routine)
+    //Contains doesn't work because hashcodes are different.
+    public List<ExerciseEntry> getExercisesNotInRoutine(RoutineEntry routine)
     {
         List<ExerciseEntry> listOfAll = getAllExercises();
-        for (ExerciseEntry item : routine.getExercises())
+        List<ExerciseEntry> listOfRemaining = getAllExercises();
+        List<ExerciseEntry> inRoutine = routine.getExercises();
+        Log.d("List of all entry test",listOfAll.get(0).getName());
+        for (ExerciseEntry item : inRoutine)
         {
-            if (listOfAll.contains(item))
+            for (ExerciseEntry item2 : listOfAll)
             {
-                listOfAll.remove(item);
+                if (item.getName().equals(item2.getName()))
+                {
+                    listOfRemaining.remove(listOfAll.indexOf(item2));
+                }
             }
         }
-        return listOfAll;
+        return listOfRemaining;
     }
 }
