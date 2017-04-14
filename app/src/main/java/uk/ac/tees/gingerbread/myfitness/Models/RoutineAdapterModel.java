@@ -43,9 +43,9 @@ public class RoutineAdapterModel {
         this.description = description;
     }
 
-    public RoutineAdapterModel(int exerciseId, boolean active, String description) {
+    public RoutineAdapterModel(int exerciseId, String name, String description) {
         this.exerciseId = exerciseId;
-        this.active = active;
+        this.name = name;
         this.description = description;
     }
 }

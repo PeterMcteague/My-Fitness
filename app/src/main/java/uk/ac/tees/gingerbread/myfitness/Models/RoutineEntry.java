@@ -50,11 +50,14 @@ public class RoutineEntry {
     public void addExercise(ExerciseEntry exercise)
     {
         this.exercises.add(exercise);
+        this.exerciseStatus.add(false);
     }
 
     public void removeExercise(ExerciseEntry exercise)
     {
+        int index = this.exercises.indexOf(exercise);
         this.exercises.remove(exercise);
+        this.exerciseStatus.remove(index);
     }
 
     public long getDate() {

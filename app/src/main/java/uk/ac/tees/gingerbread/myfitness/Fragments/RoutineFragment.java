@@ -22,12 +22,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import uk.ac.tees.gingerbread.myfitness.Adapters.RoutineAdapter;
 import uk.ac.tees.gingerbread.myfitness.Models.ExerciseEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.RoutineAdapterModel;
 import uk.ac.tees.gingerbread.myfitness.Models.RoutineEntry;
 import uk.ac.tees.gingerbread.myfitness.R;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
@@ -167,13 +170,26 @@ public class RoutineFragment extends Fragment {
     {
         if (!routine.getExercises().isEmpty())
         {
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
+            ArrayList<RoutineAdapterModel> entries = new ArrayList<>();
             for (ExerciseEntry e : routine.getExercises())
             {
-                //Add list entry item and bind
-                arrayAdapter.add(e.getName());
+                entries.add(new RoutineAdapterModel(
+                        e.getId(),
+                        e.getName(),
+                        e.getDescription()
+                ));
             }
-            listView.setAdapter(arrayAdapter);
+            Log.d("Entries",entries.size() + "");
+            Log.d("Exercise status",routine.getExerciseStatus() + "");
+            int pointer = 0;
+            while (pointer < entries.size())
+            {
+                entries.get(pointer).setActive(routine.getExerciseStatus().get(pointer));
+                pointer++;
+            }
+            RoutineAdapter adapter = new RoutineAdapter(getContext(),entries);
+
+            listView.setAdapter(adapter);   
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -197,10 +213,9 @@ public class RoutineFragment extends Fragment {
                                 }
                             })
                             .show();
-
                 }
             });
-            arrayAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         }
         else
         {
