@@ -1348,7 +1348,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             {
                 if (s.length() > 0)
                 {
-                    excerciseList.add(getExcerciseByID(Integer.parseInt(s)));
+                    //Add just the id
+                    excerciseList.add(getExcerciseByID(Integer.parseInt(s.split("-")[0])));
                 }
             }
             return excerciseList;
@@ -1356,19 +1357,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return new ArrayList<ExerciseEntry>();
     }
 
-    private String getCslFromExcercises(List<ExerciseEntry> exercises)
-    {
-        String csl = "";
-
-        if (!exercises.isEmpty())
+    private List<Boolean> getExerciseStatusFromCsl(String csl) {
+        if (csl.length() > 0)
         {
-            for (ExerciseEntry excercise : exercises)
+            List<Boolean> statusList = new ArrayList<>();
+            List<String> items = new ArrayList<String>(Arrays.asList(csl.split(",")));
+            for (String s: items)
             {
-                if (excercise != null)
+                if (s.length() > 0)
                 {
-                    csl = csl + excercise.getId() + ",";
+                    //Add just the status
+                    statusList.add(Boolean.parseBoolean(s.split("-")[1]));
                 }
             }
+            return statusList;
+        }
+        return new ArrayList<Boolean>();
+    }
+
+    private String getCslFromRoutine(RoutineEntry routine)
+    {
+        String csl = "";
+        int pointer = 0;
+
+        while(pointer != routine.getExercises().size())
+        {
+            if (routine.getExercises().get(pointer) != null)
+            {
+                if (routine.getExerciseStatus().get(pointer))
+                {
+                    csl = csl + routine.getExercises().get(pointer).getId() + "-" + 1 + ",";
+                }
+                else
+                {
+                    csl = csl + routine.getExercises().get(pointer).getId() + "-" + 0 + ",";
+                }
+
+            }
+            pointer++;
         }
         return csl;
     }
@@ -1382,13 +1408,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             int dateId = cursor.getColumnIndex(COL_DIET_DATE);
             int excerciseColId = cursor.getColumnIndex(COL_EXERCISE_IDS);
-            long date = cursor.getLong(dateId);
-            String excerciseCsl = cursor.getString(excerciseColId);
 
-            //Turn csl into list of excercises
-            return new RoutineEntry(date,getExcercisesFromCsl(excerciseCsl));
+            long date = cursor.getLong(dateId);
+            String csl = cursor.getString(excerciseColId);
+
+            return new RoutineEntry(date,getExcercisesFromCsl(csl),getExerciseStatusFromCsl(csl));
         }
         else{return null;}
+    }
+
+    public void updateRoutineExercises(RoutineEntry routine)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
+                    + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromRoutine(routine) + "'"
+                    + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
+        db.execSQL(selectQuery);
+        db.close();
     }
 
     public long addRoutineEntry(RoutineEntry routine)
@@ -1396,7 +1433,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Open database connection (for write)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_EXERCISE_IDS , getCslFromExcercises(routine.getExercises()));
+        values.put(COL_EXERCISE_IDS , getCslFromRoutine(routine));
         values.put(COL_DIET_DATE, routine.getDate());
 
         // Add record to database and get id of new record (must long integer).
@@ -1412,7 +1449,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
         String selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
-                + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromExcercises(routine.getExercises()) + excerciseId + "'"
+                + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromRoutine(routine) + excerciseId + "-0" + "'"
                 + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
         db.execSQL(selectQuery);
         db.close();
@@ -1423,10 +1460,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     {
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
-        // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
-        String selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
-                + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromExcercises(routine.getExercises()).replace(excerciseId + ",","") + "'"
-                + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
+        String selectQuery;
+        if (routine.getExerciseStatus().get(routine.getExercises().indexOf(excerciseId)))
+        {
+            selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
+                    + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromRoutine(routine).replace(excerciseId + "-1,","") + "'"
+                    + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
+        }
+        else
+        {
+            selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
+                    + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromRoutine(routine).replace(excerciseId + "-0,","") + "'"
+                    + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
+        }
+
         db.execSQL(selectQuery);
         db.close();
     }

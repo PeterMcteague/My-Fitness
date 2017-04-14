@@ -1,5 +1,6 @@
 package uk.ac.tees.gingerbread.myfitness.Models;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -11,12 +12,25 @@ import java.util.Locale;
 public class RoutineEntry {
 
     private List<ExerciseEntry> exercises;
+    private List<Boolean> exerciseStatus;
     private long date;
 
     public RoutineEntry(Long date, List<ExerciseEntry> exercises)
     {
         this.date = date;
         this.exercises = exercises;
+        this.exerciseStatus = new ArrayList<>();
+        for (ExerciseEntry e : exercises)
+        {
+            this.exerciseStatus.add(false);
+        }
+    }
+
+    public RoutineEntry(Long date, List<ExerciseEntry> exercises, List<Boolean> exerciseStatus)
+    {
+        this.date = date;
+        this.exercises = exercises;
+        this.exerciseStatus = exerciseStatus;
     }
 
     public String getDay() {
@@ -66,5 +80,13 @@ public class RoutineEntry {
     public boolean containsExcercise(ExerciseEntry excercise)
     {
         return exercises.contains(excercise);
+    }
+
+    public List<Boolean> getExerciseStatus() {
+        return exerciseStatus;
+    }
+
+    public void setExerciseStatus(List<Boolean> exerciseStatus) {
+        this.exerciseStatus = exerciseStatus;
     }
 }
