@@ -1456,21 +1456,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Remove exercise from routine
-    public void removeExcerciseFromRoutine(RoutineEntry routine, int excerciseId)
+    public void removeExcerciseFromRoutine(RoutineEntry routine, ExerciseEntry exercise)
     {
         // Connect to the database to read data
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery;
-        if (routine.getExerciseStatus().get(routine.getExercises().indexOf(excerciseId)))
+        if (routine.getExerciseStatus()
+                .get(routine.getExercises().indexOf(exercise)))
         {
             selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
-                    + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromRoutine(routine).replace(excerciseId + "-1,","") + "'"
+                    + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromRoutine(routine).replace(exercise + "-1,","") + "'"
                     + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
         }
         else
         {
             selectQuery = "UPDATE " + TABLE_NAME_ROUTINE
-                    + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromRoutine(routine).replace(excerciseId + "-0,","") + "'"
+                    + " SET " + COL_EXERCISE_IDS + " = " + "'" +  getCslFromRoutine(routine).replace(exercise + "-0,","") + "'"
                     + " WHERE " + COL_DIET_DATE + " = " + routine.getDate();
         }
 

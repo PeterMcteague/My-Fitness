@@ -216,8 +216,8 @@ public class RoutineFragment extends Fragment {
                                 .setNegativeButton("Remove", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        dh.removeExcerciseFromRoutine(routine,exercise);
                                         routine.removeExercise(exercise);
-                                        dh.removeExcerciseFromRoutine(routine,exercise.getId());
                                         updateList(routine);
                                     }
                                 })
