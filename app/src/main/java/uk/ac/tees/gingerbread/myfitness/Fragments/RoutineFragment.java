@@ -166,6 +166,7 @@ public class RoutineFragment extends Fragment {
         getActivity().setTitle("Routine for " + c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.YEAR));
     }
 
+
     public void updateList(final RoutineEntry routine)
     {
         if (!routine.getExercises().isEmpty())
@@ -174,6 +175,7 @@ public class RoutineFragment extends Fragment {
             for (ExerciseEntry e : routine.getExercises())
             {
                 entries.add(new RoutineAdapterModel(
+                        routine,
                         e.getId(),
                         e.getName(),
                         e.getDescription()
@@ -195,8 +197,7 @@ public class RoutineFragment extends Fragment {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //Get item
-                    Log.d("Clicked",position + "");
+                    Log.d("clickedon",view.getId() + "");
                     if (view.getId() == R.id.exercise_checkbox)
                     {
                         Log.d("Checkbox","checkbox " + position + " is clicked.");

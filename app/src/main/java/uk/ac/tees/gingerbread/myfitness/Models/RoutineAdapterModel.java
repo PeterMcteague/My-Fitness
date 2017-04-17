@@ -10,6 +10,7 @@ public class RoutineAdapterModel {
     private boolean active;
     private String description;
     private String name;
+    private RoutineEntry routine;
 
     public String getName() {
         return name;
@@ -43,9 +44,18 @@ public class RoutineAdapterModel {
         this.description = description;
     }
 
-    public RoutineAdapterModel(int exerciseId, String name, String description) {
+    public RoutineEntry getRoutine() {
+        return routine;
+    }
+
+    public void setRoutine(RoutineEntry routine) {
+        this.routine = routine;
+    }
+
+    public RoutineAdapterModel(RoutineEntry routine, int exerciseId, String name, String description) {
         this.exerciseId = exerciseId;
         this.name = name;
         this.description = description;
+        this.routine = routine;
     }
 }

@@ -1399,6 +1399,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return csl;
     }
 
+    public void updateExerciseActive(int id , boolean active)
+    {
+
+    }
+
     //Create routine entry for date
     public RoutineEntry getRoutineEntry(long dateIn)
     {
