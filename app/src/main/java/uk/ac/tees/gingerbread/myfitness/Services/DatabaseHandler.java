@@ -1367,7 +1367,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 if (s.length() > 0)
                 {
                     //Add just the status
-                    statusList.add(Boolean.parseBoolean(s.split("-")[1]));
+                    statusList.add("1".equals(s.split("-")[1]));
                 }
             }
             return statusList;
@@ -1416,6 +1416,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             long date = cursor.getLong(dateId);
             String csl = cursor.getString(excerciseColId);
+            Log.d("CSL in get",csl);
 
             return new RoutineEntry(date,getExcercisesFromCsl(csl),getExerciseStatusFromCsl(csl));
         }

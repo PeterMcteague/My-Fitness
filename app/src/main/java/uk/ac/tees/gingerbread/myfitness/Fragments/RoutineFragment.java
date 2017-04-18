@@ -169,6 +169,7 @@ public class RoutineFragment extends Fragment {
 
     public void updateList(final RoutineEntry routine)
     {
+        Log.d("Exercise status",routine.getExerciseStatus() + "");
         if (!routine.getExercises().isEmpty())
         {
             ArrayList<RoutineAdapterModel> entries = new ArrayList<>();
@@ -182,7 +183,6 @@ public class RoutineFragment extends Fragment {
                 ));
             }
             Log.d("Entries",entries.size() + "");
-            Log.d("Exercise status",routine.getExerciseStatus() + "");
 
             RoutineAdapter adapter = new RoutineAdapter(getContext(),entries);
 
