@@ -1,6 +1,9 @@
 package uk.ac.tees.gingerbread.myfitness.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +61,17 @@ public class RoutineAdapter extends ArrayAdapter<RoutineAdapterModel> {
                     //Update in database
                     DatabaseHandler dh = new DatabaseHandler(getContext());
                     dh.updateRoutineExercises(entry.getRoutine());
+                    if (isChecked)
+                    {
+                        viewHolder.name.setPaintFlags(viewHolder.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        viewHolder.name.setTextColor(Color.parseColor("#E0E0E0"));
+                    }
+                    else
+                    {
+                        viewHolder.name.setPaintFlags(0);
+                        viewHolder.name.setTextColor(Color.GRAY);
+                        viewHolder.name.setTextAppearance(R.style.TextAppearance_AppCompat_Medium);
+                    }
              }
             });
 
