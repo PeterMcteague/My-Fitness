@@ -184,12 +184,6 @@ public class RoutineFragment extends Fragment {
             Log.d("Entries",entries.size() + "");
             Log.d("Exercise status",routine.getExerciseStatus() + "");
 
-            int pointer = 0;
-            while (pointer < entries.size())
-            {
-                entries.get(pointer).setActive(routine.getExerciseStatus().get(pointer));
-                pointer++;
-            }
             RoutineAdapter adapter = new RoutineAdapter(getContext(),entries);
 
             listView.setAdapter(adapter);
@@ -198,32 +192,25 @@ public class RoutineFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Log.d("clickedon",view.getId() + "");
-                    if (view.getId() == R.id.exercise_checkbox)
-                    {
-                        Log.d("Checkbox","checkbox " + position + " is clicked.");
-                    }
-                    else
-                    {
-                        final ExerciseEntry exercise = routine.getExercises().get(position);
-                        //Show ok/delete button dialog with description on it
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder
-                                .setTitle(exercise.getName())
-                                .setMessage(exercise.getDescription())
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setPositiveButton("Okay", new DialogInterface.OnClickListener(){
-                                    public void onClick(DialogInterface dialog, int which) {}
-                                })
-                                .setNegativeButton("Remove", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dh.removeExcerciseFromRoutine(routine,exercise);
-                                        routine.removeExercise(exercise);
-                                        updateList(routine);
-                                    }
-                                })
-                                .show();
-                    }
+                    final ExerciseEntry exercise = routine.getExercises().get(position);
+                    //Show ok/delete button dialog with description on it
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder
+                            .setTitle(exercise.getName())
+                            .setMessage(exercise.getDescription())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface dialog, int which) {}
+                            })
+                            .setNegativeButton("Remove", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dh.removeExcerciseFromRoutine(routine,exercise);
+                                    routine.removeExercise(exercise);
+                                    updateList(routine);
+                                }
+                            })
+                            .show();
                 }
             });
             adapter.notifyDataSetChanged();

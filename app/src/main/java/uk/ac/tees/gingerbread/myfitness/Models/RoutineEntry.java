@@ -1,5 +1,7 @@
 package uk.ac.tees.gingerbread.myfitness.Models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -91,5 +93,22 @@ public class RoutineEntry {
 
     public void setExerciseStatus(List<Boolean> exerciseStatus) {
         this.exerciseStatus = exerciseStatus;
+    }
+
+    public int getExerciseIndex(String name)
+    {
+        List<ExerciseEntry> exercises = getExercises();
+        int counter = 0;
+        Log.d("Size", exercises.size() + "");
+        while (counter < exercises.size())
+        {
+            Log.d("Searching..", exercises.get(counter).getName());
+            if (exercises.get(counter).getName().equals(name))
+            {
+                return counter;
+            }
+            counter++;
+        }
+        return -1;
     }
 }

@@ -1,6 +1,7 @@
 package uk.ac.tees.gingerbread.myfitness.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import uk.ac.tees.gingerbread.myfitness.Models.RoutineAdapterModel;
 import uk.ac.tees.gingerbread.myfitness.Models.RoutineEntry;
@@ -48,11 +50,18 @@ public class RoutineAdapter extends ArrayAdapter<RoutineAdapterModel> {
             viewHolder.box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    //Get routine exercise entry and change state
-                    entry.setActive(isChecked);
+                    Log.d("Checkbox clicked","Checked:" + isChecked + " " + viewHolder.name.getText());
+                    //Set exercise in routine to disabled
+                    List<Boolean> statuses = entry.getRoutine().getExerciseStatus();
+                    Log.d("Adapter","Statuses: " + statuses);
+                    int index = entry.getRoutine().getExerciseIndex(viewHolder.name.getText().toString());
+                    statuses.set(index , isChecked);
+                    Log.d("Adapter","Statuses new: " + statuses);
+                    entry.getRoutine().setExerciseStatus(statuses);
+                    //Update in database
                     DatabaseHandler dh = new DatabaseHandler(getContext());
-                    //update routine in database
-                }
+                    dh.updateRoutineExercises(entry.getRoutine());
+             }
             });
 
             convertView.setTag(viewHolder);
