@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import uk.ac.tees.gingerbread.myfitness.Models.ExerciseEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.RoutineEntry;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 import uk.ac.tees.gingerbread.myfitness.R;
 
@@ -24,7 +28,7 @@ public class SplashGoal extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences("MyFitnessPrefs",0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("setupComplete",true);
-        editor.commit();
+        editor.apply();
     }
 
     //Activity: Sedentary * 1.2, Lightly active 1.37, Moderately 1.5, Very active 1.7
@@ -43,42 +47,80 @@ public class SplashGoal extends AppCompatActivity {
         dh.updateInfoEntry(info);
         //Add diet and routine
         dh.addDietEntryToday();
+
+        //Get long for Monday, Wednesday, Thursday, Friday, Saturday
+
+        while (c.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+            c.add(Calendar.DATE, -1);
+        }
+        long monday = c.getTimeInMillis();
+
+        while (c.get(Calendar.DAY_OF_WEEK) != Calendar.WEDNESDAY) {
+            c.add(Calendar.DATE, 1);
+        }
+        long wednesday = c.getTimeInMillis();
+
+        while (c.get(Calendar.DAY_OF_WEEK) != Calendar.THURSDAY) {
+            c.add(Calendar.DATE, 1);
+        }
+        long thursday = c.getTimeInMillis();
+
+        while (c.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY) {
+            c.add(Calendar.DATE, 1);
+        }
+        long friday = c.getTimeInMillis();
+
+        while (c.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
+            c.add(Calendar.DATE, 1);
+        }
+        long saturday = c.getTimeInMillis();
+
+        //Create routines and add excercises
         if (goal == "Muscle")
         {
-            dh.addRoutine("Monday",dh.getExerciseIDFromName("Bench Press"));
-            dh.addRoutine("Monday",dh.getExerciseIDFromName("Dumbbell Bench Press"));
-            dh.addRoutine("Monday",dh.getExerciseIDFromName("Pushups"));
-            dh.addRoutine("Monday",dh.getExerciseIDFromName("Dumbbell Flyes"));
-            dh.addRoutine("Monday",dh.getExerciseIDFromName("3/4 Sit-Up"));
-            dh.addRoutine("Monday",dh.getExerciseIDFromName("Alternate Heel Touchers"));
-            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Deadlift"));
-            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Seated Cable Rows"));
-            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("T-Bar Row with Handle"));
-            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Shotgun Row"));
-            dh.addRoutine("Wednesday",dh.getExerciseIDFromName("Close-Grip Front Lat Pulldown"));
-            dh.addRoutine("Friday",dh.getExerciseIDFromName("Triceps Dips"));
-            dh.addRoutine("Friday",dh.getExerciseIDFromName("Decline EZ Bar Triceps Extension"));
-            dh.addRoutine("Friday",dh.getExerciseIDFromName("Reverse Grip Triceps Pushdown"));
-            dh.addRoutine("Friday",dh.getExerciseIDFromName("Barbell Curl"));
-            dh.addRoutine("Friday",dh.getExerciseIDFromName("Hammer Curls"));
-            dh.addRoutine("Friday",dh.getExerciseIDFromName("Dumbbell Bicep Curl"));
-            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Side Laterals to Front Raise"));
-            dh.addRoutine("Saturday",dh.getExerciseIDFromName("One-Arm Side Laterals"));
-            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Front Dumbbell Raise"));
-            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Barbell Full Squat"));
-            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Bodyweight Lunge"));
-            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Seated Calf Raise"));
+            dh.addRoutineEntry(new RoutineEntry(monday,new ArrayList<ExerciseEntry>()));
+            dh.addRoutineEntry(new RoutineEntry(wednesday,new ArrayList<ExerciseEntry>()));
+            dh.addRoutineEntry(new RoutineEntry(friday,new ArrayList<ExerciseEntry>()));
+            dh.addRoutineEntry(new RoutineEntry(saturday,new ArrayList<ExerciseEntry>()));
 
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(monday),dh.getExerciseIDFromName("Bench Press"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(monday),dh.getExerciseIDFromName("Dumbbell Bench Press"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(monday),dh.getExerciseIDFromName("Pushups"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(monday),dh.getExerciseIDFromName("Dumbbell Flyes"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(monday),dh.getExerciseIDFromName("3/4 Sit-Up"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(monday),dh.getExerciseIDFromName("Alternate Heel Touchers"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(wednesday),dh.getExerciseIDFromName("Deadlift"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(wednesday),dh.getExerciseIDFromName("Seated Cable Rows"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(wednesday),dh.getExerciseIDFromName("T-Bar Row with Handle"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(wednesday),dh.getExerciseIDFromName("Shotgun Row"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(wednesday),dh.getExerciseIDFromName("Close-Grip Front Lat Pulldown"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(friday),dh.getExerciseIDFromName("Triceps Dips"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(friday),dh.getExerciseIDFromName("Decline EZ Bar Triceps Extension"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(friday),dh.getExerciseIDFromName("Reverse Grip Triceps Pushdown"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(friday),dh.getExerciseIDFromName("Barbell Curl"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(friday),dh.getExerciseIDFromName("Hammer Curls"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(friday),dh.getExerciseIDFromName("Dumbbell Bicep Curl"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(friday),dh.getExerciseIDFromName("Side Laterals to Front Raise"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(saturday),dh.getExerciseIDFromName("One-Arm Side Laterals"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(saturday),dh.getExerciseIDFromName("Front Dumbbell Raise"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(saturday),dh.getExerciseIDFromName("Barbell Full Squat"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(saturday),dh.getExerciseIDFromName("Bodyweight Lunge"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(saturday),dh.getExerciseIDFromName("Seated Calf Raise"));
         }
         else if (goal == "WeightLoss")
         {
-            dh.addRoutine("Monday",dh.getExerciseIDFromName("Bicycling"));
-            dh.addRoutine("Thursday",dh.getExerciseIDFromName("Treadmill"));
-            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Bicycling"));
+            dh.addRoutineEntry(new RoutineEntry(monday,new ArrayList<ExerciseEntry>()));
+            dh.addRoutineEntry(new RoutineEntry(thursday,new ArrayList<ExerciseEntry>()));
+            dh.addRoutineEntry(new RoutineEntry(saturday,new ArrayList<ExerciseEntry>()));
+
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(monday),dh.getExerciseIDFromName("Bicycling"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(thursday),dh.getExerciseIDFromName("Treadmill"));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(saturday),dh.getExerciseIDFromName("Bicycling"));
         }
         else
         {
-            dh.addRoutine("Saturday",dh.getExerciseIDFromName("Bicycling"));
+            dh.addRoutineEntry(new RoutineEntry(saturday,new ArrayList<ExerciseEntry>()));
+            dh.addExcerciseToRoutine(dh.getRoutineEntry(saturday),dh.getExerciseIDFromName("Bicycling"));
         }
     }
 

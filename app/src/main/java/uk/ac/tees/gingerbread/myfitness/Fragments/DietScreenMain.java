@@ -70,7 +70,7 @@ public class DietScreenMain extends Fragment {
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
-        getActivity().setTitle("Diet Info " + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR));
+        getActivity().setTitle("Diet Info " + c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.YEAR));
     }
 
     @Override
@@ -286,7 +286,7 @@ public class DietScreenMain extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Diet Info");
+        updateTitleBar(timeInMillis);
     }
 
     private void getEntries(final Activity activity, String searchQuery) {

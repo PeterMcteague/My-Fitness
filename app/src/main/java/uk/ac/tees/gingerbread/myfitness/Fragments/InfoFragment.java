@@ -103,7 +103,7 @@ public class InfoFragment extends Fragment {
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
-        getActivity().setTitle("Personal Info " + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.YEAR));
+        getActivity().setTitle("Personal Info " + c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH)+1) + "/" + c.get(Calendar.YEAR));
     }
 
     public void populateImageList()
@@ -394,6 +394,6 @@ public class InfoFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        getActivity().setTitle("Personal Info");
+        updateTitleBar(timeInMillis);
     }
 }
