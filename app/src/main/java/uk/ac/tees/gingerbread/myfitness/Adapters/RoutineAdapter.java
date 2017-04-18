@@ -50,13 +50,10 @@ public class RoutineAdapter extends ArrayAdapter<RoutineAdapterModel> {
             viewHolder.box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Log.d("Checkbox clicked","Checked:" + isChecked + " " + viewHolder.name.getText());
                     //Set exercise in routine to disabled
                     List<Boolean> statuses = entry.getRoutine().getExerciseStatus();
-                    Log.d("Adapter","Statuses: " + statuses);
                     int index = entry.getRoutine().getExerciseIndex(viewHolder.name.getText().toString());
                     statuses.set(index , isChecked);
-                    Log.d("Adapter","Statuses new: " + statuses);
                     entry.getRoutine().setExerciseStatus(statuses);
                     //Update in database
                     DatabaseHandler dh = new DatabaseHandler(getContext());

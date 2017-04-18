@@ -182,6 +182,16 @@ public class RoutineFragment extends Fragment {
                         e.getDescription()
                 ));
             }
+
+            //Set active in entries , from what is in routine
+            int count = 0;
+            List<Boolean> status = routine.getExerciseStatus();
+            while (count < status.size())
+            {
+                entries.get(count).setActive(status.get(count));
+                count++;
+            }
+
             Log.d("Entries",entries.size() + "");
 
             RoutineAdapter adapter = new RoutineAdapter(getContext(),entries);
