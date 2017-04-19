@@ -2,6 +2,7 @@ package uk.ac.tees.gingerbread.myfitness.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -52,7 +53,7 @@ public class SplashPersonal extends AppCompatActivity {
 
         // Get context and button objects
         final Context context = this;
-        Button button = (Button) findViewById(R.id.intro_personal_info_okay);
+        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.splash_intro_next_button);
 
         // Get references to edittext fields
         final EditText nameEntry = (EditText) findViewById(R.id.intro_personal_info_name_entry);

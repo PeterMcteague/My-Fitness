@@ -27,19 +27,13 @@
             android:textAlignment="viewStart"
             android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
-
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="By choosing a goal, a workout routine can be generated for you." />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
+            android:padding="8dp"
+            android:text="By choosing a goal, a workout routine can be generated for you."
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <LinearLayout
             android:orientation="horizontal"
