@@ -41,7 +41,7 @@ import uk.ac.tees.gingerbread.myfitness.Models.NutritionixModel;
 import uk.ac.tees.gingerbread.myfitness.R;
 import uk.ac.tees.gingerbread.myfitness.Models.DietEntry;
 
-public class DietScreenMain extends Fragment {
+public class DietFragment extends Fragment {
 
     private long timeInMillis;
     private long todayTimeInMillis;

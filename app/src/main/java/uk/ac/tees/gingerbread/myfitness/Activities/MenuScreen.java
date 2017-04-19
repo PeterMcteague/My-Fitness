@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import uk.ac.tees.gingerbread.myfitness.Fragments.DietScreenMain;
+import uk.ac.tees.gingerbread.myfitness.Fragments.DietFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.GymFindFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.InfoFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.RoutineFragment;
@@ -99,7 +99,7 @@ public class MenuScreen extends AppCompatActivity
         if (id == R.id.nav_info) {
             fragmentClass = InfoFragment.class;
         } else if (id == R.id.nav_diet) {
-            fragmentClass = DietScreenMain.class;
+            fragmentClass = DietFragment.class;
         } else if (id == R.id.nav_routine) {
             fragmentClass = RoutineFragment.class;
         }
