@@ -7,13 +7,13 @@
     tools:context="uk.ac.tees.gingerbread.myfitness.Fragments.DietFragment">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:weightSum="1">
@@ -40,10 +40,10 @@
                 android:layout_width="123dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.17"
+                android:backgroundTint="@color/colorPrimary"
                 android:ems="10"
                 android:inputType="number"
-                android:text="CurrentCalories"
-                android:backgroundTint="@color/colorPrimary"/>
+                android:text="CurrentCalories" />
 
             <TextView
                 android:id="@+id/diet_calories_goal_slash"
@@ -62,16 +62,12 @@
                 android:layout_width="123dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.15"
+                android:backgroundTint="@color/colorPrimary"
                 android:ems="10"
                 android:inputType="number"
-                android:text="CurrentCalories"
-                android:backgroundTint="@color/colorPrimary"/>
+                android:text="CurrentCalories" />
 
         </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,10 +91,10 @@
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.11"
+                android:backgroundTint="@color/colorPrimary"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                android:text="CurrentProtein"
-                android:backgroundTint="@color/colorPrimary"/>
+                android:text="CurrentProtein" />
 
             <TextView
                 android:id="@+id/diet_protein_goal_skash"
@@ -117,10 +113,10 @@
                 android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.24"
+                android:backgroundTint="@color/colorPrimary"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                android:text="ProteinGoal"
-                android:backgroundTint="@color/colorPrimary"/>
+                android:text="ProteinGoal" />
         </LinearLayout>
 
         <Space

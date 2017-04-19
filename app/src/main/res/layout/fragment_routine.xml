@@ -9,7 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout2">
 
         <ListView
             android:id="@+id/routine_layout_list"
@@ -20,16 +22,19 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/routine_add_to_routine_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="false"
-        android:layout_centerInParent="false"
+        android:id="@+id/add_picture_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:backgroundTint="@color/colorPrimary"
+        app:elevation="12dp"
+        app:fabSize="normal"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        android:layout_alignBottom="@+id/linearLayout2"
+        android:layout_alignRight="@+id/linearLayout2"
+        android:layout_alignEnd="@+id/linearLayout2"
+        android:layout_marginRight="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="7dp" />
 
 </RelativeLayout>
