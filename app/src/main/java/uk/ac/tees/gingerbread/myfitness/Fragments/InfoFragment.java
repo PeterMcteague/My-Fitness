@@ -149,6 +149,7 @@ public class InfoFragment extends Fragment {
                                         //Add for selected date
                                         info = dh.getInfoEntry(todayTimeInMillis);
                                         info.setDate(timeInMillis);
+                                        info.setGoal("Not Set");
                                         dh.addInfo(info);
                                         //Update text fields
                                         updateFields(info);
@@ -190,8 +191,8 @@ public class InfoFragment extends Fragment {
         List<String> goalList = new ArrayList<>();
         goalList.add("Not Set");
         goalList.add("Build Muscle");
-        goalList.add("Lose weight");
-        goalList.add("Stay healthy");
+        goalList.add("Lose Weight");
+        goalList.add("Stay Healthy");
 
         weightField.setText(String.valueOf(info.getWeight()));
         heightField.setText(String.valueOf(info.getHeight()));
@@ -237,8 +238,8 @@ public class InfoFragment extends Fragment {
         List<String> goalList = new ArrayList<>();
         goalList.add("Not Set");
         goalList.add("Build Muscle");
-        goalList.add("Lose weight");
-        goalList.add("Stay healthy");
+        goalList.add("Lose Weight");
+        goalList.add("Stay Healthy");
         ArrayAdapter<String> goalAdapterActivity = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, goalList);
         goalAdapterActivity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -260,7 +261,7 @@ public class InfoFragment extends Fragment {
         info = dh.getInfoEntry(todayTimeInMillis);
         if (info == null)
         {
-            //Copy last one with todays date
+            //Copy last one and set date to today
             InfoEntry info = dh.getLatestInfo();
             if (info != null)
             {
