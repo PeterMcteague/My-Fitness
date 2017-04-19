@@ -5,8 +5,6 @@
     android:layout_height="match_parent"
     tools:context="uk.ac.tees.gingerbread.myfitness.Fragments.InfoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

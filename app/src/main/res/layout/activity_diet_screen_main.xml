@@ -169,7 +169,7 @@
             <ListView
                 android:id="@+id/diet_food_list"
                 android:layout_width="match_parent"
-                android:layout_height="381dp"
+                android:layout_height="378dp"
                 android:divider="?attr/dividerHorizontal"
                 android:footerDividersEnabled="true"
                 android:headerDividersEnabled="true" />
