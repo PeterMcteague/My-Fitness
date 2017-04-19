@@ -1,33 +1,112 @@
 package uk.ac.tees.gingerbread.myfitness.Models;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
 /**
  * Created by Joseph on 08/03/2017.
  */
 
 public class RoutineEntry {
 
-    private String day;
-    private int exerciseId;
+    private List<ExerciseEntry> exercises;
+    private List<Boolean> exerciseStatus;
+    private long date;
 
-    public RoutineEntry(String day, int exerciseId)
+    public RoutineEntry(Long date, List<ExerciseEntry> exercises)
     {
-       this.day = day;
-       this.exerciseId = exerciseId;
+        this.date = date;
+        this.exercises = exercises;
+        this.exerciseStatus = new ArrayList<>();
+        for (ExerciseEntry e : exercises)
+        {
+            this.exerciseStatus.add(false);
+        }
+    }
+
+    public RoutineEntry(Long date, List<ExerciseEntry> exercises, List<Boolean> exerciseStatus)
+    {
+        this.date = date;
+        this.exercises = exercises;
+        this.exerciseStatus = exerciseStatus;
     }
 
     public String getDay() {
-        return day;
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(date);
+        return c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault());
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public List<ExerciseEntry> getExercises() {
+        return exercises;
     }
 
-    public int getExerciseId() {
-        return exerciseId;
+    public void setExercises(List<ExerciseEntry> exercises) {
+        this.exercises = exercises;
     }
 
-    public void setExerciseId(int exerciseId) {
-        this.exerciseId = exerciseId;
+    public void addExercise(ExerciseEntry exercise)
+    {
+        this.exercises.add(exercise);
+        this.exerciseStatus.add(false);
+    }
+
+    public void removeExercise(ExerciseEntry exercise)
+    {
+        int index = this.exercises.indexOf(exercise);
+        this.exercises.remove(exercise);
+        this.exerciseStatus.remove(index);
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public boolean containsExcercise(int excerciseId)
+    {
+        for (ExerciseEntry exercise : exercises)
+        {
+            if (exercise.getId() == excerciseId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsExcercise(ExerciseEntry excercise)
+    {
+        return exercises.contains(excercise);
+    }
+
+    public List<Boolean> getExerciseStatus() {
+        return exerciseStatus;
+    }
+
+    public void setExerciseStatus(List<Boolean> exerciseStatus) {
+        this.exerciseStatus = exerciseStatus;
+    }
+
+    public int getExerciseIndex(String name)
+    {
+        List<ExerciseEntry> exercises = getExercises();
+        int counter = 0;
+        while (counter < exercises.size())
+        {
+            if (exercises.get(counter).getName().equals(name))
+            {
+                return counter;
+            }
+            counter++;
+        }
+        return -1;
     }
 }
