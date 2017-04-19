@@ -93,7 +93,7 @@
                 android:layout_weight="0.11"
                 android:backgroundTint="@color/colorPrimary"
                 android:ems="10"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 android:text="CurrentProtein" />
 
             <TextView
@@ -115,7 +115,7 @@
                 android:layout_weight="0.24"
                 android:backgroundTint="@color/colorPrimary"
                 android:ems="10"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 android:text="ProteinGoal" />
         </LinearLayout>
 

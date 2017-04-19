@@ -80,8 +80,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + "("  + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_DIET_DATE + " DATE, "
                 + COL_DIET_CAL + " INTEGER, "
                 + COL_DIET_CAL_GOAL + " INTEGER, "
-                + COL_DIET_PROTEIN + " REAL, "
-                + COL_DIET_PROTEIN_GOAL + " REAL" + ")";
+                + COL_DIET_PROTEIN + " INTEGER, "
+                + COL_DIET_PROTEIN_GOAL + " INTEGER" + ")";
 
         String CREATE_TABLE_EXERCISES = "CREATE TABLE " +
                 TABLE_NAME_EXERCISES
@@ -432,37 +432,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
         //Get info
-        InfoEntry todaysInfo = getInfoEntry(c.getTimeInMillis());
+        InfoEntry latestInfo = getLatestInfo();
         PersistentInfoEntry info = getPersistentInfo();
+        Log.d("infoGoal",latestInfo.getGoal());
+        Log.d("infoGender",info.getGender());
         //Form calorie and protein goal based on info
-        if (todaysInfo != null)
+        if (latestInfo != null)
         {
-            if (todaysInfo.getGoal() == "Muscle")
+            if (latestInfo.getGoal().equals("Build Muscle"))
             {
-                if (info.getGender() == "Male")
+                if (info.getGender().equals("Male"))
                 {
-                    if (todaysInfo.getActivityLevel() == 0)
+                    if (latestInfo.getActivityLevel() == 0)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
+                                (int) (1.2 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
                                 0,
                                 120);
                     }
-                    else if (todaysInfo.getActivityLevel() == 1)
+                    else if (latestInfo.getActivityLevel() == 1)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
+                                (int) (1.37 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
                                 0,
                                 120);
 
                     }
-                    else if (todaysInfo.getActivityLevel() == 2)
+                    else if (latestInfo.getActivityLevel() == 2)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
+                                (int) (1.5 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
                                 0,
                                 120);
                     }
@@ -470,7 +472,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
+                                (int) (1.7 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5) + 200),
                                 0,
                                 120);
                     }
@@ -478,28 +480,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }
                 else
                 {
-                    if (todaysInfo.getActivityLevel() == 0)
+                    if (latestInfo.getActivityLevel() == 0)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
+                                (int) (1.2 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
                                 0,
                                 120);
                     }
-                    else if (todaysInfo.getActivityLevel() == 1)
+                    else if (latestInfo.getActivityLevel() == 1)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
+                                (int) (1.37 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
                                 0,
                                 120);
 
                     }
-                    else if (todaysInfo.getActivityLevel() == 2)
+                    else if (latestInfo.getActivityLevel() == 2)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
+                                (int) (1.5 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
                                 0,
                                 120);
                     }
@@ -507,38 +509,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
+                                (int) (1.7 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161) + 200),
                                 0,
                                 120);
                     }
                 }
             }
-            else if (todaysInfo.getGoal() == "WeightLoss")
+            else if (latestInfo.getGoal().equals("Lose Weight"))
             {
-                if (info.getGender() == "Male")
+                if (info.getGender().equals("Male"))
                 {
-                    if (todaysInfo.getActivityLevel() == 0)
+                    if (latestInfo.getActivityLevel() == 0)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
+                                (int) (1.2 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
                                 0,
                                 0);
                     }
-                    else if (todaysInfo.getActivityLevel() == 1)
+                    else if (latestInfo.getActivityLevel() == 1)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
+                                (int) (1.37 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
                                 0,
                                 0);
 
                     }
-                    else if (todaysInfo.getActivityLevel() == 2)
+                    else if (latestInfo.getActivityLevel() == 2)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
+                                (int) (1.5 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
                                 0,
                                 0);
                     }
@@ -546,66 +548,66 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
+                                (int) (1.7 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5) - 500),
                                 0,
                                 0);
                     }
                 }
                 else {
-                    if (todaysInfo.getActivityLevel() == 0) {
+                    if (latestInfo.getActivityLevel() == 0) {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
+                                (int) (1.2 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
                                 0,
                                 0);
-                    } else if (todaysInfo.getActivityLevel() == 1) {
+                    } else if (latestInfo.getActivityLevel() == 1) {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
+                                (int) (1.37 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
                                 0,
                                 0);
 
-                    } else if (todaysInfo.getActivityLevel() == 2) {
+                    } else if (latestInfo.getActivityLevel() == 2) {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
+                                (int) (1.5 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
                                 0,
                                 0);
                     } else {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
+                                (int) (1.7 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161) - 500),
                                 0,
                                 0);
                     }
                 }
             }
-            else if (todaysInfo.getGoal() == "Fitness")
+            else if (latestInfo.getGoal().equals("Stay Healthy"))
             {
-                if (info.getGender() == "Male")
+                if (info.getGender().equals("Male"))
                 {
-                    if (todaysInfo.getActivityLevel() == 0)
+                    if (latestInfo.getActivityLevel() == 0)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5)),
+                                (int) (1.2 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5)),
                                 0,
                                 0);
                     }
-                    else if (todaysInfo.getActivityLevel() == 1)
+                    else if (latestInfo.getActivityLevel() == 1)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5)),
+                                (int) (1.37 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5)),
                                 0,
                                 0);
 
                     }
-                    else if (todaysInfo.getActivityLevel() == 2)
+                    else if (latestInfo.getActivityLevel() == 2)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5)),
+                                (int) (1.5 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5)),
                                 0,
                                 0);
                     }
@@ -613,35 +615,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() + 5)),
+                                (int) (1.7 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() + 5)),
                                 0,
                                 0);
                     }
                 }
                 else
                 {
-                    if (todaysInfo.getActivityLevel() == 0)
+                    if (latestInfo.getActivityLevel() == 0)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.2 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161)),
+                                (int) (1.2 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161)),
                                 0,
                                 0);
                     }
-                    else if (todaysInfo.getActivityLevel() == 1)
+                    else if (latestInfo.getActivityLevel() == 1)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.37 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161)),
+                                (int) (1.37 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161)),
                                 0,
                                 0);
 
                     }
-                    else if (todaysInfo.getActivityLevel() == 2)
+                    else if (latestInfo.getActivityLevel() == 2)
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.5 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161)),
+                                (int) (1.5 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161)),
                                 0,
                                 0);
                     }
@@ -649,7 +651,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         return addDietEntryToday(
                                 0,
-                                (int) (1.7 * Math.round(10 * todaysInfo.getWeight() + 6.25 * (todaysInfo.getHeight() * 100) - 5 * getAge() - 161)),
+                                (int) (1.7 * Math.round(10 * latestInfo.getWeight() + 6.25 * (latestInfo.getHeight() * 100) - 5 * getAge() - 161)),
                                 0,
                                 0);
                     }
@@ -671,8 +673,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 0);
     }
 
-    public long addDietEntryToday(int calories, int caloriesGoal, float protein, float proteinGoal)
+    private long addDietEntryToday(int calories, int caloriesGoal, float protein, float proteinGoal)
     {
+        Log.d("addEntryToday",caloriesGoal + "");
         //Setting up date getting
         final Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
@@ -780,7 +783,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getFloat(idProtein),
                     cursor.getFloat(idProteinGoal)
             );
-            Log.d("GET TODAY CALS",returnValue.getCalories() + "");
+            Log.d("GET TODAY CALGOAL",returnValue.getCaloriesGoal() + "");
             db.close();
             return returnValue;
         }

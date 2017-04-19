@@ -22,19 +22,19 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_picture_button"
+        android:id="@+id/routine_add_to_routine_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_alignBottom="@+id/linearLayout2"
+        android:layout_alignEnd="@+id/linearLayout2"
+        android:layout_alignRight="@+id/linearLayout2"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
         android:clickable="true"
         app:backgroundTint="@color/colorPrimary"
         app:elevation="12dp"
         app:fabSize="normal"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        android:layout_alignBottom="@+id/linearLayout2"
-        android:layout_alignRight="@+id/linearLayout2"
-        android:layout_alignEnd="@+id/linearLayout2"
-        android:layout_marginRight="7dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginBottom="7dp" />
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
 </RelativeLayout>

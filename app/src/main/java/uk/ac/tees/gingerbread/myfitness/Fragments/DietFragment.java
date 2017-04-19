@@ -175,6 +175,7 @@ public class DietFragment extends Fragment {
         {
             dh.addDietEntryToday();
             diet = dh.getDietEntryToday();
+            Log.d("Diet goal",diet.getCaloriesGoal() + "");
         }
 
         updateTextFields(diet);
