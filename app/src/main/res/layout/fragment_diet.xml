@@ -155,9 +155,10 @@
 
                 <ImageButton
                     android:id="@+id/food_search_button"
+                    style="@android:style/Widget.Material.ImageButton"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    app:srcCompat="@android:drawable/ic_menu_search" />
+                    app:srcCompat="@mipmap/material_search" />
             </LinearLayout>
 
             <View
