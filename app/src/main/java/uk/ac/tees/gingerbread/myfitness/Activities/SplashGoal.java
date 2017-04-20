@@ -147,6 +147,7 @@ public class SplashGoal extends AppCompatActivity {
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
                 }
 
@@ -160,6 +161,7 @@ public class SplashGoal extends AppCompatActivity {
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
                 }
 
@@ -173,6 +175,7 @@ public class SplashGoal extends AppCompatActivity {
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
                 }
 
