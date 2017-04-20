@@ -10,4 +10,11 @@
     <string name="app_label">My Fitness</string>
     <string name="calendar_toolbar">calendar_toolbar</string>
     <string name="choose_a_goal">Choose a goal!</string>
+    <string name="by_choosing_a_goal_a_workout_routine_can_be_generated_for_you">By choosing a goal, a workout routine can be generated for you.</string>
+    <string name="a_picture_of_a_tape_measure_suggesting_weight_loss">A picture of a tape measure suggesting weight loss.</string>
+    <string name="lose_weight">Lose weight</string>
+    <string name="stay_healthy">Stay healthy</string>
+    <string name="a_picture_of_a_man_on_a_treadmill_suggesting_staying_healthy">A picture of a man on a treadmill suggesting staying healthy.</string>
+    <string name="gain_muscle">Gain muscle</string>
+    <string name="a_picture_of_a_man_lifting_a_weight_suggesting_muscle_gain">A picture of a man lifting a weight, suggesting muscle gain.</string>
 </resources>
