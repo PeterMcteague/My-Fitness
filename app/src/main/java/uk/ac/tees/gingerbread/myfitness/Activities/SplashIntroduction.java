@@ -33,6 +33,7 @@ public class SplashIntroduction extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(context, SplashPersonal.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                     }
                 }
 

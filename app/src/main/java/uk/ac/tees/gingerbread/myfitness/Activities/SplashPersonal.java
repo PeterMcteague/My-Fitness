@@ -92,11 +92,9 @@ public class SplashPersonal extends AppCompatActivity {
                                         todaysDate);
                                 dh.addPersistentInfo(nameEntry.getText().toString(),cal.getTimeInMillis(),genderSpinner.getSelectedItem().toString());
 
-                                //Add info to intent to be passed along to goal screen
-
                                 Intent intent = new Intent(context, SplashRoutineGeneration.class);
-
                                 startActivity(intent);
+                                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                             }
                         } catch (ParseException e) {
                             Toast.makeText(context, "Please enter your birthdate correctly.", Toast.LENGTH_SHORT).show();
