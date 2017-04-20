@@ -45,7 +45,7 @@
                 android:background="@color/colorPrimary"
                 android:padding="6dp"
                 android:scaleType="fitEnd"
-                app:srcCompat="@mipmap/logo_invert" />
+                app:srcCompat="@mipmap/ic_inverted" />
         </LinearLayout>
 
         <LinearLayout

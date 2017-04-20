@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -52,7 +53,7 @@ public class DietFragment extends Fragment {
     private DietEntry diet;
     private DatabaseHandler dh;
 
-    private ImageButton searchButton;
+    private FloatingActionButton searchButton;
     private EditText caloriesEntry;
     private EditText caloriesGoalEntry;
     private EditText proteinEntry;
@@ -149,7 +150,7 @@ public class DietFragment extends Fragment {
         proteinGoalEntry = (EditText) view.findViewById(R.id.diet_protein_goal_entry);
         foodEntry = (EditText) view.findViewById(R.id.diet_food_entry);
         foodList = (ListView) view.findViewById(R.id.diet_food_list);
-        searchButton = (ImageButton) view.findViewById(R.id.food_search_button);
+        searchButton = (FloatingActionButton) view.findViewById(R.id.food_search_button);
 
         //Set calendar up
         c = Calendar.getInstance();

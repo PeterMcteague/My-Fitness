@@ -153,12 +153,15 @@
                     android:text="Enter a food"
                     android:imeOptions="actionSearch"/>
 
-                <ImageButton
+                <android.support.design.widget.FloatingActionButton
                     android:id="@+id/food_search_button"
                     style="@android:style/Widget.Material.ImageButton"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    app:srcCompat="@mipmap/material_search" />
+                    android:background="@color/colorPrimary"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:rippleColor="@color/colorPrimaryDark"
+                    app:srcCompat="@mipmap/icon_search" />
             </LinearLayout>
 
             <View
