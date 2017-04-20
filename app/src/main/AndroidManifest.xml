@@ -29,7 +29,7 @@
             android:name=".Activities.MenuScreen"
             android:label="@string/title_activity_menu_screen"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Fragments.DietScreenMain" />
+        <activity android:name=".Fragments.DietFragment" />
     </application>
 
 </manifest>

@@ -143,7 +143,7 @@ public class SplashGoal extends AppCompatActivity {
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
                         DatabaseHandler dh = new DatabaseHandler(context);
-                        addDbFromIntent(context,getIntent(),"Muscle");
+                        addDbFromIntent(context,getIntent(),"Build Muscle");
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
@@ -156,7 +156,7 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        addDbFromIntent(context,getIntent(),"WeightLoss");
+                        addDbFromIntent(context,getIntent(),"Lose Weight");
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);
@@ -169,7 +169,7 @@ public class SplashGoal extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Put routine and/or diet plan in table
-                        addDbFromIntent(context,getIntent(),"Health");
+                        addDbFromIntent(context,getIntent(),"Stay Healthy");
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
                         startActivity(intent);

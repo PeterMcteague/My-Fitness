@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import uk.ac.tees.gingerbread.myfitness.Fragments.DietScreenMain;
+import uk.ac.tees.gingerbread.myfitness.Fragments.DietFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.GymFindFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.InfoFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.RoutineFragment;
@@ -42,7 +42,19 @@ public class MenuScreen extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Fragment fragment = null;
+        Class fragmentClass = null;
+        fragmentClass = RoutineFragment.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
     @Override
@@ -87,7 +99,7 @@ public class MenuScreen extends AppCompatActivity
         if (id == R.id.nav_info) {
             fragmentClass = InfoFragment.class;
         } else if (id == R.id.nav_diet) {
-            fragmentClass = DietScreenMain.class;
+            fragmentClass = DietFragment.class;
         } else if (id == R.id.nav_routine) {
             fragmentClass = RoutineFragment.class;
         }
