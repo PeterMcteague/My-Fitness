@@ -37,6 +37,7 @@
             android:id="@+id/intro_personal_info_name_entry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="@string/name"
             android:inputType="textPersonName" />
@@ -45,6 +46,7 @@
             android:id="@+id/intro_personal_info_birth_date_entry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="@string/birth_date_dd_mm_yyyy"
             android:inputType="date" />
@@ -53,6 +55,7 @@
             android:id="@+id/intro_personal_info_weight_entry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="@string/weight_kg"
             android:inputType="numberDecimal" />
@@ -61,6 +64,7 @@
             android:id="@+id/intro_personal_info_height_entry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="@string/height_metres"
             android:inputType="numberDecimal" />
@@ -70,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
-            android:text="@string/gender" />
+            android:text="@string/gender"  />
 
         <Spinner
             android:id="@+id/intro_personal_info_gender_spinner"
@@ -85,7 +89,7 @@
             android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/activity_level"/>
+            android:text="@string/activity_level" />
 
         <Spinner
             android:id="@+id/intro_personal_info_activity_spinner"

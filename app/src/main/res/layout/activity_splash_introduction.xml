@@ -39,10 +39,10 @@
             android:layout_height="72dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
+            android:contentDescription="@string/a_picture_of_a_weight_in_a_white_circle_the_applications_logo"
             android:padding="6dp"
             android:scaleType="fitEnd"
-            app:srcCompat="@mipmap/logo_invert"
-            android:contentDescription="@string/a_picture_of_a_weight_in_a_white_circle_the_applications_logo"/>
+            app:srcCompat="@mipmap/ic_inverted" />
     </LinearLayout>
 
     <LinearLayout

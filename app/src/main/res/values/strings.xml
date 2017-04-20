@@ -22,4 +22,12 @@
     <string name="a_picture_of_a_weight_in_a_white_circle_the_applications_logo">A picture of a weight in a white circle. The applications logo.</string>
     <string name="what_is_my_fitness">What is My Fitness?</string>
     <string name="my_fitness_is_an_app_that_can_help_you_keep_track_of_your_fitness_and_help_you_get_into_new_routines_on_the_next_few_screens_you_will_be_asked_questions_to_allow_the_app_to_help_you_out">My Fitness is an app that can help you keep track of your fitness and help you get into new routines! On the next few screens you will be asked questions to allow the app to help you out.</string>
+    <string name="please_enter_your_info">Please enter your info</string>
+    <string name="this_information_allows_the_app_to_create_appropriate_calorie_goals_for_you">This information allows the app to create appropriate calorie goals for you.</string>
+    <string name="name">Name</string>
+    <string name="birth_date_dd_mm_yyyy">Birth Date (DD/MM/YYYY)</string>
+    <string name="weight_kg">Weight (KG)</string>
+    <string name="height_metres">Height (Metres)</string>
+    <string name="gender">Gender</string>
+    <string name="activity_level">Activity Level</string>
 </resources>
