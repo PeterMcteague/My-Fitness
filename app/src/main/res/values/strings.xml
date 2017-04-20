@@ -7,5 +7,6 @@
     <string name="title_activity_menu_screen">Menu screen</string>
     <string name="navigation_drawer_open"></string>
     <string name="navigation_drawer_close"></string>
+    <string name="app_label">My Fitness</string>
     <string name="calendar_toolbar">calendar_toolbar</string>
 </resources>

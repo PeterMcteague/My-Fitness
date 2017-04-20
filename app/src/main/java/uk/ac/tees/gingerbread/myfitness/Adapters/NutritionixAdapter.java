@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class NutritionixAdapter extends ArrayAdapter<NutritionixModel>{
 
     private static class ViewHolder {
-        TextView id;
         TextView name;
     }
 
@@ -37,7 +36,6 @@ public class NutritionixAdapter extends ArrayAdapter<NutritionixModel>{
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_nutritionix, parent, false);
 
-            viewHolder.id = (TextView) convertView.findViewById(R.id.value_nutritionix_id);
             viewHolder.name = (TextView) convertView.findViewById(R.id.value_nutritionix_name);
 
             convertView.setTag(viewHolder);
@@ -45,7 +43,6 @@ public class NutritionixAdapter extends ArrayAdapter<NutritionixModel>{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.id.setText(nutritionixEntry.getId());
         viewHolder.name.setText(nutritionixEntry.getName());
 
         return convertView;
