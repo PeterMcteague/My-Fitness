@@ -21,7 +21,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@string/weight_kg" />
+                android:text="@string/weight" />
 
             <EditText
                 android:id="@+id/editText_weight"
@@ -41,7 +41,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@string/height_m" />
+                android:text="@string/height" />
 
             <EditText
                 android:id="@+id/editText_Height"

@@ -19,6 +19,6 @@
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         android:scaleType="fitCenter"
-        android:contentDescription="@string/a_progress_picture_added_by_the_user"
+        android:contentDescription="@string/progress_picture_description"
         app:srcCompat="@drawable/ic_menu_gallery" />
 </LinearLayout>

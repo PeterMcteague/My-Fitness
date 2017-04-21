@@ -39,7 +39,7 @@
             android:layout_height="72dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:contentDescription="@string/a_picture_of_a_weight_in_a_white_circle_the_applications_logo"
+            android:contentDescription="@string/logo_description"
             android:padding="6dp"
             android:scaleType="fitEnd"
             app:srcCompat="@mipmap/ic_inverted" />
@@ -57,7 +57,7 @@
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/what_is_my_fitness"
+            android:text="@string/app_description_header"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
         <TextView
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="@string/my_fitness_is_an_app_that_can_help_you_keep_track_of_your_fitness_and_help_you_get_into_new_routines_on_the_next_few_screens_you_will_be_asked_questions_to_allow_the_app_to_help_you_out"
+            android:text="@string/app_description"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
         <LinearLayout

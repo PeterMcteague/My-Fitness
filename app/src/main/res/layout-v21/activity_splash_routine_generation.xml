@@ -18,7 +18,7 @@
         android:id="@+id/intro_generation_question_big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/generate_a_routine"
+        android:text="@string/generate_routine"
         android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
     <TextView
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="@string/we_can_generate_a_routine_and_diet_plan_for_you_if_you_d_like_or_you_can_create_your_own_later"
+        android:text="@string/generation_query"
         android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
     <LinearLayout
