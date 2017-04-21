@@ -43,4 +43,8 @@
     <string name="height_m">Height (M):</string>
     <string name="goal">Goal:</string>
     <string name="a_progress_picture_added_by_the_user">A progress picture added by the user.</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="routine_and_exercises">Routine and exercises</string>
+    <string name="diet_planner">Diet planner</string>
+    <string name="gym_finder">Gym finder</string>
 </resources>
