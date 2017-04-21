@@ -14,7 +14,8 @@
         android:id="@+id/imageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:srcCompat="@mipmap/ic_inverted" />
+        app:srcCompat="@mipmap/ic_inverted"
+        android:contentDescription="@string/logo_description"/>
 
     <!--If we had time, we would have this as a username and allow multiple users.-->
     <TextView

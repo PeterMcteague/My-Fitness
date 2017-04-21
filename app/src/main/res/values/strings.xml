@@ -1,13 +1,56 @@
 <resources>
     <string name="app_name">My Fitness</string>
+
     <string name="choose_gender">Choose a gender</string>
+
     <string name="label_nutritionix_id">ID</string>
     <string name="label_nutritionix_name">Name</string>
-    <string name="action_settings">Replace this</string>
+
     <string name="title_activity_menu_screen">Menu screen</string>
-    <string name="navigation_drawer_open"></string>
-    <string name="navigation_drawer_close"></string>
+    <string name="navigation_drawer_open" translatable="false" />
+    <string name="navigation_drawer_close" translatable="false" />
     <string name="app_label">My Fitness</string>
     <string name="calendar_toolbar">calendar_toolbar</string>
+
     <string name="choose_a_goal">Choose a goal!</string>
+    <string name="choose_goal_explanation">By choosing a goal, a workout routine can be generated for you.</string>
+    <string name="lose_weight">Lose weight</string>
+    <string name="picture_weight_loss">A picture of a tape measure suggesting weight loss.</string>
+    <string name="stay_healthy">Stay healthy</string>
+    <string name="picture_stay_healthy">A picture of a man on a treadmill suggesting staying healthy.</string>
+    <string name="gain_muscle">Gain muscle</string>
+    <string name="picture_gain_muscle">A picture of a man lifting a weight, suggesting muscle gain.</string>
+
+    <string name="a_welcoming_message">A welcoming message</string>
+    <string name="welcome_to_my_fitness">Welcome to My Fitness!</string>
+    <string name="logo_description">A picture of a weight in a white circle. The applications logo.</string>
+    <string name="app_description_header">What is My Fitness?</string>
+    <string name="app_description">My Fitness is an app that can help you keep track of your fitness and help you get into new routines! On the next few screens you will be asked questions to allow the app to help you out.</string>
+
+    <string name="info_entry">Please enter your info</string>
+    <string name="info_entry_explanation">This information allows the app to create appropriate calorie goals for you.</string>
+
+    <string name="name">Name</string>
+    <string name="birth_date">Birth Date (DD/MM/YYYY)</string>
+    <string name="weight">Weight (KG)</string>
+    <string name="height">Height (Metres)</string>
+    <string name="gender">Gender</string>
+    <string name="activity_level">Activity Level</string>
+
+    <string name="generate_routine">Generate a routine?</string>
+    <string name="generation_query">We can generate a routine and diet plan for you , if you\'d like. Or you can create your own later.</string>
+    <string name="sure">Sure!</string>
+    <string name="no_thanks">No thanks</string>
+
+    <string name="forwardSlash" translatable="false">/</string>
+    <string name="protein_goal">Protein/Goal:</string>
+    <string name="calories_goal">Calories/Goal:</string>
+    <string name="add_by_food">Add by food:</string>
+    <string name="goal">Goal:</string>
+    <string name="progress_picture_description">A progress picture added by the user.</string>
+
+    <string name="personal_info">Personal Info</string>
+    <string name="routine_and_exercises">Routine and exercises</string>
+    <string name="diet_planner">Diet planner</string>
+    <string name="gym_finder">Gym finder</string>
 </resources>

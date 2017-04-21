@@ -29,7 +29,7 @@
             android:padding="8dp"
             android:text="@string/welcome_to_my_fitness"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_description_header"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+            android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
         <TextView
             android:id="@+id/intro_text_help"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="@string/app_description"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <LinearLayout
             android:layout_width="match_parent"
