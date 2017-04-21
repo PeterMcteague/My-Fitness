@@ -6,7 +6,6 @@
     tools:context="uk.ac.tees.gingerbread.myfitness.Fragments.DietFragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
     android:layout_margin="16dp"
@@ -26,16 +25,17 @@
             android:layout_height="match_parent"
             android:layout_marginTop="28dp"
             android:text="@string/calories_goal"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+            android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
         <EditText
             android:id="@+id/diet_calories_entry"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="0.02"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:inputType="number"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <TextView
             android:id="@+id/diet_calories_goal_slash"
@@ -43,13 +43,14 @@
             android:layout_height="match_parent"
             android:layout_marginTop="22dp"
             android:text="@string/forwardSlash"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <EditText
             android:id="@+id/diet_calories_goal_entry"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="0.15"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:inputType="number"/>
 
@@ -67,16 +68,17 @@
             android:layout_marginTop="28dp"
             android:layout_weight="0.03"
             android:text="@string/protein_goal"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+            android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
         <EditText
             android:id="@+id/diet_protein_entry"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="0.11"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:inputType="number"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <TextView
             android:id="@+id/diet_protein_goal_skash"
@@ -85,16 +87,17 @@
             android:layout_marginTop="22dp"
             android:layout_weight="1"
             android:text="@string/forwardSlash"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <EditText
             android:id="@+id/diet_protein_goal_entry"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="0.24"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:inputType="number"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
     </LinearLayout>
 
     <Space
@@ -123,12 +126,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary"
                 android:ems="10"
                 android:inputType="text|textAutoCorrect|textAutoComplete"
                 android:imeOptions="actionSearch"/>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/food_search_button"
+                style="@android:style/Widget.Material.ImageButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@color/colorPrimary"
@@ -150,6 +155,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="?attr/dividerHorizontal"
+            android:elevation="-5dp"
             android:footerDividersEnabled="true"
             android:headerDividersEnabled="true" />
 

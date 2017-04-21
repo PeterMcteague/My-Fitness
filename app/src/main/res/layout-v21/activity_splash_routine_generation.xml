@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/generate_a_routine"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+        android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
     <TextView
         android:id="@+id/intro_generation_txt_small"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/we_can_generate_a_routine_and_diet_plan_for_you_if_you_d_like_or_you_can_create_your_own_later"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -29,7 +29,7 @@
             android:padding="8dp"
             android:text="@string/welcome_to_my_fitness"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/what_is_my_fitness"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+            android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
         <TextView
             android:id="@+id/intro_text_help"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="@string/my_fitness_is_an_app_that_can_help_you_keep_track_of_your_fitness_and_help_you_get_into_new_routines_on_the_next_few_screens_you_will_be_asked_questions_to_allow_the_app_to_help_you_out"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <LinearLayout
             android:layout_width="match_parent"

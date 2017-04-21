@@ -30,4 +30,17 @@
     <string name="height_metres">Height (Metres)</string>
     <string name="gender">Gender</string>
     <string name="activity_level">Activity Level</string>
+    <string name="generate_a_routine">Generate a routine?</string>
+    <string name="we_can_generate_a_routine_and_diet_plan_for_you_if_you_d_like_or_you_can_create_your_own_later">We can generate a routine and diet plan for you , if you\'d like. Or you can create your own later.</string>
+    <string name="sure">Sure!</string>
+    <string name="no_thanks">No thanks</string>
+    <string name="calories_goal">Calories/Goal:</string>
+    <string name="currentcalories">CurrentCalories</string>
+    <string name="forwardSlash">/</string>
+    <string name="protein_goal">Protein/Goal:</string>
+    <string name="currentprotein">CurrentProtein</string>
+    <string name="add_by_food">Add by food:</string>
+    <string name="height_m">Height (M):</string>
+    <string name="goal">Goal:</string>
+    <string name="a_progress_picture_added_by_the_user">A progress picture added by the user.</string>
 </resources>

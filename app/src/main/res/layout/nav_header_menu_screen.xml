@@ -14,7 +14,8 @@
         android:id="@+id/imageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:srcCompat="@mipmap/ic_inverted" />
+        app:srcCompat="@mipmap/ic_inverted"
+        android:contentDescription="@string/a_picture_of_a_weight_in_a_white_circle_the_applications_logo"/>
 
     <!--If we had time, we would have this as a username and allow multiple users.-->
     <TextView
