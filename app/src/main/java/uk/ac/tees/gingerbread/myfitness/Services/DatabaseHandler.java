@@ -827,6 +827,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
+    public ArrayList<DietEntry> getAllDietEntriesForMonth(long startMonth , long endMonth)
+    {
+        // Create empty list
+        ArrayList<DietEntry> list = new ArrayList<DietEntry>();
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_DIET + " WHERE " + COL_DIET_DATE + " BETWEEN " + startMonth + " AND " + endMonth + " ORDER BY " + COL_DIET_DATE + " ASC";
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idCalories = cursor.getColumnIndex(COL_DIET_CAL);
+            int idCaloriesGoal = cursor.getColumnIndex(COL_DIET_CAL_GOAL);
+            int idProtein = cursor.getColumnIndex(COL_DIET_PROTEIN);
+            int idProteinGoal = cursor.getColumnIndex(COL_DIET_PROTEIN_GOAL);
+            do {
+                //Str,str,long,double,double,bitmap
+                list.add(new DietEntry(
+                        cursor.getLong(idDate),
+                        cursor.getInt(idCalories),
+                        cursor.getInt(idCaloriesGoal),
+                        cursor.getFloat(idProtein),
+                        cursor.getFloat(idProteinGoal)
+                ));
+            } while (cursor.moveToNext()); // repeat until there are no more records
+        }
+        db.close();
+        return list;
+    }
+
     public void updateDietEntry(DietEntry dietIn , Long day)
     {
         // Connect to the database to read data
@@ -1190,6 +1222,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return returnValue;
         }
         return null;
+    }
+
+    public ArrayList<InfoEntry> getInfoForMonth(long monthStart, long monthEnd)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<InfoEntry> infoEntries = new ArrayList<>();
+
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_INFO + " WHERE " + COL_DIET_DATE + " BETWEEN " + monthStart + " AND " + monthEnd + " ORDER BY " + COL_DIET_DATE + " ASC";
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idHeight = cursor.getColumnIndex(COL_INFO_HEIGHT);
+            int idWeight = cursor.getColumnIndex(COL_INFO_WEIGHT);
+            int idActivity = cursor.getColumnIndex(COL_INFO_ACTIVITY_LEVEL);
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idGoal = cursor.getColumnIndex(COL_INFO_GOAL);
+            do {
+                InfoEntry entry = new InfoEntry(
+                        cursor.getFloat(idHeight),
+                        cursor.getFloat(idWeight),
+                        cursor.getInt(idActivity),
+                        cursor.getLong(idDate),
+                        cursor.getString(idGoal));
+                infoEntries.add(entry);
+            }while (cursor.moveToNext());
+            db.close();
+        }
+        return infoEntries;
     }
 
     public void updateInfoEntry(InfoEntry infoIn)
