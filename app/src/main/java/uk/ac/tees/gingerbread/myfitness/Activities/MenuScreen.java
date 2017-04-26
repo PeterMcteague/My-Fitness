@@ -16,6 +16,7 @@ import uk.ac.tees.gingerbread.myfitness.Fragments.DietFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.GymFindFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.InfoFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.RoutineFragment;
+import uk.ac.tees.gingerbread.myfitness.Fragments.SummaryFragment;
 import uk.ac.tees.gingerbread.myfitness.R;
 
 public class MenuScreen extends AppCompatActivity
@@ -106,6 +107,10 @@ public class MenuScreen extends AppCompatActivity
         else if (id == R.id.nav_gym_finder)
         {
             fragmentClass = GymFindFragment.class;
+        }
+        else if(id == R.id.nav_summary)
+        {
+            fragmentClass = SummaryFragment.class;
         }
 
         try {

@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_summary"
+            android:icon="@mipmap/icon_menu_summary"
+            android:title="@string/summary" />
+        <item
             android:id="@+id/nav_info"
             android:icon="@mipmap/icon_menu_info"
             android:title="@string/personal_info" />
@@ -18,7 +22,6 @@
             android:id="@+id/nav_gym_finder"
             android:icon="@mipmap/icon_menu_gymfind"
             android:title="@string/gym_finder" />
-
     </group>
 
 
