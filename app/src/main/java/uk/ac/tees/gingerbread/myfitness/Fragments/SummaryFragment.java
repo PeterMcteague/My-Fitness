@@ -1,16 +1,10 @@
 package uk.ac.tees.gingerbread.myfitness.Fragments;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
@@ -49,6 +42,8 @@ public class SummaryFragment extends Fragment {
     private TextView weightText;
     private TextView dietText;
 
+    private boolean lastThirtyDays; //If true do last 30 days, otherwise do month behavior. Swap on datechange.
+
     public SummaryFragment()
     {
         //Required constructor
@@ -68,6 +63,8 @@ public class SummaryFragment extends Fragment {
         c.set(Calendar.MILLISECOND, 0);
         timeInMillis = c.getTimeInMillis();
         todayTimeInMillis = c.getTimeInMillis();
+
+        lastThirtyDays = true;
 
         return view;
     }
@@ -107,6 +104,7 @@ public class SummaryFragment extends Fragment {
                 {
                     c.set(year, monthOfYear, dayOfMonth);
                     timeInMillis = c.getTimeInMillis();
+                    lastThirtyDays = false;
                     updateViews(timeInMillis);
                 }
             }, c.get(java.util.Calendar.YEAR), c.get(java.util.Calendar.MONTH), c.get(java.util.Calendar.DAY_OF_MONTH));
@@ -121,26 +119,57 @@ public class SummaryFragment extends Fragment {
 
     private void updateViews(long date)
     {
-        //Get first and last day of month
-        c.set(Calendar.DATE, c.getActualMaximum(Calendar.DAY_OF_MONTH));
-        long lastDayOfMonth = c.getTimeInMillis();
-        c.set(Calendar.DATE, c.getActualMinimum(Calendar.DAY_OF_MONTH));
-        long firstDayOfMonth = c.getTimeInMillis();
+        long lastDayOfMonth;
+        long firstDayOfMonth;
+
+        if (lastThirtyDays)
+        {
+            //Between today and 30 days ago
+            lastDayOfMonth = todayTimeInMillis;
+            c.setTimeInMillis(todayTimeInMillis);
+            c.add(Calendar.DAY_OF_MONTH, -30);
+            firstDayOfMonth = c.getTimeInMillis();
+        }
+        else
+        {
+            //Get first and last day of month
+            c.set(Calendar.DATE, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+            lastDayOfMonth = c.getTimeInMillis();
+            c.set(Calendar.DATE, c.getActualMinimum(Calendar.DAY_OF_MONTH));
+            firstDayOfMonth = c.getTimeInMillis();
+        }
+
 
         //Updating the weight graph
         //Clear
         weightGraph.removeAllSeries();
         //Set X bounds
-        weightGraph.getViewport().setXAxisBoundsManual(true);
-        weightGraph.getViewport().setMinX(0);
-        weightGraph.getViewport().setMaxX(c.getActualMaximum(Calendar.DAY_OF_MONTH) + 2);
+        if (lastThirtyDays)
+        {
+            weightGraph.getViewport().setXAxisBoundsManual(true);
+            weightGraph.getViewport().setMinX(0);
+            weightGraph.getViewport().setMaxX(30);
+        }
+        else
+        {
+            weightGraph.getViewport().setXAxisBoundsManual(true);
+            weightGraph.getViewport().setMinX(0);
+            weightGraph.getViewport().setMaxX(c.getActualMaximum(Calendar.DAY_OF_MONTH) + 2);
+        }
         //Set Y bounds
         weightGraph.getViewport().setYAxisBoundsManual(true);
         weightGraph.getViewport().setMinY(0);
         weightGraph.getViewport().setMaxY(500);
         //Set axis labels
         GridLabelRenderer gridLabel = weightGraph.getGridLabelRenderer();
-        gridLabel.setHorizontalAxisTitle("Day");
+        if (lastThirtyDays)
+        {
+            gridLabel.setHorizontalAxisTitle("Days since 30 days ago");
+        }
+        else
+        {
+            gridLabel.setHorizontalAxisTitle("Day of month");
+        }
         gridLabel.setVerticalAxisTitle("Weight /KG");
 
         //Add points based on database entries
@@ -150,10 +179,7 @@ public class SummaryFragment extends Fragment {
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
             for (InfoEntry e : entries)
             {
-                int day;
-                c.setTimeInMillis(e.getDate());
-                day = c.get(Calendar.DAY_OF_MONTH);
-                series.appendData(new DataPoint(day,e.getWeight()),true,31);
+                series.appendData(new DataPoint((e.getDate() - firstDayOfMonth) / (1000*60*60*24),e.getWeight()),true,31);
             }
             series.setColor(Color.RED);
             weightGraph.addSeries(series);
@@ -177,7 +203,7 @@ public class SummaryFragment extends Fragment {
         gridLabel2.setVerticalAxisTitle("Calories /KCal");
 
         //Add points based on database entries
-        ArrayList<DietEntry> entries2 = dh.getAllDietEntriesForMonth(firstDayOfMonth,lastDayOfMonth);
+        ArrayList<DietEntry> entries2 = dh.getDietEntriesBetween(firstDayOfMonth,lastDayOfMonth);
         if (!entries2.isEmpty())
         {
             //Calories series
@@ -185,10 +211,7 @@ public class SummaryFragment extends Fragment {
             series2.setColor(Color.RED);
             for (DietEntry e : entries2)
             {
-                int day;
-                c.setTimeInMillis(e.getDate());
-                day = c.get(Calendar.DAY_OF_MONTH);
-                series2.appendData(new DataPoint(day,e.getCalories()),true,31);
+                series2.appendData(new DataPoint((e.getDate() - firstDayOfMonth) / (1000*60*60*24),e.getCalories()),true,31);
             }
             series2.setTitle("Calories");
             dietGraph.addSeries(series2);
@@ -197,10 +220,7 @@ public class SummaryFragment extends Fragment {
             LineGraphSeries<DataPoint> series3 = new LineGraphSeries<>();
             for (DietEntry e : entries2)
             {
-                int day;
-                c.setTimeInMillis(e.getDate());
-                day = c.get(Calendar.DAY_OF_MONTH);
-                series3.appendData(new DataPoint(day,e.getCaloriesGoal()),true,31);
+                series3.appendData(new DataPoint((e.getDate() - firstDayOfMonth) / (1000*60*60*24),e.getCaloriesGoal()),true,31);
             }
             series3.setColor(Color.GRAY);
             series3.setTitle("Calories Goal");
@@ -211,9 +231,17 @@ public class SummaryFragment extends Fragment {
             dietGraph.getViewport().setMaxY(entries2.get(0).getCaloriesGoal() + 100);
         }
 
-        //Updating the text of the text views to say "X Summary for MONTH YEAR".
-        weightText.setText("Weight summary for " + c.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault()) + " " + c.get(Calendar.YEAR));
-        dietText.setText("Diet summary for " + c.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault()) + " " + c.get(Calendar.YEAR));
+        if (lastThirtyDays)
+        {
+            weightText.setText(getString(R.string.weight_summary_30));
+            dietText.setText(getString(R.string.diet_summary_30));
+        }
+        else
+        {
+            //Updating the text of the text views to say "X Summary for MONTH YEAR".
+            weightText.setText("Weight summary for " + c.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault()) + " " + c.get(Calendar.YEAR));
+            dietText.setText("Diet summary for " + c.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault()) + " " + c.get(Calendar.YEAR));
+        }
 
         //reset
         c.setTimeInMillis(date);

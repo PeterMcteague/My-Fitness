@@ -55,6 +55,9 @@
     <string name="gym_finder">Gym finder</string>
     <string name="summary">Summary</string>
 
+    <string name="weight_summary_30">Weight summary for last thirty days</string>
+    <string name="diet_summary_30">Diet summary for last thirty days</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

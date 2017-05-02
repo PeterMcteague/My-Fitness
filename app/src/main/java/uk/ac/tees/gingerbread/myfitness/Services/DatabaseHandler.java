@@ -827,7 +827,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
-    public ArrayList<DietEntry> getAllDietEntriesForMonth(long startMonth , long endMonth)
+    public ArrayList<DietEntry> getDietEntriesBetween(long startMonth , long endMonth)
     {
         // Create empty list
         ArrayList<DietEntry> list = new ArrayList<DietEntry>();
