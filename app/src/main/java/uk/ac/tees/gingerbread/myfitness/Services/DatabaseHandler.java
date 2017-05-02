@@ -1080,6 +1080,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
+    /**Deletes a picture entry.
+     *
+     * @param position - The position of the item a list of all items for a day.
+     */
+    public void deletePictureEntry(int position, long dateIn)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //Select all for date using sql
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_PICTURES + " WHERE " + COL_DIET_DATE + " = " + dateIn;
+        //Get the id of position record
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idId = cursor.getColumnIndex(COL_ID);
+            int counter = 0;
+            do {
+                if (counter == position)
+                {
+                    //get id
+                    int id = cursor.getInt(idId);
+                    String deleteQuery = "DELETE FROM " + TABLE_NAME_PICTURES + " WHERE " + COL_ID + " = " + id;
+                    db.execSQL(deleteQuery);
+                }
+                counter++;
+            } while (cursor.moveToNext()); // repeat until there are no more records
+        }
+        db.close();
+    }
+
     /**Gets all pictures in the progress pictures table.
      *
      * @return A list of all picture entries.

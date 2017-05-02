@@ -109,11 +109,40 @@ public class InfoFragment extends Fragment {
     public void populateImageList()
     {
         ListView pictureList = (ListView) getView().findViewById(R.id.info_picture_list);
-        DatabaseHandler dh = new DatabaseHandler(getContext());
+        final DatabaseHandler dh = new DatabaseHandler(getContext());
 
-        ArrayList<PictureEntry> pictures = dh.getPicturesForDate(timeInMillis);
+        final ArrayList<PictureEntry> pictures = dh.getPicturesForDate(timeInMillis);
         ProgressPicAdapter adapter = new ProgressPicAdapter(getActivity(),pictures);
         pictureList.setAdapter(adapter);
+        pictureList.setItemsCanFocus(true);
+        pictureList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                final PictureEntry picture = pictures.get(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder
+                        .setTitle("Picture options")
+                        .setMessage("Choose an option")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Cancel", new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int which) {}
+                        })
+                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Remove picture entry
+                                Log.d("Clicked picture",position + " , " + picture.getPicture());
+                                Log.d("Before",pictures.indexOf(picture) + " , " + pictures.size() + " " + dh.getPicturesForDate(timeInMillis).size());
+                                dh.deletePictureEntry(position,timeInMillis);
+                                pictures.remove(picture);
+                                Log.d("After",pictures.indexOf(picture) + " , " + pictures.size() + " " + dh.getPicturesForDate(timeInMillis).size());
+                                //Refresh
+                                populateImageList();
+                            }
+                        })
+                        .show();
+            }
+        });
         adapter.notifyDataSetChanged();
     }
 
