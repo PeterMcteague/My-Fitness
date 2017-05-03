@@ -45,7 +45,7 @@ public class MenuScreen extends AppCompatActivity
 
         Fragment fragment = null;
         Class fragmentClass = null;
-        fragmentClass = RoutineFragment.class;
+        fragmentClass = SummaryFragment.class;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
@@ -90,7 +90,6 @@ public class MenuScreen extends AppCompatActivity
         return false;
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
