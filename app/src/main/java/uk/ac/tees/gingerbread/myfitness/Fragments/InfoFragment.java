@@ -168,7 +168,13 @@ public class InfoFragment extends Fragment {
                                 }
                                 else
                                 {
-                                    Toast.makeText(getContext(),"Facebook app required. Please install.",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(),"Facebook app required. Opening store to install.",Toast.LENGTH_LONG).show();
+                                    //Open
+                                    try {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.facebook.katana&hl=en_GB")));
+                                    } catch (android.content.ActivityNotFoundException e) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en_GB")));
+                                    }
                                 }
                             }
                         })
