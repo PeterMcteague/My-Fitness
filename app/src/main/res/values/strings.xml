@@ -58,6 +58,5 @@
     <string name="weight_summary_30">Weight summary for last thirty days</string>
     <string name="diet_summary_30">Diet summary for last thirty days</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="facebook_app_id">469063640095356</string>
 </resources>

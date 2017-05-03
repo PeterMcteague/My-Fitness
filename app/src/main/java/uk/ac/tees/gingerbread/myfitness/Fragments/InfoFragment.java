@@ -44,6 +44,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.share.ShareApi;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
+
 import uk.ac.tees.gingerbread.myfitness.Adapters.ProgressPicAdapter;
 import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.PictureEntry;
@@ -70,9 +81,13 @@ public class InfoFragment extends Fragment {
     private Spinner goalSpinner;
     private FloatingActionButton addPictureButton;
 
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        int facebookRequest = shareDialog.getRequestCode();
         switch(requestCode) {
             case 0:
                 if(resultCode == RESULT_OK){
@@ -131,13 +146,30 @@ public class InfoFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //Remove picture entry
-                                Log.d("Clicked picture",position + " , " + picture.getPicture());
-                                Log.d("Before",pictures.indexOf(picture) + " , " + pictures.size() + " " + dh.getPicturesForDate(timeInMillis).size());
                                 dh.deletePictureEntry(position,timeInMillis);
                                 pictures.remove(picture);
-                                Log.d("After",pictures.indexOf(picture) + " , " + pictures.size() + " " + dh.getPicturesForDate(timeInMillis).size());
                                 //Refresh
                                 populateImageList();
+                            }
+                        })
+                        .setNeutralButton("Share to Facebook", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharePhoto photo = new SharePhoto.Builder()
+                                        .setBitmap(picture.getPicture())
+                                        .build();
+                                Log.d("In onclick","x");
+                                if (ShareDialog.canShow(SharePhotoContent.class)) {
+                                    Log.d("In canshow","x");
+                                    SharePhotoContent content = new SharePhotoContent.Builder()
+                                            .addPhoto(photo)
+                                            .build();
+                                    shareDialog.show(content);
+                                }
+                                else
+                                {
+                                    Toast.makeText(getContext(),"Facebook app required. Please install.",Toast.LENGTH_LONG).show();
+                                }
                             }
                         })
                         .show();
@@ -244,7 +276,6 @@ public class InfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
-
         setHasOptionsMenu(true);
 
         weightField = (EditText) view.findViewById(R.id.editText_weight);
@@ -312,6 +343,27 @@ public class InfoFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Facebook share dialog
+        shareDialog = new ShareDialog(this);
+        callbackManager = CallbackManager.Factory.create();
+
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                Toast.makeText(getContext(),"Shared to Facebook",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
         updateFields(info);
         populateImageList();
 
@@ -324,10 +376,8 @@ public class InfoFragment extends Fragment {
                 builder.setIcon(R.drawable.ic_menu_gallery);
                 builder.setMessage("Where would you like to add a picture from?");
                 builder.setPositiveButton("Camera",
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int id)
-                            {
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
                                 //Start camera intent and get bitmap and save to db and refresh
                                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                 startActivityForResult(takePicture, 0);//zero can be replaced with any action code
@@ -335,10 +385,8 @@ public class InfoFragment extends Fragment {
                         });
 
                 builder.setNeutralButton("Cancel",
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int id)
-                            {
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         });
