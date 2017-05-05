@@ -1,5 +1,6 @@
 package uk.ac.tees.gingerbread.myfitness.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -105,7 +106,9 @@ public class MenuScreen extends AppCompatActivity
         }
         else if (id == R.id.nav_gym_finder)
         {
-            fragmentClass = GymFindFragment.class;
+            Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+            startActivity(intent);
+            return true;
         }
         else if(id == R.id.nav_summary)
         {
