@@ -93,6 +93,7 @@ public class SplashPersonal extends AppCompatActivity {
                                 dh.addPersistentInfo(nameEntry.getText().toString(),cal.getTimeInMillis(),genderSpinner.getSelectedItem().toString());
 
                                 Intent intent = new Intent(context, SplashRoutineGeneration.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                             }

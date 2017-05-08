@@ -31,6 +31,7 @@ public class SplashRoutineGeneration extends AppCompatActivity {
                         Intent intent = new Intent(context, SplashGoal.class);
                         //Create the database..
                         DatabaseHandler dh = new DatabaseHandler(context);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                     }
@@ -48,6 +49,7 @@ public class SplashRoutineGeneration extends AppCompatActivity {
                         editor.commit();
                         //Finished
                         Intent intent = new Intent(context, MenuScreen.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }

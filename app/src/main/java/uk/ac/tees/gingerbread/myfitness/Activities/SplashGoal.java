@@ -146,6 +146,7 @@ public class SplashGoal extends AppCompatActivity {
                         addDbFromIntent(context,getIntent(),"Build Muscle");
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
@@ -160,6 +161,7 @@ public class SplashGoal extends AppCompatActivity {
                         addDbFromIntent(context,getIntent(),"Lose Weight");
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
@@ -174,6 +176,7 @@ public class SplashGoal extends AppCompatActivity {
                         addDbFromIntent(context,getIntent(),"Stay Healthy");
                         setSetupComplete();
                         Intent intent = new Intent(context, MenuScreen.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
