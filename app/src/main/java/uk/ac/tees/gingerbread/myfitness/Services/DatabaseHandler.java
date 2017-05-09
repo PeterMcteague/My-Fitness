@@ -1649,6 +1649,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //-------------------Food history methods-----------------------------------------------------//
 
     //Get by day
+    public List<FoodEntry> getFoods(long dateIn)
+    {
+        // Create empty list
+        ArrayList<FoodEntry> list = new ArrayList<FoodEntry>();
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_FOOD_HISTORY + " WHERE " + COL_DIET_DATE + " = " + dateIn;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idName = cursor.getColumnIndex(COL_NAME);
+            int idCal = cursor.getColumnIndex(COL_DIET_CAL);
+            int idProtein = cursor.getColumnIndex(COL_DIET_PROTEIN);
+            do {
+                //Str,str,long,double,double,bitmap
+                list.add(new FoodEntry(
+                        cursor.getString(idName),
+                        cursor.getLong(idDate),
+                        cursor.getInt(idCal),
+                        cursor.getFloat(idProtein)));
+            } while (cursor.moveToNext()); // repeat until there are no more records
+        }
+        db.close();
+        return list;
+    }
+
+
 
     //Add
     public long addFood(FoodEntry food)
@@ -1666,11 +1696,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
         return id; // Return id for new record
     }
-
-//    + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-//            + COL_DIET_DATE + " DATE NOT NULL "
-//            + COL_NAME + " STRING "
-//            + COL_DIET_CAL + " INTEGER NOT NULL "
-//            + COL_DIET_PROTEIN + " INTEGER)";
 
 }
