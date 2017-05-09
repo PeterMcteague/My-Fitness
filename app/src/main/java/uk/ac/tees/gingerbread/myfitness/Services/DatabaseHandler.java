@@ -119,9 +119,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_TABLE_FOOD = "CREATE TABLE " + TABLE_NAME_FOOD_HISTORY
                 + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COL_DIET_DATE + " DATE NOT NULL "
-                + COL_NAME + " STRING "
-                + COL_DIET_CAL + " INTEGER NOT NULL "
+                + COL_DIET_DATE + " DATE NOT NULL, "
+                + COL_NAME + " STRING, "
+                + COL_DIET_CAL + " INTEGER NOT NULL, "
                 + COL_DIET_PROTEIN + " INTEGER)";
 
         //Execute/run the create SQL statement
