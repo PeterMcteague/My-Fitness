@@ -423,6 +423,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
+    public void deleteDietEntry(long dateIn)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String deleteQuery = "DELETE FROM " + TABLE_NAME_DIET + " WHERE " + COL_DIET_DATE + " = " + dateIn;
+        db.execSQL(deleteQuery);
+
+        db.close();
+    }
+
     public long addDietEntryToday()
     {
         //Calendar setup
@@ -1394,9 +1405,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         // Generate SQL UPDATE statement to update cal, calgoal, protein, proteingoal
         String selectQuery = "UPDATE " + TABLE_NAME_PERSISTENT_INFO
-                + " SET " + COL_PERSISTENT_INFO_GENDER + " = " + infoIn.getGender() + ","
-                + " SET " + COL_PERSISTENT_INFO_BIRTHDATE + " = " + infoIn.getBirthDate() + ","
-                + " SET " + COL_PERSISTENT_INFO_NAME + " = " + infoIn.getName();
+                + " SET " + COL_PERSISTENT_INFO_GENDER + "='" + infoIn.getGender() + "',"
+                + " " + COL_PERSISTENT_INFO_BIRTHDATE + "='" + infoIn.getBirthDate() + "',"
+                + " " + COL_PERSISTENT_INFO_NAME + "='" + infoIn.getName() + "'";
         db.execSQL(selectQuery);
         db.close();
     }
@@ -1493,11 +1504,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             pointer++;
         }
         return csl;
-    }
-
-    public void updateExerciseActive(int id , boolean active)
-    {
-
     }
 
     //Create routine entry for date

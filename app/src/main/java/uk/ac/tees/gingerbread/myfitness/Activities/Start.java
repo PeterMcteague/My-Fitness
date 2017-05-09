@@ -28,6 +28,7 @@ public class Start extends AppCompatActivity
         if(setupComplete)//if running for first time
         {
             Intent intent = new Intent(context, MenuScreen.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         }
@@ -38,6 +39,7 @@ public class Start extends AppCompatActivity
             dh.deleteDB(context);
 
             Intent intent = new Intent(context, SplashIntroduction.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);  // Launch next activity
             finish();
         }

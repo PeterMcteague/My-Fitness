@@ -45,9 +45,10 @@ public class SplashRoutineGeneration extends AppCompatActivity {
                         SharedPreferences settings = getSharedPreferences("MyFitnessPrefs",0);
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putBoolean("setupComplete",true);
-                        editor.commit();
+                        editor.apply();
                         //Finished
                         Intent intent = new Intent(context, MenuScreen.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }

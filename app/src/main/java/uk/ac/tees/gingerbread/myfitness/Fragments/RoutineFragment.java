@@ -91,6 +91,7 @@ public class RoutineFragment extends Fragment {
                                             updateTitleBar(timeInMillis);
                                             updateList(routine);
                                             c.setTimeInMillis(timeInMillis);
+                                            Toast.makeText(getContext(),"Routine created",Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .setNegativeButton("Create blank routine", new DialogInterface.OnClickListener() {
@@ -101,6 +102,7 @@ public class RoutineFragment extends Fragment {
                                             updateTitleBar(timeInMillis);
                                             updateList(routine);
                                             c.setTimeInMillis(timeInMillis);
+                                            Toast.makeText(getContext(),"Routine created",Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
@@ -127,6 +129,7 @@ public class RoutineFragment extends Fragment {
                                             updateTitleBar(timeInMillis);
                                             updateList(routine);
                                             c.setTimeInMillis(timeInMillis);
+                                            Toast.makeText(getContext(),"Routine created",Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
