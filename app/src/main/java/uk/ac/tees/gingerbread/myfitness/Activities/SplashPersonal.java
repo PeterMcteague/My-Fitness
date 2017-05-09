@@ -19,6 +19,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.PersistentInfoEntry;
 import uk.ac.tees.gingerbread.myfitness.R;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 
@@ -84,24 +86,38 @@ public class SplashPersonal extends AppCompatActivity {
                                 cal.setTime(birthDate);
 
                                 DatabaseHandler dh = new DatabaseHandler(context);
-                                dh.addInfo(
-                                        Float.valueOf(heightEntry.getText().toString()),
-                                        Float.valueOf(weightEntry.getText().toString()),
-                                        activitySpinner.getSelectedItemPosition() + 1,
-                                        "Not Set",
-                                        todaysDate);
-                                dh.addPersistentInfo(nameEntry.getText().toString(),cal.getTimeInMillis(),genderSpinner.getSelectedItem().toString());
+
+                                /*If they've pressed back they've made a mistake so we need to let them
+                                update.*/
+                                if (dh.getLatestInfo() == null)
+                                {
+                                    dh.addInfo(
+                                            Float.valueOf(heightEntry.getText().toString()),
+                                            Float.valueOf(weightEntry.getText().toString()),
+                                            activitySpinner.getSelectedItemPosition() + 1,
+                                            "Not Set",
+                                            todaysDate);
+                                    dh.addPersistentInfo(nameEntry.getText().toString(),cal.getTimeInMillis(),genderSpinner.getSelectedItem().toString());
+                                }
+                                else
+                                {
+                                    dh.updateInfoEntry(new InfoEntry(Float.valueOf(heightEntry.getText().toString()),
+                                            Float.valueOf(weightEntry.getText().toString()),
+                                            activitySpinner.getSelectedItemPosition() + 1,
+                                            todaysDate,
+                                            "Not Set"));
+                                    dh.updatePersistentInfo(new PersistentInfoEntry(cal.getTimeInMillis(),nameEntry.getText().toString(),genderSpinner.getSelectedItem().toString()));
+                                }
 
                                 Intent intent = new Intent(context, SplashRoutineGeneration.class);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                             }
                         } catch (ParseException e) {
-                            Toast.makeText(context, "Please enter your birthdate correctly.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Please enter your birth date correctly.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
-
         );
     }
 }

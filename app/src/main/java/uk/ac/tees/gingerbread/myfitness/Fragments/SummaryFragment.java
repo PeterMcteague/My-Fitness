@@ -228,7 +228,7 @@ public class SummaryFragment extends Fragment {
 
             dietGraph.getLegendRenderer().setVisible(true);
             dietGraph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.BOTTOM);
-            dietGraph.getViewport().setMaxY(entries2.get(0).getCaloriesGoal() + 100);
+            dietGraph.getViewport().setMaxY(entries2.get(0).getCaloriesGoal() + 500);
         }
 
         if (lastThirtyDays)
