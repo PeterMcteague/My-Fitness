@@ -1697,4 +1697,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return id; // Return id for new record
     }
 
+    public void deleteFood(FoodEntry f)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String deleteQuery = "DELETE FROM " + TABLE_NAME_FOOD_HISTORY + " WHERE " + COL_ID + " = (SELECT " + COL_ID + " FROM " + TABLE_NAME_FOOD_HISTORY + " WHERE " + COL_DIET_DATE + " = " + f.getDate() + " AND " + COL_NAME + " = '" + f.getName() + "' LIMIT 1 )";
+        db.execSQL(deleteQuery);
+        db.close();
+    }
+
 }

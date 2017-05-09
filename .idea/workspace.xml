@@ -10,10 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1cc9081f-ae45-439f-a24b-0e6a96523d8e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Fragments/DietFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Fragments/DietFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Models/NutritionixModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Models/NutritionixModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Services/DatabaseHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Services/DatabaseHandler.java" />
     </list>
     <ignored path="Dev_version.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,8 +47,8 @@
       <file leaf-file-name="RoutineFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Fragments/RoutineFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="423" column="20" selection-start-line="423" selection-start-column="20" selection-end-line="430" selection-end-column="41" />
+            <state relative-caret-position="229">
+              <caret line="445" column="33" selection-start-line="445" selection-start-column="33" selection-end-line="445" selection-end-column="33" />
               <folding>
                 <element signature="e#2213#8169#0" expanded="true" />
                 <element signature="e#3556#4503#0" expanded="true" />
@@ -83,7 +82,6 @@
                 <element signature="e#20361#20362#0" expanded="true" />
                 <element signature="e#21073#21074#0" expanded="true" />
                 <element signature="e#21890#22391#0" expanded="true" />
-                <element signature="e#22390#22391#0" expanded="true" />
                 <element signature="e#22450#22737#0" expanded="true" />
                 <element signature="e#22736#22737#0" expanded="true" />
                 <element signature="e#22816#22817#0" expanded="true" />
@@ -95,15 +93,20 @@
       <file leaf-file-name="DietFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Fragments/DietFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="364" column="45" selection-start-line="364" selection-start-column="45" selection-end-line="364" selection-end-column="45" />
+            <state relative-caret-position="178">
+              <caret line="421" column="65" selection-start-line="421" selection-start-column="65" selection-end-line="421" selection-end-column="65" />
               <folding>
-                <element signature="e#13895#13913#0" expanded="true" />
-                <element signature="e#13999#14007#0" expanded="true" />
-                <element signature="e#14678#15717#0" expanded="true" />
-                <element signature="e#15716#15717#0" expanded="true" />
-                <element signature="e#15787#16055#0" expanded="true" />
-                <element signature="e#16054#16055#0" expanded="true" />
+                <element signature="e#13475#13493#0" expanded="true" />
+                <element signature="e#13579#13587#0" expanded="true" />
+                <element signature="e#14258#15297#0" expanded="true" />
+                <element signature="e#15296#15297#0" expanded="true" />
+                <element signature="e#15367#15635#0" expanded="true" />
+                <element signature="e#15634#15635#0" expanded="true" />
+                <element signature="e#17537#17545#0" expanded="true" />
+                <element signature="e#17819#19483#0" expanded="true" />
+                <element signature="e#18807#19425#0" expanded="true" />
+                <element signature="e#19424#19425#0" expanded="true" />
+                <element signature="e#19482#19483#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,8 +115,8 @@
       <file leaf-file-name="DatabaseHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Services/DatabaseHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+            <state relative-caret-position="742">
+              <caret line="1709" column="1" selection-start-line="1709" selection-start-column="1" selection-end-line="1709" selection-end-column="1" />
               <folding>
                 <element signature="e#101583#101594#0" expanded="true" />
               </folding>
@@ -2615,8 +2618,8 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/my_backup_rules.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/my_backup_rules" />
-        <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Services/DatabaseHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Models/NutritionixModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Services/DatabaseHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Fragments/DietFragment.java" />
       </list>
     </option>
@@ -3115,15 +3118,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22257552" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43875277" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43875277" sideWeight="0.5021322" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43875277" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32986626" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -3548,20 +3551,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Services/DatabaseHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-          <folding>
-            <element signature="e#101583#101594#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Fragments/RoutineFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="423" column="20" selection-start-line="423" selection-start-column="20" selection-end-line="430" selection-end-column="41" />
+        <state relative-caret-position="229">
+          <caret line="445" column="33" selection-start-line="445" selection-start-column="33" selection-end-line="445" selection-end-column="33" />
           <folding>
             <element signature="e#2213#8169#0" expanded="true" />
             <element signature="e#3556#4503#0" expanded="true" />
@@ -3595,7 +3588,6 @@
             <element signature="e#20361#20362#0" expanded="true" />
             <element signature="e#21073#21074#0" expanded="true" />
             <element signature="e#21890#22391#0" expanded="true" />
-            <element signature="e#22390#22391#0" expanded="true" />
             <element signature="e#22450#22737#0" expanded="true" />
             <element signature="e#22736#22737#0" expanded="true" />
             <element signature="e#22816#22817#0" expanded="true" />
@@ -3603,17 +3595,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Services/DatabaseHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="742">
+          <caret line="1709" column="1" selection-start-line="1709" selection-start-column="1" selection-end-line="1709" selection-end-column="1" />
+          <folding>
+            <element signature="e#101583#101594#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/uk/ac/tees/gingerbread/myfitness/Fragments/DietFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="364" column="45" selection-start-line="364" selection-start-column="45" selection-end-line="364" selection-end-column="45" />
+        <state relative-caret-position="178">
+          <caret line="421" column="65" selection-start-line="421" selection-start-column="65" selection-end-line="421" selection-end-column="65" />
           <folding>
-            <element signature="e#13895#13913#0" expanded="true" />
-            <element signature="e#13999#14007#0" expanded="true" />
-            <element signature="e#14678#15717#0" expanded="true" />
-            <element signature="e#15716#15717#0" expanded="true" />
-            <element signature="e#15787#16055#0" expanded="true" />
-            <element signature="e#16054#16055#0" expanded="true" />
+            <element signature="e#13475#13493#0" expanded="true" />
+            <element signature="e#13579#13587#0" expanded="true" />
+            <element signature="e#14258#15297#0" expanded="true" />
+            <element signature="e#15296#15297#0" expanded="true" />
+            <element signature="e#15367#15635#0" expanded="true" />
+            <element signature="e#15634#15635#0" expanded="true" />
+            <element signature="e#17537#17545#0" expanded="true" />
+            <element signature="e#17819#19483#0" expanded="true" />
+            <element signature="e#18807#19425#0" expanded="true" />
+            <element signature="e#19424#19425#0" expanded="true" />
+            <element signature="e#19482#19483#0" expanded="true" />
           </folding>
         </state>
       </provider>
