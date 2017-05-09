@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -40,6 +41,7 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import uk.ac.tees.gingerbread.myfitness.Adapters.NutritionixAdapter;
 import uk.ac.tees.gingerbread.myfitness.Clients.NutritionixRestClient;
+import uk.ac.tees.gingerbread.myfitness.Models.FoodEntry;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 import uk.ac.tees.gingerbread.myfitness.Models.NutritionixModel;
 import uk.ac.tees.gingerbread.myfitness.R;
@@ -319,42 +321,48 @@ public class DietFragment extends Fragment {
                             e.printStackTrace();
                         }
 
-                        ArrayList<NutritionixModel> nutritionixArray = new ArrayList<NutritionixModel>();
-                        NutritionixAdapter nutritionixAdapter = new NutritionixAdapter(activity,nutritionixArray);
+                        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
+                        builderSingle.setIcon(android.R.drawable.ic_menu_add);
+                        builderSingle.setTitle("Add a food");
+
+                        final ArrayList<NutritionixModel> nutritionixArray = new ArrayList<NutritionixModel>();
+                        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item);
 
                         for (int i = 0; i < response.length(); i++) {
                             try {
-                                nutritionixAdapter.add(new NutritionixModel(response.getJSONObject(i)));
+                                nutritionixArray.add(new NutritionixModel(response.getJSONObject(i)));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
 
-                        //Use nutritionix to populate list view with buttons
-                        foodList.setAdapter(nutritionixAdapter);
-                        foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        for (NutritionixModel e : nutritionixArray)
+                        {
+                            arrayAdapter.add(e.getName());
+                        }
+
+                        builderSingle.setAdapter(arrayAdapter , new DialogInterface.OnClickListener() {
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                                    long id) {
-                                final NutritionixModel selected = (NutritionixModel) foodList.getItemAtPosition(position);
-
-                                new AlertDialog.Builder(activity)
-                                        .setTitle("Add " + selected.getName() + " to diet?")
-                                        .setMessage("Do you want to add " + selected.getName() + " to your goals?")
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                                            public void onClick(DialogInterface dialog, int whichButton) {
-                                                diet.setCalories(diet.getCalories() + selected.getCalories());
-                                                diet.setProtein(diet.getProtein() + selected.getProtein());
-                                                dh.updateDietEntry(diet,timeInMillis);
-                                                updateTextFields(diet);
-                                                Toast.makeText(activity, "Added calories and/or protein to total.", Toast.LENGTH_LONG).show();
-                                            }})
-                                        .setNegativeButton(android.R.string.no, null).show();
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Exercise selected
+                                Log.d("Selected",nutritionixArray.get(which).getName());
+                                dh.addFood(new FoodEntry(nutritionixArray.get(which).getName(),c.getTimeInMillis(),nutritionixArray.get(which).getCalories(),nutritionixArray.get(which).getProtein()));
+                                diet.setCalories(diet.getCalories() + nutritionixArray.get(which).getCalories());
+                                diet.setProtein(diet.getProtein() + nutritionixArray.get(which).getProtein());
+                                dh.updateDietEntry(diet,timeInMillis);
+                                updateTextFields(diet);
+                                Toast.makeText(activity, "Added calories and/or protein to total.", Toast.LENGTH_LONG).show();
                             }
                         });
-                        nutritionixAdapter.notifyDataSetChanged();
+
+                        builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        builderSingle.show();
                     }
 
                     @Override
