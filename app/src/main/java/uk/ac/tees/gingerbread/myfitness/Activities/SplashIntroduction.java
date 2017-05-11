@@ -1,6 +1,5 @@
 package uk.ac.tees.gingerbread.myfitness.Activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -8,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.view.View;
 
 import uk.ac.tees.gingerbread.myfitness.R;

@@ -1,7 +1,5 @@
 package uk.ac.tees.gingerbread.myfitness.Services;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,11 +18,9 @@ public class DataParser {
         JSONObject jsonObject;
 
         try {
-            Log.d("Places", "parse");
             jsonObject = new JSONObject((String) jsonData);
             jsonArray = jsonObject.getJSONArray("results");
         } catch (JSONException e) {
-            Log.d("Places", "parse error");
             e.printStackTrace();
         }
         return getPlaces(jsonArray);
@@ -34,16 +30,13 @@ public class DataParser {
         int placesCount = jsonArray.length();
         List<HashMap<String, String>> placesList = new ArrayList<>();
         HashMap<String, String> placeMap = null;
-        Log.d("Places", "getPlaces");
 
         for (int i = 0; i < placesCount; i++) {
             try {
                 placeMap = getPlace((JSONObject) jsonArray.get(i));
                 placesList.add(placeMap);
-                Log.d("Places", "Adding places");
 
             } catch (JSONException e) {
-                Log.d("Places", "Error in Adding places");
                 e.printStackTrace();
             }
         }
@@ -57,8 +50,6 @@ public class DataParser {
         String latitude = "";
         String longitude = "";
         String reference = "";
-
-        Log.d("getPlace", "Entered");
 
         try {
             if (!googlePlaceJson.isNull("name")) {
@@ -75,9 +66,7 @@ public class DataParser {
             googlePlaceMap.put("lat", latitude);
             googlePlaceMap.put("lng", longitude);
             googlePlaceMap.put("reference", reference);
-            Log.d("getPlace", "Putting Places");
         } catch (JSONException e) {
-            Log.d("getPlace", "Error");
             e.printStackTrace();
         }
         return googlePlaceMap;

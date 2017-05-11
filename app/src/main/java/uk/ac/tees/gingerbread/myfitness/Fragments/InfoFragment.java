@@ -1,29 +1,18 @@
 package uk.ac.tees.gingerbread.myfitness.Fragments;
 
-
-import android.Manifest;
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.SyncStateContract;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +28,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -47,10 +35,7 @@ import java.util.List;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.share.ShareApi;
 import com.facebook.share.Sharer;
-import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
@@ -158,9 +143,7 @@ public class InfoFragment extends Fragment {
                                 SharePhoto photo = new SharePhoto.Builder()
                                         .setBitmap(picture.getPicture())
                                         .build();
-                                Log.d("In onclick","x");
                                 if (ShareDialog.canShow(SharePhotoContent.class)) {
-                                    Log.d("In canshow","x");
                                     SharePhotoContent content = new SharePhotoContent.Builder()
                                             .addPhoto(photo)
                                             .build();
@@ -194,7 +177,6 @@ public class InfoFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_calendar) {
-            Log.d("Calendar Button","Info");
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
             {
                 @Override

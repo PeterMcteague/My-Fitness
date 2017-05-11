@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,7 +93,6 @@ public class SummaryFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_calendar) {
-            Log.d("Date clicked","");
 
             //This looks dated but I couldn't find a way to do this with the material date picker.
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog, new DatePickerDialog.OnDateSetListener()

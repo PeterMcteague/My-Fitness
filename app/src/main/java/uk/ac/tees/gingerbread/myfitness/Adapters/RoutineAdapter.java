@@ -3,8 +3,6 @@ package uk.ac.tees.gingerbread.myfitness.Adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.tees.gingerbread.myfitness.Models.RoutineAdapterModel;
-import uk.ac.tees.gingerbread.myfitness.Models.RoutineEntry;
 import uk.ac.tees.gingerbread.myfitness.R;
 import uk.ac.tees.gingerbread.myfitness.Services.DatabaseHandler;
 

@@ -1,22 +1,15 @@
 package uk.ac.tees.gingerbread.myfitness.Activities;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,8 +33,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import uk.ac.tees.gingerbread.myfitness.Models.GetNearbyPlacesData;
 import uk.ac.tees.gingerbread.myfitness.R;
+
+import uk.ac.tees.gingerbread.myfitness.Models.GetNearbyPlacesData;
 
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback,
@@ -133,17 +127,14 @@ public class MapsActivity extends AppCompatActivity
     public void onConnectionFailed(@NonNull ConnectionResult result) {
         // Refer to the reference doc for ConnectionResult to see what error codes might
         // be returned in onConnectionFailed.
-        Log.d(TAG, "Play services connection failed: ConnectionResult.getErrorCode() = "
-                + result.getErrorCode());
-    }
+        }
+
 
     /**
      * Handles suspension of the connection to the Google Play services client.
      */
     @Override
-    public void onConnectionSuspended(int cause) {
-        Log.d(TAG, "Play services connection suspended");
-    }
+    public void onConnectionSuspended(int cause) {}
 
     /**
      * Sets up the options menu.
@@ -221,8 +212,7 @@ public class MapsActivity extends AppCompatActivity
         googlePlacesUrl.append("location=" + latitude + "," + longitude);
         googlePlacesUrl.append("&radius=" + radius);
         googlePlacesUrl.append("&type=" + nearbyPlace);
-        googlePlacesUrl.append("&key=" + getResources().getString(R.string.places_api_key));
-        Log.d("getUrl", googlePlacesUrl.toString());
+        googlePlacesUrl.append("&key=" + R.string.places_api_key);
         return (googlePlacesUrl.toString());
     }
 
@@ -272,7 +262,6 @@ public class MapsActivity extends AppCompatActivity
                     new LatLng(mLastKnownLocation.getLatitude(),
                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
         } else {
-            Log.d(TAG, "Current location is null. Using defaults.");
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
         }

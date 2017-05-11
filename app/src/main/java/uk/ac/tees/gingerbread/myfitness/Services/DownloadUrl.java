@@ -1,7 +1,5 @@
 package uk.ac.tees.gingerbread.myfitness.Services;
 
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,11 +40,9 @@ public class DownloadUrl {
             }
 
             data = sb.toString();
-            Log.d("downloadUrl", data.toString());
             br.close();
 
         } catch (Exception e) {
-            Log.d("Exception", e.toString());
         } finally {
             iStream.close();
             urlConnection.disconnect();

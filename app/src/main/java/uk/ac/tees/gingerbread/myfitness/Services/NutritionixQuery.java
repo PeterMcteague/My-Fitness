@@ -2,7 +2,6 @@ package uk.ac.tees.gingerbread.myfitness.Services;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -56,7 +55,6 @@ public class NutritionixQuery extends AsyncTask<Void,Void,String>
             }
         }
         catch(Exception e) {
-            Log.e("ERROR", e.getMessage(), e);
             Toast.makeText(activityContext ,"Error",  Toast.LENGTH_SHORT).show();
             return null;
         }

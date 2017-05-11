@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -132,8 +131,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_PICTURE);
         db.execSQL(CREATE_TABLE_PERSISTENT_INFO);
         db.execSQL(CREATE_TABLE_FOOD);
-
-        Log.d("Database", "Database Created.");
 
         //Inserting default data into the exercise table
         db.execSQL("INSERT INTO " + TABLE_NAME_EXERCISES + " (" + COL_NAME  + "," + COL_DESCRIPTION + ") VALUES ('Bench press' , 'Lie back on a flat bench. Using a medium width grip (a grip that creates a 90-degree angle in the middle of the movement between the forearms and the upper arms), lift the bar from the rack and hold it straight over you with your arms locked. This will be your starting position.\n" +
@@ -455,8 +452,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Get info
         InfoEntry latestInfo = getLatestInfo();
         PersistentInfoEntry info = getPersistentInfo();
-        Log.d("infoGoal",latestInfo.getGoal());
-        Log.d("infoGender",info.getGender());
         //Form calorie and protein goal based on info
         if (latestInfo != null)
         {
@@ -696,7 +691,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private long addDietEntryToday(int calories, int caloriesGoal, float protein, float proteinGoal)
     {
-        Log.d("addEntryToday",caloriesGoal + "");
         //Setting up date getting
         final Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
@@ -733,7 +727,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_DIET_CAL_GOAL, dietEntry.getCaloriesGoal());
         values.put(COL_DIET_PROTEIN, dietEntry.getProtein());
         values.put(COL_DIET_PROTEIN_GOAL, dietEntry.getProteinGoal());
-        Log.d("DATE FOR ADD ENTRY",dietEntry.getDate() + "");
 
         // Add record to database and get id of new record (must long integer).
         long id = db.insert(TABLE_NAME_DIET, null, values);
@@ -796,7 +789,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int idCaloriesGoal = cursor.getColumnIndex(COL_DIET_CAL_GOAL);
             int idProtein = cursor.getColumnIndex(COL_DIET_PROTEIN);
             int idProteinGoal = cursor.getColumnIndex(COL_DIET_PROTEIN_GOAL);
-            Log.d("DATE FOR GET TODAY",cursor.getLong(idDate) + "");
             DietEntry returnValue = new DietEntry(
                     cursor.getLong(idDate),
                     cursor.getInt(idCalories),
@@ -804,7 +796,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getFloat(idProtein),
                     cursor.getFloat(idProteinGoal)
             );
-            Log.d("GET TODAY CALGOAL",returnValue.getCaloriesGoal() + "");
             db.close();
             return returnValue;
         }
@@ -1528,7 +1519,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             long date = cursor.getLong(dateId);
             String csl = cursor.getString(excerciseColId);
-            Log.d("CSL in get",csl);
 
             return new RoutineEntry(date,getExcercisesFromCsl(csl),getExerciseStatusFromCsl(csl));
         }
@@ -1632,7 +1622,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<ExerciseEntry> listOfAll = getAllExercises();
         List<ExerciseEntry> listOfRemaining = getAllExercises();
         List<ExerciseEntry> inRoutine = routine.getExercises();
-        Log.d("List of all entry test",listOfAll.get(0).getName());
         for (ExerciseEntry item : inRoutine)
         {
             for (ExerciseEntry item2 : listOfAll)

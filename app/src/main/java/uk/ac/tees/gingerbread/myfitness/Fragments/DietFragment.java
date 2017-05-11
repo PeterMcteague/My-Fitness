@@ -20,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,7 +83,6 @@ public class DietFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_calendar) {
-            Log.d("Calendar Button","Diet");
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
             {
                 @Override
@@ -181,7 +179,6 @@ public class DietFragment extends Fragment {
         {
             dh.addDietEntryToday();
             diet = dh.getDietEntryToday();
-            Log.d("Diet goal",diet.getCaloriesGoal() + "");
         }
 
         updateTextFields(diet);
@@ -304,12 +301,6 @@ public class DietFragment extends Fragment {
                 null, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                        Log.d("RESPONSE",response + "");
-                        try {
-                            Log.d("LOGFIELDS",((JSONObject) response.get(1)).get("fields") + "");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
 
                         AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
                         builderSingle.setIcon(android.R.drawable.ic_menu_add);
@@ -335,7 +326,6 @@ public class DietFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //Exercise selected
-                                Log.d("Selected",nutritionixArray.get(which).getName());
                                 dh.addFood(new FoodEntry(nutritionixArray.get(which).getName(),c.getTimeInMillis(),nutritionixArray.get(which).getCalories(),nutritionixArray.get(which).getProtein()));
                                 diet.setCalories(diet.getCalories() + nutritionixArray.get(which).getCalories());
                                 diet.setProtein(diet.getProtein() + nutritionixArray.get(which).getProtein());
@@ -360,7 +350,6 @@ public class DietFragment extends Fragment {
                         ArrayList<NutritionixModel> nutritionixArray = new ArrayList<NutritionixModel>();
                         NutritionixAdapter nutritionixAdapter = new NutritionixAdapter(activity,nutritionixArray);
 
-                        Log.d("SUCCESS", response + "");
                         try {
                             JSONArray array = response.getJSONArray("hits");
                             onSuccess(statusCode, headers, array);
@@ -402,7 +391,6 @@ public class DietFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 //Show details and delete option
-                Log.d("clickedon",view.getId() + "");
                 final FoodEntry food = foods.get(position);
                 //Show ok/delete button dialog with description on it
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

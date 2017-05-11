@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -62,7 +60,6 @@ public class RoutineFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_calendar) {
-            Log.d("Calendar Button","Info");
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
             {
                 @Override
@@ -70,10 +67,8 @@ public class RoutineFragment extends Fragment {
                     final Long previousDate = timeInMillis;
                     c.set(year, monthOfYear, dayOfMonth);
                     timeInMillis = c.getTimeInMillis();
-                    Log.d("Date selected: ",timeInMillis + "");
                     if (dh.getRoutineEntry(timeInMillis) == null)
                     {
-                        Log.d("Routine exists?","No");
                         //If a previous entry with same day of week exists , offer to copy. Otherwise ask to create blank one.
                         if (dh.getLatestRoutineForDay(c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault())) != null)
                         {
@@ -172,7 +167,6 @@ public class RoutineFragment extends Fragment {
 
     public void updateList(final RoutineEntry routine)
     {
-        Log.d("Exercise status",routine.getExerciseStatus() + "");
         if (!routine.getExercises().isEmpty())
         {
             ArrayList<RoutineAdapterModel> entries = new ArrayList<>();
@@ -195,8 +189,6 @@ public class RoutineFragment extends Fragment {
                 count++;
             }
 
-            Log.d("Entries",entries.size() + "");
-
             RoutineAdapter adapter = new RoutineAdapter(getContext(),entries);
 
             listView.setAdapter(adapter);
@@ -204,7 +196,6 @@ public class RoutineFragment extends Fragment {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d("clickedon",view.getId() + "");
                     final ExerciseEntry exercise = routine.getExercises().get(position);
                     //Show ok/delete button dialog with description on it
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -345,7 +336,6 @@ public class RoutineFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //Exercise selected
-                                Log.d("Selected",exercises.get(which).getName());
                                 dh.addExcerciseToRoutine(routine,exercises.get(which).getId());
                                 routine.addExercise(exercises.get(which));
                                 updateList(routine);

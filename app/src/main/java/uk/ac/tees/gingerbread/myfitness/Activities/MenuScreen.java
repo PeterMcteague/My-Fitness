@@ -14,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import uk.ac.tees.gingerbread.myfitness.Fragments.DietFragment;
-import uk.ac.tees.gingerbread.myfitness.Fragments.GymFindFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.InfoFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.RoutineFragment;
 import uk.ac.tees.gingerbread.myfitness.Fragments.SummaryFragment;
