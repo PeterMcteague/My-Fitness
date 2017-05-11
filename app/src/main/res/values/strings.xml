@@ -45,7 +45,7 @@
     <string name="forwardSlash" translatable="false">/</string>
     <string name="protein_goal">Protein/Goal:</string>
     <string name="calories_goal">Calories/Goal:</string>
-    <string name="add_by_food">Add by food:</string>
+    <string name="add_by_food">Add by food , Powered by Nutritionix API:</string>
     <string name="goal">Goal:</string>
     <string name="progress_picture_description">A progress picture added by the user.</string>
 
