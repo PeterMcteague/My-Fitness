@@ -18,6 +18,7 @@ import java.util.Locale;
 
 import uk.ac.tees.gingerbread.myfitness.Models.DietEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.ExerciseEntry;
+import uk.ac.tees.gingerbread.myfitness.Models.FoodEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.PersistentInfoEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.PictureEntry;
 import uk.ac.tees.gingerbread.myfitness.Models.InfoEntry;
@@ -35,6 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_NAME_PICTURES = "ProgressPictures";
     private static final String TABLE_NAME_INFO = "UserInfo";
     private static final String TABLE_NAME_PERSISTENT_INFO = "PersistentUserInfo";
+    private static final String TABLE_NAME_FOOD_HISTORY = "FoodHistory";
     // Exercises table column names
     private static final String COL_ID = "_id"; // Primary key column must be _id
     private static final String COL_NAME = "name";
@@ -43,8 +45,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COL_EXERCISE_IDS = "exercise_ids";
     //Diet column names
     private static final String COL_DIET_DATE = "date";
-    private static final String COL_DIET_CAL = "calories";
     private static final String COL_DIET_CAL_GOAL = "calories_goal";
+    private static final String COL_DIET_CAL = "calories";
     private static final String COL_DIET_PROTEIN = "protein";
     private static final String COL_DIET_PROTEIN_GOAL = "protein_goal";
     //Progress picture column names
@@ -115,6 +117,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_DIET_DATE + " DATE, "
                 + COL_PICTURES_IMAGE + " BLOB" + ")";
 
+        String CREATE_TABLE_FOOD = "CREATE TABLE " + TABLE_NAME_FOOD_HISTORY
+                + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_DIET_DATE + " DATE NOT NULL, "
+                + COL_NAME + " STRING, "
+                + COL_DIET_CAL + " INTEGER NOT NULL, "
+                + COL_DIET_PROTEIN + " INTEGER)";
+
         //Execute/run the create SQL statement
         db.execSQL(CREATE_TABLE_DIET);
         db.execSQL(CREATE_TABLE_EXERCISES);
@@ -122,6 +131,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_ROUTINE);
         db.execSQL(CREATE_TABLE_PICTURE);
         db.execSQL(CREATE_TABLE_PERSISTENT_INFO);
+        db.execSQL(CREATE_TABLE_FOOD);
 
         Log.d("Database", "Database Created.");
 
@@ -1635,4 +1645,66 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return listOfRemaining;
     }
+
+    //-------------------Food history methods-----------------------------------------------------//
+
+    //Get by day
+    public List<FoodEntry> getFoods(long dateIn)
+    {
+        // Create empty list
+        ArrayList<FoodEntry> list = new ArrayList<FoodEntry>();
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Generate SQL SELECT statement
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_FOOD_HISTORY + " WHERE " + COL_DIET_DATE + " = " + dateIn;
+
+        // Execute select statement
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) { // If data (records) available
+            int idDate = cursor.getColumnIndex(COL_DIET_DATE);
+            int idName = cursor.getColumnIndex(COL_NAME);
+            int idCal = cursor.getColumnIndex(COL_DIET_CAL);
+            int idProtein = cursor.getColumnIndex(COL_DIET_PROTEIN);
+            do {
+                //Str,str,long,double,double,bitmap
+                list.add(new FoodEntry(
+                        cursor.getString(idName),
+                        cursor.getLong(idDate),
+                        cursor.getInt(idCal),
+                        cursor.getFloat(idProtein)));
+            } while (cursor.moveToNext()); // repeat until there are no more records
+        }
+        db.close();
+        return list;
+    }
+
+
+
+    //Add
+    public long addFood(FoodEntry food)
+    {
+        // Open database connection (for write)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_DIET_DATE , food.getDate());
+        values.put(COL_NAME, food.getName());
+        values.put(COL_DIET_CAL,food.getCalories());
+        values.put(COL_DIET_PROTEIN,food.getProtein());
+
+        // Add record to database and get id of new record (must long integer).
+        long id = db.insert(TABLE_NAME_FOOD_HISTORY, null, values);
+        db.close(); // Closing database connection
+        return id; // Return id for new record
+    }
+
+    public void deleteFood(FoodEntry f)
+    {
+        // Connect to the database to read data
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String deleteQuery = "DELETE FROM " + TABLE_NAME_FOOD_HISTORY + " WHERE " + COL_ID + " = (SELECT " + COL_ID + " FROM " + TABLE_NAME_FOOD_HISTORY + " WHERE " + COL_DIET_DATE + " = " + f.getDate() + " AND " + COL_NAME + " = '" + f.getName() + "' LIMIT 1 )";
+        db.execSQL(deleteQuery);
+        db.close();
+    }
+
 }

@@ -349,7 +349,6 @@ public class RoutineFragment extends Fragment {
                                 dh.addExcerciseToRoutine(routine,exercises.get(which).getId());
                                 routine.addExercise(exercises.get(which));
                                 updateList(routine);
-
                             }
                         });
                     }

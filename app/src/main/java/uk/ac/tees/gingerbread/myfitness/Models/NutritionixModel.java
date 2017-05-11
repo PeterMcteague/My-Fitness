@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 public class NutritionixModel
 {
-    private String id;
     private String name;
     private int calories;
     private float protein;
@@ -41,7 +40,6 @@ public class NutritionixModel
                 this.servingSize = 1;
             }
 
-            this.id = (object.getJSONObject("fields")).getString("item_id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -86,7 +84,4 @@ public class NutritionixModel
         this.servingSize = servingSize;
     }
 
-    public String getId() {
-        return id;
-    }
 }
