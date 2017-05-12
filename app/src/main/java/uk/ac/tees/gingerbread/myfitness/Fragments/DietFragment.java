@@ -3,6 +3,8 @@ package uk.ac.tees.gingerbread.myfitness.Fragments;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -61,6 +63,7 @@ public class DietFragment extends Fragment {
     private EditText proteinGoalEntry;
     private EditText foodEntry;
     private ListView foodList;
+    private TextView nutritionixLink;
 
     public void updateTitleBar(long date)
     {
@@ -151,6 +154,7 @@ public class DietFragment extends Fragment {
         foodEntry = (EditText) view.findViewById(R.id.diet_food_entry);
         foodList = (ListView) view.findViewById(R.id.diet_food_list);
         searchButton = (FloatingActionButton) view.findViewById(R.id.food_search_button);
+        nutritionixLink = (TextView) view.findViewById(R.id.nutritionix_atribution);
 
         //Set calendar up
         c = Calendar.getInstance();
@@ -182,6 +186,15 @@ public class DietFragment extends Fragment {
         }
 
         updateTextFields(diet);
+
+        nutritionixLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://www.nutritionix.com/business/api");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
 
         caloriesEntry.addTextChangedListener(new TextWatcher() {
             @Override

@@ -106,7 +106,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -128,8 +128,8 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/colorPrimary"
                 android:ems="10"
-                android:inputType="text|textAutoCorrect|textAutoComplete"
-                android:imeOptions="actionSearch"/>
+                android:imeOptions="actionSearch"
+                android:inputType="text|textAutoCorrect|textAutoComplete" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/food_search_button"
@@ -158,8 +158,14 @@
             android:elevation="-5dp"
             android:footerDividersEnabled="true"
             android:headerDividersEnabled="true" />
-
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/nutritionix_atribution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="@string/powered_by_nutritionix_api" />
+
 </LinearLayout>
 

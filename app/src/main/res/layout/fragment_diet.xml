@@ -103,7 +103,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -113,7 +113,7 @@
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_width="200dp"
+                android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/add_by_food" />
@@ -155,5 +155,13 @@
 
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/nutritionix_atribution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="@string/powered_by_nutritionix_api" />
+
 </LinearLayout>
 
