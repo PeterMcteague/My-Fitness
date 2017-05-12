@@ -212,7 +212,7 @@ public class MapsActivity extends AppCompatActivity
         googlePlacesUrl.append("location=" + latitude + "," + longitude);
         googlePlacesUrl.append("&radius=" + radius);
         googlePlacesUrl.append("&type=" + nearbyPlace);
-        googlePlacesUrl.append("&key=" + R.string.places_api_key);
+        googlePlacesUrl.append("&key=" + getString(R.string.places_api_key));
         return (googlePlacesUrl.toString());
     }
 
