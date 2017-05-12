@@ -1619,17 +1619,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Contains doesn't work because hashcodes are different.
     public List<ExerciseEntry> getExercisesNotInRoutine(RoutineEntry routine)
     {
+        List<ExerciseEntry> listOfRemaining = new ArrayList<>();
         List<ExerciseEntry> listOfAll = getAllExercises();
-        List<ExerciseEntry> listOfRemaining = getAllExercises();
         List<ExerciseEntry> inRoutine = routine.getExercises();
-        for (ExerciseEntry item : inRoutine)
+//        For with integers used because item in listOfRemaining != item in inRoutine, because of java hashcode
+//        This code looks stupid but ignoring hashcodes sounded like bad practice, so this is what I'm working with
+//        to avoid running into Java's "intricacies"
+        for(int i=0; i<listOfAll.size(); i++)
         {
-            for (ExerciseEntry item2 : listOfAll)
+            String name = listOfAll.get(i).getName();
+            Boolean inList = false;
+            for (ExerciseEntry e : inRoutine)
             {
-                if (item.getName().equals(item2.getName()))
+                if (e.getName().equals(name))
                 {
-                    listOfRemaining.remove(listOfAll.indexOf(item2));
+                    inList = true;
                 }
+            }
+            //If an exercise with that name wasn't found add it to remaining
+            if (!inList)
+            {
+                listOfRemaining.add(listOfAll.get(i));
             }
         }
         return listOfRemaining;

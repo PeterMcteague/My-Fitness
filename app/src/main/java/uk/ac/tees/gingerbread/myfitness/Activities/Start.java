@@ -32,7 +32,7 @@ public class Start extends AppCompatActivity
         }
         else
         {
-            //Delete database.
+            //Delete database if exists
             DatabaseHandler dh = new DatabaseHandler(context);
             dh.deleteDB(context);
 
