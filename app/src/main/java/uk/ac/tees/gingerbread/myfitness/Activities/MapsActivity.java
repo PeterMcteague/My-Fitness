@@ -52,7 +52,7 @@ public class MapsActivity extends AppCompatActivity
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 15;
+    private static final int DEFAULT_ZOOM = 16;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -212,14 +212,14 @@ public class MapsActivity extends AppCompatActivity
         googlePlacesUrl.append("location=" + latitude + "," + longitude);
         googlePlacesUrl.append("&radius=" + radius);
         googlePlacesUrl.append("&type=" + nearbyPlace);
-        googlePlacesUrl.append("&key=" + R.string.places_api_key);
+        googlePlacesUrl.append("&key=" + getString(R.string.places_api_key));
         return (googlePlacesUrl.toString());
     }
 
 
     private void updateMarkers(double latitude, double longitude, String query) {
         mMap.clear();
-        String url = getUrl(latitude, longitude, query, 1000);
+        String url = getUrl(latitude, longitude, query, 5000);
         Object[] DataTransfer = new Object[2];
         DataTransfer[0] = mMap;
         DataTransfer[1] = url;

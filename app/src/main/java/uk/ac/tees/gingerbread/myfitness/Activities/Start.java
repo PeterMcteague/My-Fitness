@@ -23,7 +23,7 @@ public class Start extends AppCompatActivity
         SharedPreferences settings = getSharedPreferences("MyFitnessPrefs",0);
         boolean setupComplete = settings.getBoolean("setupComplete",false);
 
-        if(setupComplete)//if running for first time
+        if(setupComplete)
         {
             Intent intent = new Intent(context, MenuScreen.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -32,7 +32,7 @@ public class Start extends AppCompatActivity
         }
         else
         {
-            //Delete database. If we're going through setup we're probably doing testing
+            //Delete database if exists
             DatabaseHandler dh = new DatabaseHandler(context);
             dh.deleteDB(context);
 
