@@ -137,6 +137,13 @@
                 app:srcCompat="@mipmap/icon_search" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/nutritionix_atribution"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="@string/powered_by_nutritionix_api" />
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
@@ -155,13 +162,6 @@
 
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/nutritionix_atribution"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:text="@string/powered_by_nutritionix_api" />
 
 </LinearLayout>
 
